@@ -20,7 +20,7 @@ author: Hanseul Kim
 ###############################################
 
 navbar-links:
-  About Me: "About me"
+  About Me: "aboutme.md"
   Author's home: "k1seul.github.io"
 
 ################
