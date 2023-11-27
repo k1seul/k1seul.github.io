@@ -20,10 +20,7 @@ author: Hanseul Kim
 ###############################################
 
 navbar-links:
-  About Me: "Biomedical Engineering Student"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
+  About Me: "About me"
   Author's home: "k1seul.github.io"
 
 ################
