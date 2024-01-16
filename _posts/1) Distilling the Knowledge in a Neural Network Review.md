@@ -6,8 +6,7 @@ gh-repo: daattali/beautiful-jekyll
 gh-badge: [star, fork, follow]
 tags: [test]
 comments: true
-author: Bill Smith
-
+author: Hanseul Kim 
 ---
 
 <h1 id="distilling-the-knowledge-in-a-neural-network">Distilling the Knowledge in a Neural Network</h1>
