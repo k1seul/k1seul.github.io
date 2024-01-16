@@ -1,5 +1,12 @@
 ---
-
+layout: post
+title: Distilling the Knowledge in a Neural Network
+subtitle: first deep learning review! 
+gh-repo: daattali/beautiful-jekyll
+gh-badge: [star, fork, follow]
+tags: [test]
+comments: true
+author: Bill Smith
 
 ---
 
