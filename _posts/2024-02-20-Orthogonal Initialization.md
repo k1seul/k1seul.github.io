@@ -1,4 +1,12 @@
 ---
+layout: post
+title: orthogonal-initialization-paper-review
+subtitle: Mathematical Deep Learning 
+gh-repo: daattali/beautiful-jekyll
+gh-badge: [star, fork, follow]
+tags: [Deep learning]
+comments: true
+author: Hanseul Kim 
 
 
 ---
