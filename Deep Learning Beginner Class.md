@@ -67,7 +67,7 @@ The following topics will be covered</p>
 <p>With these tools, we can understand basic shallow neural networks such as one shown below.<br>
 <img src="https://otexts.com/fpp2/nnet2.png" alt="&quot;Shallow neuralnet&quot;" title="Shallow neuralnet"></p>
 <p>But to understand deeper neural networks with complex designs such as the figure<sup class="footnote-ref"><a href="#fn12" id="fnref12">12</a></sup> shown below or even the famous Long Short Term Memory (LSTM), we need to look deeply into each paper and its application and limitations.</p>
-<p><img src="https://miro.medium.com/v2/resize:fit:1200/1*cuTSPlTq0a_327iTPJyD-Q.png" alt="Complex NN"></p>
+<img src="https://miro.medium.com/v2/resize:fit:1200/1*cuTSPlTq0a_327iTPJyD-Q.png" width="400px" class="center">
 <p>But understanding the structure is just the beginning of the story. We as creatures of this world know how to adapt to the environment or shall I say, learn from this environment. The Neural Networks above also need a way to learn from the environment or the data.</p>
 <p>This is known in CS as an optimization problem, and to solve this we need to understand Convex Optimization<sup class="footnote-ref"><a href="#fn13" id="fnref13">13</a></sup> which we need to know Analysis, Calculus, Linear Algebra from before, and also Multivariable Calculus<sup class="footnote-ref"><a href="#fn14" id="fnref14">14</a></sup>(vector calculus), Differential Geometry<sup class="footnote-ref"><a href="#fn15" id="fnref15">15</a></sup>, and Topology<sup class="footnote-ref"><a href="#fn16" id="fnref16">16</a></sup>.</p>
 <blockquote>
@@ -77,6 +77,23 @@ The following topics will be covered</p>
 <p>I think every paper in the current AI field is pointing in the same direction. Creating super human multi-modal AI with infinite generalizability is what that is. In this context, a new model or a new training method is just an educated guess or a random walk hoping to be the next small step for mankind’s giant leap.<sup class="footnote-ref"><a href="#fn18" id="fnref18">18</a></sup></p>
 <p>“Adapting to game trees in zero-sum imperfect information games”, this paper also presents a new training method(or learning algorithm) to make the AI model plausible in a partially observable environment, which is a more generalization version of a fully observable environment.</p>
 <h2 id="mathematic-tools-we-need">Mathematic Tools We Need</h2>
+<p>From the talk above, we learned what kinds of mathematical tools we need for analyzing such unknowns, such as Analysis, Linear Algebra, Calculus, Multivariable Calculus(Vector calculus), Differential Geometry, and Topology. In this section, I will talk about how to study such subjects and books and lectures to recommend.</p>
+<h3 id="analysis">Analysis</h3>
+<h5 id="personal-tips">Personal Tips</h5>
+<h5 id="book-recommendation-order-by-easy-to-hard">Book Recommendation (Order by easy to hard)</h5>
+<ol>
+<li>Understanding Analysis by Stephen Abbott<sup class="footnote-ref"><a href="#fn19" id="fnref19">19</a></sup><br>
+<img src="https://image.yes24.com/goods/18102534/XL" width="200px"><br>
+Very beginner-friendly book. Reads like a novel with the solutions to each exercise found in Google.</li>
+<li>Analysis I,II by Terence Tao<sup class="footnote-ref"><a href="#fn20" id="fnref20">20</a></sup><br>
+<img src="https://m.media-amazon.com/images/I/31e7RDen2vL._AC_UF1000,1000_QL80_.jpg" width="200px"><br>
+Also, a very good book to read. This book is very rigorous and goes through each and every step of building a number system. Although I didn’t finish the first volume of the book, I intend to finish it someday.</li>
+</ol>
+<h3 id="calculussingle-variable">Calculus(single variable)</h3>
+<h3 id="vector-calculus">Vector Calculus</h3>
+<h3 id="multivariable-calculus">Multivariable Calculus</h3>
+<h3 id="differential-geometry">Differential Geometry</h3>
+<h3 id="topology">Topology</h3>
 <h3 id="references">References</h3>
 <hr class="footnotes-sep">
 <section class="footnotes">
@@ -116,6 +133,10 @@ The following topics will be covered</p>
 <li id="fn17" class="footnote-item"><p><a href="https://en.wikipedia.org/wiki/The_Last_Question">https://en.wikipedia.org/wiki/The_Last_Question</a> <a href="#fnref17" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn18" class="footnote-item"><p><a href="https://en.wikiquote.org/wiki/Neil_Armstrong">https://en.wikiquote.org/wiki/Neil_Armstrong</a> <a href="#fnref18" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn19" class="footnote-item"><p><a href="https://link.springer.com/book/10.1007/978-1-4939-2712-8">https://link.springer.com/book/10.1007/978-1-4939-2712-8</a> <a href="#fnref19" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn20" class="footnote-item"><p><a href="https://link.springer.com/book/10.1007/978-981-19-7261-4">https://link.springer.com/book/10.1007/978-981-19-7261-4</a> <a href="#fnref20" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>
