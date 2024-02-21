@@ -1,8 +1,3 @@
----
-
-
----
-
 <h1 id="orthogonal-initialization-paper-review">Orthogonal Initialization (paper review)</h1>
 <blockquote>
 <p>Written with <a href="https://stackedit.io/">StackEdit</a>.<br>
