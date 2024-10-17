@@ -7,39 +7,56 @@ redirect_from:
   - /resume
 ---
 
-# Hanseul Kim
+{% include base_path %}
 
-Profile ID: 21B14B66-9385-4E92-A0BF-2AE51F3236FB
-Country code: KR
-Resume Links: [MD](Hanseul_Kim.md) [VCF](Hanseul_Kim.vcf) [PDF](Hanseul_Kim.pdf) [PDF original](Hanseul_Kim.original.pdf) [JSON](Hanseul_Kim.resume.json)
+# Education
 
-Curious being who has interest in: Mathematical deep learning, Machine learning, Undergraduate Math, Neuroscience, Computer Science
+- B.S. in Biomedical Engineering (Neuroscience Track), Sungkyunkwan University, 2024
 
-Profiles:
-https://www.linkedin.com/in/k1seul/
-null
+# Work experience
 
-Email: <a href='mailto:briankan21@gmail.com'>briankan21@gmail.com</a>  
-Phone:
-Url:
+- Spring 2024: Data Analyst
 
-Summary:
-Hello! My name is Hanseul Kim, a curious being wandering around multiple fields of interest hoping to find that one bluebird. I graduated from Sungkyunkwan Univ. (SKKU), South Korea, majoring in biomedical engineering and neuroscience. I had tried multiple research internships in my undergraduate working with neurological data and reinforcement learning and also did an internship at Samsung Medical Center, South Korea as a machine learning/data science researcher. My research topics of interest are understanding the human brain and artificial agents' neural networks by comparing them.
+  - Samsung Medical Center
 
-### Additional information:
+- Winter 2022 ~ Fall 2023: Unergraduate Research Assistant
+  - Center for Neuroscience Imaging Research, SKKU
+  - Studied: Reinforcement learning and Neuroscience
+- Winter 2020: Unergraduate Research Assistant
+  - Center for Neuroscience Imaging Research, SKKU
+  - Studied: Alzheimer's disease mouse model and neurovascular imaging
 
----
+# Skills
 
-Place additional profile information here!
+- Deep Learning
+  - Pytorch
+- Coding
+  - Python
+  - Matlab
+- Languages
+  - Korean(native)
+  - English(Fluent)
+- Investment
+  - Certified Investment Manager (Kofia)
 
----
+# Publications
 
-### Links:
-
-[Contacts in VCF](Hanseul_Kim.vcf)
-[Resume in Markdown](Hanseul_Kim.md)
-[Original PDF](Hanseul_Kim.original.pdf)
-[Generated PDF](Hanseul_Kim.pdf)
-[Source JSON](Hanseul_Kim.resume.json)
-
-[Profiles List](/profiles.md)
+  <ul>{% for post in site.publications reversed %}
+    {% include archive-single-cv.html %}
+  {% endfor %}</ul>
+  
+<!-- Talks
+======
+  <ul>{% for post in site.talks reversed %}
+    {% include archive-single-talk-cv.html  %}
+  {% endfor %}</ul>
+   -->
+Teaching
+======
+  <ul>{% for post in site.teaching reversed %}
+    {% include archive-single-cv.html %}
+  {% endfor %}</ul>
+  
+<!-- Service and leadership
+======
+* Currently signed in to 43 different slack teams -->
