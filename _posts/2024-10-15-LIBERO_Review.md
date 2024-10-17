@@ -43,7 +43,7 @@ Generalist agent의 학습(learning)과 적응(adapting)을 위해여 Lifelong l
 
 ## Introduction
 
-![alt text](img/Libero_arch.png)
+![LIBERO Model](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/Libero_arch.png)
 
 ### Tasks
 
@@ -130,6 +130,8 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
 
 ### Evaluation Metric
 
+![Visualization of different metrics](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/LIBERO_metrics.png)
+
 - Forward Transfer (FWT), higher better
   $FWT = \sum_{k \in [K]} \frac{FWT_k}{K}, FWT_k = \frac{1}{11} \sum_{e \in \{ 0 \dots 50\} c_{k,k,e}}$
   average success rates of current task $k$ across multiple epochs
@@ -152,6 +154,8 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
 
 ### Q1, Q2
 
+![LIBERO Result 1](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/LIBERO_result_01.png)
+
 ResNet-T and Vit-T work much better than ResNet-RNN on average.
 Different algorithms also showed different preferences for neural architecture. mainly in SOTA PackNet mode, while VIT-T showed better forward transfer metric, the ResNet-T model showed better negative backward transfer.
 
@@ -159,17 +163,25 @@ However, the VIT-T performance dropped when using a simpler ER algorithm. as sho
 
 ### Q1, Q3
 
+![LIBERO Result 2](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/LIBERO_result_02.png)
+
 When comparing four different task environments with the same ResNet-T architecture(selected due to it having stable performance across learning algorithms), sequential finetuning (SeQL) whoed the best FWT. Although the SOTA PackNet model showed better performance to ER in LIBERO-X it is outperformed by ER in LIBERO-Long due to low FWT. This means that splitting the network into smaller networks hurts its learning capacity.
 
 ### Q4
+
+![LIBERO Result 3](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/LIBERO_result_03.png)
 
 Task embeddings does not seem to change much of the result!
 
 ### Q5
 
+![LIBERO Result 4](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/LIBERO_result_04.png)
+
 Task ordering is important in continual reinforcement learning!
 
 ### Q6
+
+![LIBERO Result 5](https://github.com/k1seul/k1seul.github.io/blob/master/_posts/img/LIBERO_result_05.png)
 
 Pretraing is likely to hurt the performance of continual learning agents.
 
