@@ -78,45 +78,45 @@ Generalist agent의 학습(learning)과 적응(adapting)을 위해여 Lifelong l
 
 ### Math
 
-MDP is defined as $\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{T}, H, \mu_0, R)$ s.t
+MDP is defined as \(\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{T}, H, \mu_0, R)\) s.t
 
-- $\mathcal{S}, \mathcal{A}$ are the state and action spaces of the robot
-- $\mu_0$ is the initial state distribution (시작 물건 위치가 랜덤성이 있기 때문)
-- $\mathcal{R} : \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}$ is the reward function
-- $\mathcal{T}: \mathcal{S} \times \mathcal{A} \rightarrow \mathcal{S}$ is the transition function
+- \(\mathcal{S}, \mathcal{A}\) are the state and action spaces of the robot
+- \(\mu_0\) is the initial state distribution (시작 물건 위치가 랜덤성이 있기 때문)
+- \(\mathcal{R} : \mathcal{S} \times \mathcal{A} \rightarrow \mathbb{R}\) is the reward function
+- \(\mathcal{T}: \mathcal{S} \times \mathcal{A} \rightarrow \mathcal{S}\) is the transition function
   In this work, assume
 - sparse reward setting
-- replace $R$ with goal predicate $g : \mathcal(S) \rightarrow \{0, 1\}$
+- replace \(R\) with goal predicate \(g : \mathcal(S) \rightarrow \{0, 1\}\)
   so the expected return is
-  $J(\pi) = \mathbb{E}_{s_t, a_t ~ \pi, \mu_0}[\sum_{t=1}^H(g(s_t)]$
+  \(J(\pi) = \mathbb{E}_{s_t, a_t ~ \pi, \mu_0}[\sum_{t=1}^H(g(s_t)]\)
 
 The _lifelong robot learning problem_ can be defined using
 
-- $K$ tasks $\{T^1, \dots, T^k\}$
-- policy $\pi$ is conditioned on the task $\pi (\cdot | s;T)$
-- $T^k = \mu_0^k, g^k)$
+- \(K\) tasks \(\{T^1, \dots, T^k\}\)
+- policy \(\pi\) is conditioned on the task \(\pi (\cdot | s;T)\)
+- \(T^k = \mu_0^k, g^k)\)
   The robot aims to optimize
-  $\max_{\pi} J_{LRL}(\pi) = \frac{1}{k}\sum_{p=1}^k\bigg[ \mathbb{E}_{s_t^p, a_t^p ~ \pi(c\dot ; T^p), \mu_0^p }\big[\sum_{t=1}^L g^p(s_t^p)\big] \bigg]$
+  \(\max_{\pi} J_{LRL}(\pi) = \frac{1}{k}\sum_{p=1}^k\bigg[ \mathbb{E}_{s_t^p, a_t^p ~ \pi(c\dot ; T^p), \mu_0^p }\big[\sum_{t=1}^L g^p(s_t^p)\big] \bigg]\)
 
 Also, this paper used _Imitation Learning_ for inducing search space similar to the demonstration
 
-- Denote $D^k = \{ \tau_i^k\}_{i=1}^N$ as $N$ demonstrations for task $T^k$
-- $\tau_i^k = (o_0, a_0, o_1, a_1, \dots, o_{l^k})$ where $l^k \leq H$
-- To induce MDP from non-Markovian env, $s_t$ is represented by aggregated history of observations,  
-  $s_y \equiv o_{\leq t} = (o_0, o_1, \dots, o_t)$
+- Denote \(D^k = \{ \tau_i^k\}_{i=1}^N\) as \(N\) demonstrations for task \(T^k\)
+- \(\tau_i^k = (o_0, a_0, o_1, a_1, \dots, o_{l^k})\) where \(l^k \leq H\)
+- To induce MDP from non-Markovian env, \(s_t\) is represented by aggregated history of observations,  
+  \(s_y \equiv o_{\leq t} = (o_0, o_1, \dots, o_t)\)
 - Behavior cloning loss is
-  $min_\pi J_{BC}(\pi) = \frac{1}{k}\sum^k_{p=1} \mathbb{E}_{o_t, a_t ~ D^p} \bigg[ \sum_{t=0}^{l^p} \mathcal{L}(\pi(o_{\leq t}; T^p), a_t^p) \bigg]$
+  \(min_\pi J_{BC}(\pi) = \frac{1}{k}\sum^k_{p=1} \mathbb{E}_{o_t, a_t ~ D^p} \bigg[ \sum_{t=0}^{l^p} \mathcal{L}(\pi(o_{\leq t}; T^p), a_t^p) \bigg]\)
 
 ### Non-math
 
 LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
 
 1. [Ego4D](https://ego4d-data.org/) 데이터 셋을 이용한 템플렛 및 language annotations 추출
-2. [PPDL](https://en.wikipedia.org/wiki/Planning_Domain_Definition_Language) 언어를 통한 구체화된 시작 분포 $\mu_0$ 형성
+2. [PPDL](https://en.wikipedia.org/wiki/Planning_Domain_Definition_Language) 언어를 통한 구체화된 시작 분포 \(\mu_0\) 형성
 3. goal 명시화
 
-- _unary predicates_ (한 물건의 상태 e.g. Open($X$), TurnOff($X$))
-- _binary predicates_ (물건 간의 상태 e.g. On($A$, $B$)
+- _unary predicates_ (한 물건의 상태 e.g. Open(\(X\)), TurnOff(\(X\)))
+- _binary predicates_ (물건 간의 상태 e.g. On(\(A\), \(B\))
 
 ## Experiment
 
@@ -137,15 +137,15 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
 ### Evaluation Metric
 
 - Forward Transfer (FWT), higher better
-  $FWT = \sum_{k \in [K]} \frac{FWT_k}{K}, FWT_k = \frac{1}{11} \sum_{e \in \{ 0 \dots 50\} c_{k,k,e}}$
-  average success rates of current task $k$ across multiple epochs
+  \(FWT = \sum_{k \in [K]} \frac{FWT_k}{K}, FWT_k = \frac{1}{11} \sum_{e \in \{ 0 \dots 50\} c_{k,k,e}}\)
+  average success rates of current task \(k\) across multiple epochs
 
 - Negative backward transfer (NBT), lower better
-  $NBT = \sum_{k \in [K]} \frac{NBT_k}{K}, NBT_k = \frac{1}{K-k}\sum^K_{\tau=k+1}(c_{k,k}-c_{\tau, k})$
+  \(NBT = \sum_{k \in [K]} \frac{NBT_k}{K}, NBT_k = \frac{1}{K-k}\sum^K_{\tau=k+1}(c_{k,k}-c_{\tau, k})\)
   average of future agents best score across training epochs
 
 - AUC (combination), higher better
-  $AUC = \sum_{k \in [K]}\frac{AUC_k}{K}, AUC_k = \frac{1}{K-k+1}(FWT_k + \sum^K_{\tau = k+1}c_{\tau, k})$
+  \(AUC = \sum_{k \in [K]}\frac{AUC_k}{K}, AUC_k = \frac{1}{K-k+1}(FWT_k + \sum^K_{\tau = k+1}c_{\tau, k})\)
 
 ## Findings
 
