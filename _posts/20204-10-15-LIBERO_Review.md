@@ -141,7 +141,7 @@ average of future agents best score across training epochs</p>
 <h3 id="q1-q2">Q1, Q2</h3>
 <p><strong>Q1</strong>: How do different architectures/LL algorithms perform under specific distribution shifts<br>
 <strong>Q2</strong> To what extent does neural architecture impact knowledge transfer in LLDM, and are there any discernible patterns in the specialized capabilities of each architecture?<br>
-ResNet-T and Vit-T work much better than ResNet-RNN  on average.</p>
+ResNet-T and Vit-T work much better than ResNet-RNN on average.</p>
 <blockquote>
 <p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
 </blockquote>
