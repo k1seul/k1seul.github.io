@@ -47,7 +47,6 @@ Generalist agent의 학습(learning)과 적응(adapting)을 위해여 Lifelong l
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/Libero_arch.png" alt="LIBERO Model" />
 </div>
 
-
 ### Tasks
 
 저자는 LLDM의 knowledge transfer를 명확한 측정을 위해, knowledge를 두 종류로 나눈 후, 한 종류만 고정하는 통제 환경 및 두 조건을 다 바꾸는 다변수 환경을 만들었다.
@@ -84,7 +83,9 @@ MDP is defined as $\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{T}, H, \mu_
 - sparse reward setting
 - replace $R$ with goal predicate $g : \mathcal(S) \rightarrow \{0, 1\}$
   so the expected return is
-  $J(\pi) = \mathbb{E}_{s_t, a_t ~ \pi, \mu_0}[\sum_{t=1}^H(g(s_t)]$
+  $$
+  J(\pi) = \mathbb{E}_{s_1 \sim \mu_0, a_t \sim \pi(a_t | s_t)} \left[ \sum_{t=1}^H g(s_t) \right]
+  $$
 
 The _lifelong robot learning problem_ can be defined using
 
@@ -137,7 +138,6 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/LIBERO_metrics.png" alt="Visualization of different metrics" />
 </div>
 
-
 - Forward Transfer (FWT), higher better
   $FWT = \sum_{k \in [K]} \frac{FWT_k}{K}, FWT_k = \frac{1}{11} \sum_{e \in \{ 0 \dots 50\} c_{k,k,e}}$
   average success rates of current task $k$ across multiple epochs
@@ -164,7 +164,6 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/LIBERO_result_01.png" alt="LIBERO Result 1" />
 </div>
 
-
 ResNet-T and Vit-T work much better than ResNet-RNN on average.
 Different algorithms also showed different preferences for neural architecture. mainly in SOTA PackNet mode, while VIT-T showed better forward transfer metric, the ResNet-T model showed better negative backward transfer.
 
@@ -176,7 +175,6 @@ However, the VIT-T performance dropped when using a simpler ER algorithm. as sho
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/LIBERO_result_02.png" alt="LIBERO Result 2" />
 </div>
 
-
 When comparing four different task environments with the same ResNet-T architecture(selected due to it having stable performance across learning algorithms), sequential finetuning (SeQL) whoed the best FWT. Although the SOTA PackNet model showed better performance to ER in LIBERO-X it is outperformed by ER in LIBERO-Long due to low FWT. This means that splitting the network into smaller networks hurts its learning capacity.
 
 ### Q4
@@ -184,7 +182,6 @@ When comparing four different task environments with the same ResNet-T architect
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/LIBERO_result_03.png" alt="LIBERO Result 3" />
 </div>
-
 
 Task embeddings does not seem to change much of the result!
 
@@ -194,7 +191,6 @@ Task embeddings does not seem to change much of the result!
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/LIBERO_result_04.png" alt="LIBERO Result 4" />
 </div>
 
-
 Task ordering is important in continual reinforcement learning!
 
 ### Q6
@@ -202,7 +198,6 @@ Task ordering is important in continual reinforcement learning!
 <div style="text-align: center;">
     <img src="https://raw.githubusercontent.com/k1seul/k1seul.github.io/refs/heads/master/_posts/img/LIBERO_result_05.png" alt="LIBERO Result 5" />
 </div>
-
 
 Pretraing is likely to hurt the performance of continual learning agents.
 
