@@ -113,6 +113,32 @@
   />
 
   <!-- KaTeX JavaScript -->
+  <!-- <script
+    defer
+    src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.3/katex.min.js"
+  ></script>
+  <script
+    defer
+    src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.3/contrib/auto-render.min.js"
+  ></script> -->
+
+  <!-- Configure KaTeX auto-rendering -->
+  <!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        // Enable or disable inline math rendering (e.g., "$ ... $") and display math rendering (e.g., "\[ ... \]")
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+      });
+    });
+  </script>
+</head> -->
+
+  <!-- KaTeX JavaScript -->
   <script
     defer
     src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.3/katex.min.js"
@@ -126,7 +152,6 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       renderMathInElement(document.body, {
-        // Enable or disable inline math rendering (e.g., "$ ... $") and display math rendering (e.g., "\[ ... \]")
         delimiters: [
           { left: "$$", right: "$$", display: true },
           { left: "$", right: "$", display: false },
@@ -136,6 +161,6 @@
       });
     });
   </script>
-</head>
 
-<!-- end custom head snippets -->
+  <!-- end custom head snippets -->
+</head>
