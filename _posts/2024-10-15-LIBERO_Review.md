@@ -86,7 +86,8 @@ MDP is defined as $\mathcal{M} = (\mathcal{S}, \mathcal{A}, \mathcal{T}, H, \mu_
 The _lifelong robot learning problem_ can be defined using
 
 - $K$ tasks $\{T^1, \dots, T^k\}$
-- policy $\pi$ is conditioned on the task $\pi (\cdot | s;T)$
+- policy
+  $$\pi$ is conditioned on the task $\pi (\cdot | s;T)$$
 - $T^k = (\mu_0^k, g^k)$
   The robot aims to optimize
   $$\max_{\pi} J_{LRL}(\pi) = \frac{1}{k}\sum_{p=1}^k\bigg[ \mathbb{E}_{s_t^p, a_t^p ~ \pi(c\dot ; T^p), \mu_0^p }\big[\sum_{t=1}^L g^p(s_t^p)\big] \bigg]$$
