@@ -13,6 +13,27 @@ redirect_from:
 
 - B.S. in Biomedical Engineering (Neuroscience Track), Sungkyunkwan University, 2024
 
+# Awards
+
+- Summa Cum Laude
+  - Sungkuyunkwan University
+  - 2024-02-28
+- 차세대바이오헬스 리더상
+  - Sungkuyunkwan University
+  - 2024-02-28
+- Academic Scholarship(Excellence)
+  - Sungkyunkwan University
+  - 23 Fall
+- Academic Scholarship(Excellence)
+  - Sungkyunkwan University
+  - 23 Summer
+- Academic Scholarship(Full tuition)
+  - Sungkyunkwan University
+  - 20 Summer
+- Undergraduate Research Scholarship
+  - Sungkyunkwan University
+  - 20 Summer
+
 # Work experience
 
 - Spring 2024: Data Analyst
