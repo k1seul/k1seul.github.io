@@ -94,18 +94,18 @@ The _lifelong robot learning problem_ can be defined using
 
 - \(K\) tasks \(\{T^1, \dots, T^k\}\)
 - policy \(\pi\) is conditioned on the task \(\pi (\cdot | s;T)\)
-- \(T^k = \mu_0^k, g^k)\)
+- \(T^k = \mu*0^k, g^k)\)
   The robot aims to optimize
-  \(\max_{\pi} J_{LRL}(\pi) = \frac{1}{k}\sum_{p=1}^k\bigg[ \mathbb{E}_{s_t^p, a_t^p ~ \pi(c\dot ; T^p), \mu_0^p }\big[\sum_{t=1}^L g^p(s_t^p)\big] \bigg]\)
+  \(\max*{\pi} J*{LRL}(\pi) = \frac{1}{k}\sum*{p=1}^k\bigg[ \mathbb{E}_{s_t^p, a_t^p ~ \pi(c\dot ; T^p), \mu_0^p }\big[\sum_{t=1}^L g^p(s_t^p)\big] \bigg]\)
 
 Also, this paper used _Imitation Learning_ for inducing search space similar to the demonstration
 
-- Denote \(D^k = \{ \tau_i^k\}_{i=1}^N\) as \(N\) demonstrations for task \(T^k\)
-- \(\tau_i^k = (o_0, a_0, o_1, a_1, \dots, o_{l^k})\) where \(l^k \leq H\)
-- To induce MDP from non-Markovian env, \(s_t\) is represented by aggregated history of observations,  
-  \(s_y \equiv o_{\leq t} = (o_0, o_1, \dots, o_t)\)
+- Denote \(D^k = \{ \tau*i^k\}*{i=1}^N\) as \(N\) demonstrations for task \(T^k\)
+- \(\tau*i^k = (o_0, a_0, o_1, a_1, \dots, o*{l^k})\) where \(l^k \leq H\)
+- To induce MDP from non-Markovian env, \(s*t\) is represented by aggregated history of observations,  
+  \(s_y \equiv o*{\leq t} = (o_0, o_1, \dots, o_t)\)
 - Behavior cloning loss is
-  \(min_\pi J_{BC}(\pi) = \frac{1}{k}\sum^k_{p=1} \mathbb{E}_{o_t, a_t ~ D^p} \bigg[ \sum_{t=0}^{l^p} \mathcal{L}(\pi(o_{\leq t}; T^p), a_t^p) \bigg]\)
+  \(min*\pi J*{BC}(\pi) = \frac{1}{k}\sum^k*{p=1} \mathbb{E}*{o*t, a_t ~ D^p} \bigg[ \sum*{t=0}^{l^p} \mathcal{L}(\pi(o\_{\leq t}; T^p), a_t^p) \bigg]\)
 
 ### Non-math
 
@@ -137,15 +137,15 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
 ### Evaluation Metric
 
 - Forward Transfer (FWT), higher better
-  \(FWT = \sum_{k \in [K]} \frac{FWT_k}{K}, FWT_k = \frac{1}{11} \sum_{e \in \{ 0 \dots 50\} c_{k,k,e}}\)
+  \(FWT = \sum*{k \in [K]} \frac{FWT_k}{K}, FWT_k = \frac{1}{11} \sum*{e \in \{ 0 \dots 50\} c\_{k,k,e}}\)
   average success rates of current task \(k\) across multiple epochs
 
 - Negative backward transfer (NBT), lower better
-  \(NBT = \sum_{k \in [K]} \frac{NBT_k}{K}, NBT_k = \frac{1}{K-k}\sum^K_{\tau=k+1}(c_{k,k}-c_{\tau, k})\)
+  \(NBT = \sum*{k \in [K]} \frac{NBT_k}{K}, NBT_k = \frac{1}{K-k}\sum^K*{\tau=k+1}(c*{k,k}-c*{\tau, k})\)
   average of future agents best score across training epochs
 
 - AUC (combination), higher better
-  \(AUC = \sum_{k \in [K]}\frac{AUC_k}{K}, AUC_k = \frac{1}{K-k+1}(FWT_k + \sum^K_{\tau = k+1}c_{\tau, k})\)
+  \(AUC = \sum*{k \in [K]}\frac{AUC_k}{K}, AUC_k = \frac{1}{K-k+1}(FWT_k + \sum^K*{\tau = k+1}c\_{\tau, k})\)
 
 ## Findings
 
@@ -156,9 +156,3 @@ LIBERO 는 Procedurally generation으로 다음과 같이 동작함.
 ResNet-T and Vit-T work much better than ResNet-RNN on average.
 
 > Written with [StackEdit](https://stackedit.io/).
-
-======
-
-# You can have many headings
-
-## Aren't headings cool?
