@@ -7,40 +7,9 @@ redirect_from:
   - /wordpress/blog-posts/
 ---
 
-<!-- {% include base_path %}
-{% capture written_year %}'None'{% endcapture %}
-{% for post in site.posts %}
-  {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-  {% if year != written_year %}
-    <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
-    {% capture written_year %}{{ year }}{% endcapture %}
-  {% endif %}
-
-  {%- if post.output == "html" -%}   -->
-<!-- Render only the title of the post if it is HTML -->
-<!-- <h3 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
-  {%- endif -%}
-
-{% endfor %} -->
-
---- layout: archive permalink: /year-archive/ title: "Blog posts"
-author_profile: true redirect_from: - /wordpress/blog-posts/ --- {% include
-base_path %} {% capture written_year %}'None'{% endcapture %} {% for post in
-site.posts %} {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %} {%
-if year != written_year %}
+{% include base_path %} {% capture written_year %}'None'{% endcapture %} {% for
+post in site.posts %} {% capture year %}{{ post.date | date: '%Y' }}{%
+endcapture %} {% if year != written_year %}
 <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
-{% capture written_year %}{{ year }}{% endcapture %} {% endif %} {% assign
-post_content = post.content %} {%- if post.output == "html" -%}
-<!-- Render the title of the post -->
-<h3 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
-
-<!-- Extract and display the first <h1> heading from the post content -->
-{% assign h1_heading = post_content | match: "
-<h1>(.*?)</h1>
-" %} {% if h1_heading %}
-<div class="post-heading">
-  {{ h1_heading[0] | remove: '
-  <h1>' | remove: '</h1>
-  ' }}
-</div>
-{% endif %} {%- endif -%} {% endfor %}
+{% capture written_year %}{{ year }}{% endcapture %} {% endif %} {% include
+archive-single.html %} {% endfor %}
