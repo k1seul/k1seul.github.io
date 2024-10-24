@@ -282,8 +282,10 @@ defaults:
     values:
       layout: single # or any custom layout you want for studies pages
       author_profile: true
-      share: true
+      read_time: true
       comments: true
+      share: true
+      related: true
 
 # Sass/SCSS
 sass:
