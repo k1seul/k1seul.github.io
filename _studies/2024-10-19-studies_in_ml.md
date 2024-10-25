@@ -4,7 +4,7 @@ collection: studies
 date: 2024-10-25
 ---
 
-[link to study github repo](https://github.com/k1seul/Math_studies/tree/main/MIT_Real_Analysis)
+### [link to study github repo](https://github.com/k1seul/Math_studies/tree/main/MIT_Real_Analysis)
 
 ## MIT Real Analysis
 
