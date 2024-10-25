@@ -1,5 +1,5 @@
 ---
-title: "MIT Analysis"
+title: "MIT Real Analysis"
 collection: studies
 date: 2024-10-25
 ---
