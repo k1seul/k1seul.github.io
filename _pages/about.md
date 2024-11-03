@@ -46,3 +46,8 @@ Hello! I'm Hansul Kim, a Deep Learning research student passionate about Mathema
 
 - Reinforcement Learning
 - Continual Reinforcement Learning ([CRL](https://arxiv.org/abs/2307.11046))
+
+# Investing
+
+Taken for fun!
+[Korea Certified Investment Manager](https://www.pqi.or.kr/inf/qul/infQulBasDetail.do?qulId=9124)
