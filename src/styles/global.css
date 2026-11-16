@@ -869,6 +869,76 @@ a:hover,
     }
 }
 
+/* Server guides: readable tables, diagrams and in-page navigation. */
+.guide-toc {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+}
+
+.guide-toc h2 {
+    font-size: 0.95rem;
+    margin: 0 0 0.75rem;
+}
+
+.guide-toc ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    columns: 2 14rem;
+}
+
+.guide-toc li {
+    break-inside: avoid;
+    font-size: 0.85rem;
+}
+
+.server-guide h2 {
+    scroll-margin-top: 5rem;
+}
+
+.server-guide table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.875rem;
+}
+
+.server-guide th,
+.server-guide td {
+    min-width: 7rem;
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid var(--border);
+}
+
+.server-guide th {
+    background: var(--surface);
+}
+
+.server-guide blockquote {
+    font-style: normal;
+    opacity: 1;
+}
+
+.server-guide figure {
+    margin: 1.5rem 0;
+}
+
+.server-guide figure img {
+    width: 100%;
+    border: 1px solid var(--border);
+}
+
+.server-guide figcaption {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--foreground);
+}
+
 /* Pagination */
 .pagination {
     display: flex;

@@ -1,45 +1,36 @@
 ---
-title: "Usage Rules"
-description: "A few rules that keep the servers fast and fair for everyone."
+title: "함께 쓰는 서버 이용 규칙"
+description: "다른 구성원의 실험을 방해하지 않으면서 자원을 사용하는 기본 원칙입니다."
 section: laal
 order: 6
 date: "2026-11-16"
 ---
 
-The servers are shared by about 40 people. These rules keep them usable for all of us.
+연구실 구성원 약 40명이 자원을 함께 사용합니다. 처음부터 모든 설정을 알 필요는 없습니다. 아래 원칙을 지키고, 큰 작업은 미리 상의해 주세요.
 
-## 1. Run experiments through Slurm, not on `master`
+## 실험은 Slurm 안에서 실행해 주세요
 
-`master` is the login node. Editing, git, small scripts, and AI coding tools are fine there. **Training, evaluation, preprocessing, and anything that runs for a long time are not.** Put that work in `launch-shell` or `sbatch`.
+`master`는 코드 편집, git, 작업 제출용입니다. 학습·평가·전처리처럼 오래 걸리거나 자원을 많이 쓰는 명령은 GPU가 필요 없더라도 Slurm에 제출합니다. [대화형·배치 작업 예시](/server/slurm)를 참고하세요.
 
-## 2. Ask for what you use
+## 자원은 필요한 만큼 요청해 주세요
 
-Start with **4 CPUs and 30–60 GB of RAM per GPU**, then adjust to what your job actually uses. See [Running Jobs with Slurm](/server/slurm#how-much-cpu-and-memory-to-ask-for). Over-asking keeps GPUs idle that someone else could use.
+처음에는 GPU당 CPU 4개, RAM 30~60GB를 출발점으로 두고 첫 실행의 사용량을 보고 조정하면 됩니다. CPU·RAM을 많이 예약하면 GPU가 남아 있어도 다른 작업이 시작하지 못할 수 있습니다.
 
-## 3. Don't hold GPUs you aren't using
+실행 시간도 예상 소요 시간에 적절한 여유를 더해 설정합니다. 짧은 빈 시간에 실행할 수 있는 작업은 스케줄러가 배치하기 쉽습니다.
 
-- Don't keep a GPU job alive just to wait for work, e.g. a script that loops on `sleep`. Submit the job when the work is ready.
-- `exit` your `launch-shell` when you're done.
-- Cancel jobs you no longer need with `scancel`.
+## 사용이 끝나면 반납해 주세요
 
-## 4. Set a realistic time limit
+대화형 쉘은 `exit`, 더 이상 필요 없는 배치 작업은 `scancel <JOBID>`로 종료합니다. 실험 준비가 끝난 뒤 제출하고, GPU를 쓰지 않는 채 `sleep` 등으로 할당을 유지하지 않습니다.
 
-Use `--time` close to what you need. Short, accurate limits help the scheduler fit your job, and everyone else's, into gaps.
+여러 GPU를 며칠 동안 사용할 계획이나 마감 전 우선순위 조정이 필요하면 연구실과 관리자에게 미리 알려 주세요.
 
-## 5. Be considerate with big runs
+## 파일과 계정을 함께 보호해 주세요
 
-- If you plan to take many GPUs for several days, let the lab know first.
-- If you need priority before a deadline, ask the admins early.
+공유 `/home`을 채우면 다른 사람의 checkpoint 저장도 실패할 수 있습니다. [저장 위치와 정리 방법](/server/storage)을 확인하고, 계정·비밀번호·SSH 개인키를 다른 사람에게 공유하지 않습니다.
 
-## 6. Keep `/home` clean
+Jupyter 등 개인 서비스는 외부 전체 주소에 열지 말고 loopback에 바인딩한 뒤 SSH 터널을 사용하세요. 설정이 어렵다면 먼저 관리자에게 문의하면 됩니다.
 
-There are no quotas. Everyone shares the same disks, and nothing is backed up. See [Storage](/server/storage).
+## 떠나기 전에 알려 주세요
 
-## 7. Keep your account to yourself
+졸업·퇴실 전 관리자와 데이터 이전·보관 시점을 정하고, 필요한 결과를 별도 보관해 주세요. 계정이 비활성화될 수 있으므로 인수인계가 필요한 프로젝트도 함께 알려 주세요.
 
-- Don't share your account, password, or SSH key.
-- Don't start services that are open to the network (e.g. Jupyter on `0.0.0.0`). Use SSH port forwarding instead, and ask the admins if you need help.
-
-## 8. Leaving the lab
-
-Tell the admins before you leave, and move any data you want to keep.

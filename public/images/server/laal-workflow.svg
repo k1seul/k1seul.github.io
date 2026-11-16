@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430" role="img" aria-labelledby="title desc">
+  <title id="title">LAAL: from SSH login to a GPU job</title>
+  <desc id="desc">A laptop connects to master by SSH, with WARP off campus. Master submits jobs to Slurm. Slurm allocates laal1, laal2 or laal3. The login node and compute nodes share home over NFS. Local scratch belongs only to its compute node.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#526179"/></marker>
+  </defs>
+  <rect width="800" height="430" rx="8" fill="#ffffff"/>
+  <g font-family="Inter, system-ui, sans-serif" fill="#152438">
+    <text x="30" y="37" font-size="21" font-weight="700">LAAL · Login, allocate, run</text>
+    <rect x="30" y="90" width="170" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="48" y="120" font-size="18" font-weight="700">Your computer</text>
+    <text x="48" y="147" font-size="15">Terminal / VS Code</text>
+    <text x="48" y="177" font-size="14">Off campus: WARP</text>
+    <path d="M200 145 H285" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="222" y="130" font-size="15">SSH</text>
+    <rect x="285" y="90" width="190" height="110" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="305" y="120" font-size="18" font-weight="700">master</text>
+    <text x="305" y="147" font-size="15">Edit code, submit jobs</text>
+    <text x="305" y="177" font-size="14">Login node · no GPU</text>
+    <path d="M475 145 H575" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="498" y="113" font-size="15">Slurm</text>
+    <text x="489" y="132" font-size="12">allocate</text>
+    <rect x="575" y="70" width="195" height="190" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="593" y="98" font-size="18" font-weight="700">GPU compute</text>
+    <text x="593" y="129" font-size="15">laal1 · RTX 3090</text>
+    <text x="593" y="156" font-size="15">laal2 · RTX A6000</text>
+    <text x="593" y="183" font-size="15">laal3 · Blackwell</text>
+    <path d="M590 199 H755" stroke="#b5c1d0"/>
+    <text x="593" y="222" font-size="14">/data: node-local</text>
+    <text x="593" y="243" font-size="12">where available</text>
+    <path d="M380 200 V320" fill="none" stroke="#526179" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M675 260 V320" fill="none" stroke="#526179" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="395" y="274" font-size="14">Same files</text>
+    <text x="691" y="299" font-size="14">NFS</text>
+    <rect x="285" y="320" width="485" height="75" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="305" y="350" font-size="18" font-weight="700">Shared /home · hosted by master</text>
+    <text x="305" y="377" font-size="14">Code, environments, results · no separate backup</text>
+    <text x="30" y="350" font-size="15" font-weight="700">When finished</text>
+    <text x="30" y="377" font-size="14">exit / scancel → release</text>
+  </g>
+</svg>

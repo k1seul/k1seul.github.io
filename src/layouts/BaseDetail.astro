@@ -19,7 +19,8 @@ const entry = (await getEntry(collection, id)) as any;
 
 if (!entry) return Astro.redirect("/404");
 
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+const guideHeadings = collection === "server" ? headings.filter((h) => h.depth === 2) : [];
 const detail = getDetailItem(entry, collection);
 
 const meta = [];
@@ -74,7 +75,18 @@ const ogImage = entry.data.image || SITE.ogImage;
             </figure>
         )}
 
-        <div class="prose">
+        {guideHeadings.length > 0 && (
+            <nav class="guide-toc" aria-label="이 페이지 목차">
+                <h2>이 페이지에서</h2>
+                <ul>
+                    {guideHeadings.map((heading) => (
+                        <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+                    ))}
+                </ul>
+            </nav>
+        )}
+
+        <div class:list={["prose", { "server-guide": collection === "server" }]}>
             <Content />
         </div>
 
