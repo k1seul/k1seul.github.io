@@ -7,6 +7,15 @@ order: 3
 date: "2026-11-16"
 ---
 
+## Who operates the storage?
+
+| Team | Responsibility |
+| --- | --- |
+| LAAL | Setup, accounts, permissions, capacity, monitoring, maintenance, and all storage incident investigation, repair, and user notices |
+| GSDS | Mainly mounting the storage on GSDS compute nodes |
+
+GSDS does not manage or troubleshoot the lab storage for us. **Report all storage failures to LAAL**, including a missing or inaccessible storage path. LAAL investigates and coordinates any required mount changes with GSDS.
+
 ## Capacity and shared data
 
 The default personal allocation is not finalized. It will be announced at launch. Request extra space with its purpose and expected duration. For datasets used by several people, request a project folder to avoid duplicate copies.
