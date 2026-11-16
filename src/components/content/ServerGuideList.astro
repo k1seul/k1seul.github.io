@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseItemCard from "../ui/BaseItemCard.astro";
+import ServerTabs from "../ui/ServerTabs.astro";
+import { PAGES } from "../../config";
+import { SERVER_SECTIONS } from "../../config/server";
+
+interface Props {
+    section: string;
+}
+
+const { section } = Astro.props;
+const meta = SERVER_SECTIONS.find((s) => s.id === section) ?? SERVER_SECTIONS[0];
+
+const guides = (await getCollection("server"))
+    .filter((g) => g.data.section === section)
+    .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title={section === "laal" ? PAGES.server.title : `${meta.label} | ${PAGES.server.title}`}>
+    <header class="page-header">
+        <h1 class="page-title">{PAGES.server.title}</h1>
+        {PAGES.server.subtitle && <p class="page-subtitle">{PAGES.server.subtitle}</p>}
+    </header>
+
+    <ServerTabs active={section} />
+
+    <p class="callout">{meta.intro}</p>
+
+    <section class="item-list">
+        {guides.map((guide, i) => (
+            <BaseItemCard
+                title={`${i + 1}. ${guide.data.title}`}
+                href={`/server/${guide.id}`}
+                description={guide.data.description}
+            />
+        ))}
+    </section>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import { SERVER_SECTIONS } from "../../config/server";
+
+interface Props {
+    active: string;
+}
+
+const { active } = Astro.props;
+---
+
+<nav class="section-tabs" aria-label="Server guide sections">
+    {SERVER_SECTIONS.map((s) => (
+        <a
+            href={s.href}
+            class={s.id === active ? "section-tab section-tab-active" : "section-tab"}
+            aria-current={s.id === active ? "page" : undefined}
+        >
+            {s.label}
+        </a>
+    ))}
+</nav>

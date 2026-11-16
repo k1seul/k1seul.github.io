@@ -1,43 +1,74 @@
 ---
 title: "Getting Started"
-description: "Request an account, set up an SSH key, and log in for the first time."
+description: "Request an account, log in for the first time, and set up SSH keys."
+section: laal
 order: 1
 date: "2026-11-16"
 ---
 
 ## 1. Request an account
 
-> **TODO:** How to request an account (who to contact and what to send: preferred username, SSH public key, expected usage period).
+Send a **direct message (DM) to Hanseul Kim** with:
 
-## 2. Create an SSH key (on your laptop)
+- your **SNU email** address
+- the **username** you want. Pick one that tells others who you are, e.g. `hanseulkim` (lowercase letters and digits).
+
+Accounts are for LAAL members. The admin will send you your initial password once the account is ready.
+
+## 2. Log in for the first time
+
+Use the server address the admin sends you with your account.
+
+- **Off campus:** set up Cloudflare WARP first. See [Off-Campus Access](/server/remote-access).
 
 ```bash
-ssh-keygen -t ed25519 -C "your_name@laptop"
-cat ~/.ssh/id_ed25519.pub   # send this PUBLIC key to the admin
+ssh <username>@<server-address>
 ```
 
-Never share the private key (`~/.ssh/id_ed25519`).
+Change your initial password right away. Accounts are shared across all LAAL servers (NIS), so use `yppasswd`, not `passwd`:
 
-## 3. Add the server to your SSH config
+```bash
+yppasswd
+```
 
-Use the address, port, and username you received from the admin. Add this to `~/.ssh/config` on your laptop:
+## 3. Set up an SSH key (no more passwords)
+
+On **your laptop**:
+
+```bash
+ssh-keygen -t ed25519 -C "your_name@laptop"    # press Enter to accept the defaults
+ssh-copy-id <username>@<server-address>         # asks for your password one last time
+```
+
+If `ssh-copy-id` is not available (e.g. on Windows), add the key by hand. Print it on your laptop with `cat ~/.ssh/id_ed25519.pub`, then on the server:
+
+```bash
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+nano ~/.ssh/authorized_keys      # paste the public key on one line, save
+chmod 600 ~/.ssh/authorized_keys
+```
+
+Only the **public** key (`.pub`) ever leaves your laptop. Never share the private key.
+
+## 4. Shorter SSH command
+
+Add this to `~/.ssh/config` on your laptop:
 
 ```ssh-config
 Host laal
     HostName <server-address>
-    Port <port>
-    User <your-username>
+    User <username>
     IdentityFile ~/.ssh/id_ed25519
 ```
 
-Then connect with:
+Now `ssh laal` is enough. VS Code users can pick `laal` in the **Remote - SSH** extension.
 
-```bash
-ssh laal
-```
+## 5. Where you are
 
-VS Code users can connect the same way with the **Remote - SSH** extension. Just pick `laal` from the host list.
+You land on **`master`, the login node**. It has no GPUs and is shared by everyone, so it is only for editing code, git, and submitting jobs. All experiments run on the GPU nodes through Slurm.
 
-## 4. First login checklist
+Next steps:
 
-> **TODO:** First-login steps, e.g. change the initial password, where to put your code and data, and read the [Usage Rules](/server/usage-rules).
+1. [Servers & Hardware](/server/hardware): what each node has
+2. [Running Jobs with Slurm](/server/slurm): how to get a GPU
+3. [Storage](/server/storage) and [Usage Rules](/server/usage-rules): please read before your first big run

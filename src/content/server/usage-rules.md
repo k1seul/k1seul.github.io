@@ -1,34 +1,45 @@
 ---
 title: "Usage Rules"
-description: "How GPUs and storage are shared, and how to run long jobs."
-order: 3
+description: "A few rules that keep the servers fast and fair for everyone."
+section: laal
+order: 6
 date: "2026-11-16"
 ---
 
-## GPU allocation
+The servers are shared by about 40 people. These rules keep them usable for all of us.
 
-> **TODO:** How GPUs are shared, e.g. reservation sheet or scheduler, maximum GPUs per person, priority before deadlines.
+## 1. Run experiments through Slurm, not on `master`
 
-Before launching a job, check which GPUs are free with `nvidia-smi`, then pin your job to them:
+`master` is the login node. Editing, git, small scripts, and AI coding tools are fine there. **Training, evaluation, preprocessing, and anything that runs for a long time are not.** Put that work in `launch-shell` or `sbatch`.
 
-```bash
-CUDA_VISIBLE_DEVICES=2,3 python train.py
-```
+## 2. Ask for what you use
 
-## Long-running jobs
+Start with **4 CPUs and 30–60 GB of RAM per GPU**, then adjust to what your job actually uses. See [Running Jobs with Slurm](/server/slurm#how-much-cpu-and-memory-to-ask-for). Over-asking keeps GPUs idle that someone else could use.
 
-Run training inside `tmux` so it survives SSH disconnects:
+## 3. Don't hold GPUs you aren't using
 
-```bash
-tmux new -s train      # start a session
-# ... run your job, then detach with Ctrl-b d
-tmux attach -t train   # come back later
-```
+- Don't keep a GPU job alive just to wait for work, e.g. a script that loops on `sleep`. Submit the job when the work is ready.
+- `exit` your `launch-shell` when you're done.
+- Cancel jobs you no longer need with `scancel`.
 
-## Storage
+## 4. Set a realistic time limit
 
-> **TODO:** Where to put code vs. datasets vs. checkpoints, quotas, cleanup policy, and whether anything is backed up.
+Use `--time` close to what you need. Short, accurate limits help the scheduler fit your job, and everyone else's, into gaps.
 
-## Etiquette
+## 5. Be considerate with big runs
 
-> **TODO:** Lab-specific rules, e.g. don't leave idle processes holding GPU memory, announce large jobs in the lab channel.
+- If you plan to take many GPUs for several days, let the lab know first.
+- If you need priority before a deadline, ask the admins early.
+
+## 6. Keep `/home` clean
+
+There are no quotas. Everyone shares the same disks, and nothing is backed up. See [Storage](/server/storage).
+
+## 7. Keep your account to yourself
+
+- Don't share your account, password, or SSH key.
+- Don't start services that are open to the network (e.g. Jupyter on `0.0.0.0`). Use SSH port forwarding instead, and ask the admins if you need help.
+
+## 8. Leaving the lab
+
+Tell the admins before you leave, and move any data you want to keep.

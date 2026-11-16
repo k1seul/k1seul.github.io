@@ -10,9 +10,11 @@ import { SITE, PAGES } from "../config";
 interface Props {
     collection: "publications" | "talks" | "projects" | "posts" | "teaching" | "server";
     id: string;
+    backHref?: string;   // override the default back link (e.g. a sub-section)
+    backLabel?: string;
 }
 
-const { collection, id } = Astro.props;
+const { collection, id, backHref, backLabel } = Astro.props;
 const entry = (await getEntry(collection, id)) as any;
 
 if (!entry) return Astro.redirect("/404");
@@ -34,8 +36,9 @@ const ogImage = entry.data.image || SITE.ogImage;
 ---
 
 <BaseLayout title={detail.title} description={description} ogImage={ogImage} ogType="article">
+    <slot name="header" />
     <div class="flex justify-between items-center mb-4">
-        <BackLink href={detail.backHref} label={(PAGES[collection === "posts" ? "blog" : collection]?.title ?? collection).toLowerCase()} />
+        <BackLink href={backHref ?? detail.backHref} label={backLabel ?? (PAGES[collection === "posts" ? "blog" : collection]?.title ?? collection).toLowerCase()} />
         {detail.externalUrl && (
             <a href={detail.externalUrl} target="_blank" rel="noopener noreferrer" class="link">
                 View external

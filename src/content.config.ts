@@ -77,12 +77,15 @@ const projects = defineCollection({
     }),
 });
 
-// Lab server guides (Server tab), listed by `order`
+// Lab server guides (Server tab), grouped by `section` and listed by `order`
+// section "laal": LAAL cluster guides (/server)
+// section "gsds": LAAL storage at GSDS (/server/gsds)
 const server = defineCollection({
     loader: glob({ pattern: "**/*.md", base: "./src/content/server" }),
     schema: z.object({
         title: z.string(),
         description: z.string().optional(),
+        section: z.enum(["laal", "gsds"]).default("laal"),
         order: z.number().default(100),
         date: z.string().optional(), // last updated
     }),

@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import BaseDetail from "../../layouts/BaseDetail.astro";
+import ServerTabs from "../../components/ui/ServerTabs.astro";
 import { PAGES } from "../../config";
+import { SERVER_SECTIONS } from "../../config/server";
 
 if (PAGES.server.isActive === false) {
     return Astro.redirect("/404");
@@ -9,21 +11,34 @@ if (PAGES.server.isActive === false) {
 
 export async function getStaticPaths() {
     if (PAGES.server.isActive === false) return [];
-    const guides = (await getCollection("server")).sort((a, b) => a.data.order - b.data.order);
-    return guides.map((guide, i) => ({
-        params: { id: guide.id },
-        props: {
-            prev: i > 0 ? guides[i - 1] : null,
-            next: i < guides.length - 1 ? guides[i + 1] : null,
-        },
-    }));
+    const all = await getCollection("server");
+    const paths = [];
+    // previous/next links stay inside the guide's own section
+    for (const section of ["laal", "gsds"]) {
+        const guides = all
+            .filter((g) => g.data.section === section)
+            .sort((a, b) => a.data.order - b.data.order);
+        guides.forEach((guide, i) => {
+            paths.push({
+                params: { id: guide.id },
+                props: {
+                    section,
+                    prev: i > 0 ? guides[i - 1] : null,
+                    next: i < guides.length - 1 ? guides[i + 1] : null,
+                },
+            });
+        });
+    }
+    return paths;
 }
 
 const { id } = Astro.params;
-const { prev, next } = Astro.props;
+const { section, prev, next } = Astro.props;
+const meta = SERVER_SECTIONS.find((s) => s.id === section) ?? SERVER_SECTIONS[0];
 ---
 
-<BaseDetail collection="server" id={id}>
+<BaseDetail collection="server" id={id} backHref={meta.href} backLabel={meta.label.toLowerCase()}>
+    <ServerTabs slot="header" active={section} />
     <nav slot="footer" class="post-navigation flex justify-between mt-16 pt-8 gap-8 border-t border-border">
         {prev ? (
             <a href={`/server/${prev.id}`} class="flex flex-col group max-w-[45%] no-underline">
