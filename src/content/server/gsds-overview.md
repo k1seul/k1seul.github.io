@@ -15,7 +15,7 @@ Additional storage for LAAL members running experiments at GSDS. It is intended 
 
 It does not automatically replace LAAL's existing `/home` or your GSDS account.
 
-**LAAL operates the storage and handles all storage incidents.** GSDS mainly assists with mounting the storage on its compute nodes. Contact a LAAL admin for storage access or failures.
+LAAL runs this storage for the lab. Please contact a LAAL admin for access, help, or any issues while using it.
 
 ## Who can use it?
 

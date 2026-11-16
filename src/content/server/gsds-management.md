@@ -7,14 +7,9 @@ order: 3
 date: "2026-11-16"
 ---
 
-## Who operates the storage?
+## Operation and support
 
-| Team | Responsibility |
-| --- | --- |
-| LAAL | Setup, accounts, permissions, capacity, monitoring, maintenance, and all storage incident investigation, repair, and user notices |
-| GSDS | Mainly mounting the storage on GSDS compute nodes |
-
-GSDS does not manage or troubleshoot the lab storage for us. **Report all storage failures to LAAL**, including a missing or inaccessible storage path. LAAL investigates and coordinates any required mount changes with GSDS.
+LAAL manages the storage, including account registration, access permissions, maintenance, and troubleshooting. If you need help or run into a problem, please contact a LAAL admin using the details below.
 
 ## Capacity and shared data
 
@@ -39,5 +34,5 @@ Storage may be unavailable during maintenance or incidents. Planned maintenance 
 | Hanseul Kim | Registration, permissions, capacity changes, storage errors |
 | Minsoo Jo | Urgent incidents when the main admin is unavailable |
 
-DM the time, GSDS node, job ID, storage path, and exact error. Do not publish internal addresses or account details. GSDS account issuance and group membership follow GSDS procedures; **contact LAAL first for lab storage access problems**.
+DM the time, GSDS node, job ID, storage path, and error message so we can look into it. Please keep internal addresses and account details in private messages.
 
