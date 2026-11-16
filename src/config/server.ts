@@ -1,5 +1,5 @@
 export type ServerLanguage = "en" | "ko";
-export type ServerSectionId = "laal" | "gsds" | "gsds-specs";
+export type ServerSectionId = "laal" | "gsds";
 export const GSDS_GUIDE_URL = "https://gsds.gitbook.io/gsds";
 
 export function serverHref(path: string, language: ServerLanguage = "en") {
@@ -19,7 +19,6 @@ export const SERVER_COPY = {
         sections: {
             laal: { label: "LAAL Servers", intro: "New here? Start with account setup and your first GPU job. Hanseul Kim and Minsoo Jo maintain the servers. Request server addresses and access details directly from the admins." },
             gsds: { label: "GSDS Storage", intro: "Not open yet. Learn who can use the planned LAAL storage at GSDS, how to apply, how accounts will be registered, and how to check your access after launch." },
-            "gsds-specs": { label: "GSDS Storage Specs", intro: "A brief overview of the planned LAAL storage server at GSDS." },
         },
     },
     ko: {
@@ -34,13 +33,12 @@ export const SERVER_COPY = {
         sections: {
             laal: { label: "LAAL 서버 이용", intro: "처음이라면 계정 신청과 첫 GPU 작업부터 따라가세요. 김한슬·조민수가 관리하며, 서버 주소와 접속 정보는 관리자에게 별도로 안내받습니다." },
             gsds: { label: "GSDS 스토리지", intro: "아직 개통 전입니다. 이용 대상, 신청 방법, 계정 등록 절차와 개통 후 권한을 확인하는 방법을 안내합니다." },
-            "gsds-specs": { label: "GSDS 스토리지 사양", intro: "GSDS에 도입할 LAAL 스토리지 서버의 주요 사양을 간단히 안내합니다." },
         },
     },
 } as const;
 
 export function getServerSections(language: ServerLanguage = "en") {
-    return (["laal", "gsds", "gsds-specs"] as const).map((id) => ({
+    return (["laal", "gsds"] as const).map((id) => ({
         id,
         href: serverHref(id === "laal" ? "/server" : "/server/" + id, language),
         ...SERVER_COPY[language].sections[id],

@@ -13,16 +13,13 @@ if (!guide) return Astro.redirect("/404");
 const { section, language } = guide.data;
 const copy = SERVER_COPY[language];
 const meta = getServerSections(language).find((s) => s.id === section)!;
-const backMeta = section === "gsds-specs"
-    ? getServerSections(language).find((s) => s.id === "gsds")!
-    : meta;
 const guides = await getServerGuides(language, section);
 const index = guides.findIndex((item) => item.id === id);
 const prev = guides[index - 1];
 const next = guides[index + 1];
 ---
 
-<BaseDetail collection="server" id={id} backHref={backMeta.href} backLabel={backMeta.label}>
+<BaseDetail collection="server" id={id} backHref={meta.href} backLabel={meta.label}>
     <div slot="header">
         <ServerLanguageSwitch language={language} />
         <ServerTabs active={section} language={language} />

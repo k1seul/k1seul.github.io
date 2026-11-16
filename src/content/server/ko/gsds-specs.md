@@ -1,9 +1,9 @@
 ---
 title: "GSDS 스토리지 서버 사양"
 description: "도입할 서버의 모델, CPU, 메모리와 저장 용량을 간단히 정리했습니다."
-section: gsds-specs
+section: gsds
 language: ko
-order: 1
+order: 5
 date: "2026-11-16"
 ---
 
