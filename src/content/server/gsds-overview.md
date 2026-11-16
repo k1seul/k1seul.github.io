@@ -1,65 +1,40 @@
 ---
-title: "GSDS 스토리지 도입 계획"
-description: "초기 구성, 연결 구조와 관리자 협의 현황을 정리합니다. 아직 서비스 전입니다."
+title: "GSDS Storage Overview"
+description: "Service status, eligibility, and the steps from requesting access to using your space."
 section: gsds
+language: en
 order: 1
 date: "2026-11-16"
 ---
 
-> **도입 준비 중이며 아직 사용할 수 없습니다.** 아래는 LAAL의 목표 구성입니다. GSDS의 설치·연결 승인, 구매 및 검증 후 서비스 경로와 시작일을 공지합니다.
+> **Not open yet.** The lab will announce the launch date and storage paths once confirmed.
 
-## 무엇을 위한 서버인가요?
+## What is this service?
 
-현재 GSDS의 LAAL용 스토리지 약 20TB로는 데이터셋과 checkpoint를 함께 보관하기 어렵습니다. LAAL 소유의 스토리지 서버를 GSDS 서버실에 설치하여, GSDS에서 계산하는 연구실 구성원에게 추가 공간을 제공하려고 합니다.
+Additional storage for LAAL members running experiments at GSDS. It is intended for datasets, checkpoints, and results used across GSDS compute nodes.
 
-LAAL 클러스터의 기존 `/home`과는 별도 서비스입니다. GSDS의 기존 홈이나 계정 시스템을 교체하지 않고, 우선 데이터·checkpoint·결과 저장 공간으로 제공합니다.
+It does not automatically replace LAAL's existing `/home` or your GSDS account.
 
-## 초기 구성안
+## Who can use it?
 
-| 항목 | 계획 |
-| --- | --- |
-| 본체 | 중고 Dell PowerEdge R730xd, 2U, 3.5인치 12베이 |
-| CPU / RAM | Xeon E5-2630 v4 × 2 / DDR4 ECC 128GB |
-| 데이터 디스크 | 신품 18TB SATA CMR HDD × 4 |
-| 파일시스템 | ZFS RAIDZ1, 단일 vdev |
-| 용량 | 원시 72TB, 단일 패리티 차감 시 약 54TB(49TiB). 메타데이터 등으로 실제 용량은 더 작음 |
-| 초기 운용 목표 | 여유 공간 약 20%를 두고 사용자 데이터 약 40TB 수준부터 운용 |
-| 네트워크 | 최소 10GbE. RJ45/SFP+ 여부를 GSDS와 확인 후 NIC·케이블 선택 |
-| OS / 공유 | Ubuntu LTS + ZFS + NFSv4 계획 |
-| 예산 | 디스크와 부품 포함 최대 600만원, 최종 판매 조건 확인 후 구매 |
+The service is planned for LAAL members with a GSDS account and access to the LAAL group (`lab01`). If you do not have a GSDS account, follow the GSDS account application process first.
 
-RAIDZ1은 **디스크 1개 장애**를 견디는 구성입니다. 두 번째 장애나 삭제·덮어쓰기까지 복구해 주지는 않습니다. 별도 백업 장비는 현재 구매 범위에 없으므로, 재현할 수 없는 결과는 사용자가 별도 사본을 보관해야 합니다.
-
-PERC H730 Mini는 구매 예정 매물에 포함되지만, HBA 모드가 전용 HBA와 동일하다고 가정하지 않습니다. 디스크 직접 노출과 상태 감시를 검증하고 필요하면 HBA330 등으로 변경합니다. [구축·점검 절차](/server/gsds-operations)에서 확인할 수 있습니다.
-
-## 어떻게 연결되나요?
+## How do I get started?
 
 <figure>
-  <a href="/images/server/gsds-storage-plan.svg" aria-label="GSDS 스토리지 연결 계획 그림 크게 보기">
-    <img src="/images/server/gsds-storage-plan.svg" width="800" height="480" alt="계획도. LAAL의 ZFS 스토리지가 승인된 GSDS 계산 노드에 NFS로 연결되고 관리자는 승인된 관리 경로로 SSH와 iDRAC에 접근합니다. UID와 GID를 GSDS에 맞추며 시설과 연결은 아직 협의 전입니다." />
+  <a href="/images/server/gsds-storage-plan.svg" aria-label="Open the storage registration flow">
+    <img src="/images/server/gsds-storage-plan.svg" width="800" height="410" alt="Check your GSDS account, apply to a LAAL admin, have your storage account registered with matching user and group IDs, then verify your assigned path and access." />
   </a>
-  <figcaption>도입 후 목표 연결 구조이며 아직 서비스 중인 구성이 아닙니다. 노드 마운트는 GSDS 관리자와 협의합니다. 그림을 누르면 크게 볼 수 있습니다.</figcaption>
+  <figcaption>This is the planned process after launch. The admin will send your personal storage path once registration is complete.</figcaption>
 </figure>
 
-공유 스토리지는 여러 노드에서 같은 파일을 읽는 공간입니다. 작은 파일 수가 많거나 여러 작업이 동시에 checkpoint를 쓰면 HDD와 10GbE가 병목이 될 수 있습니다. 사용 가능한 노드 로컬 scratch가 있다면 임시 작업을 분산하고, 보관할 결과를 공유 공간으로 옮기는 방식으로 운용할 계획입니다.
+1. Send your GSDS account information and required capacity using the [application guide](/server/gsds-access).
+2. A LAAL admin registers your storage user and access permissions.
+3. Once you receive your path, [check your account and access](/server/gsds-operations).
 
-## 어디까지 협의되었나요?
+## Where should I store files until launch?
 
-2026년 11월 16일 GSDS 관리자 회신 기준입니다.
+Keep using existing GSDS space at `/shared/s2/lab01/$USER`. The launch notice will explain when requests open, where to store files, and your allocated capacity.
 
-| 항목 | 현재 상태 |
-| --- | --- |
-| 운영 책임 | 개별 연구실 장비의 구축·유지보수는 LAAL 담당 |
-| 계정 정보 | GSDS에서 `id`로 직접 UID/GID 확인 가능 |
-| 랙 공간 | 운영·설치 요구사항을 정리해 전달한 뒤 GSDS에서 확인 예정 |
-| 네트워크·보안·전원·냉각 | 연결 방식과 제공 가능 여부 협의 필요. 확보된 것으로 보지 않음 |
-| 구매·설치·서비스 시작 | 아직 완료되지 않음 |
-
-LAAL GPU 랙의 **16kW 전력 한도** 안내는 별도 GPU 증설 건에 대한 답변입니다. 이 안내만으로 GSDS 스토리지의 전원·냉각이 승인된 것은 아닙니다.
-
-## 확장과 서비스 시작
-
-남는 베이를 활용해 추후 디스크를 늘릴 수 있습니다. 다만 디스크를 꽂는 것만으로 기존 RAIDZ1이 자동 확장되지는 않습니다. 설치할 OpenZFS 버전의 RAIDZ 확장 지원 여부, 추가 vdev 구성, 복구·이전 절차를 검증한 뒤 결정합니다. 확장해도 RAIDZ1의 장애 허용 개수는 늘지 않습니다.
-
-개통 전에는 기존 `/shared/s2/lab01/$USER` 공간을 계속 이용해 주세요. 새 마운트 경로, quota와 이용 신청 시점은 [이용 신청 안내](/server/gsds-access)에 공지합니다.
+See [Policies & Support](/server/gsds-management) for capacity requests, backups, and help.
 

@@ -22,6 +22,12 @@ if (!entry) return Astro.redirect("/404");
 const { Content, headings } = await render(entry);
 const guideHeadings = collection === "server" ? headings.filter((h) => h.depth === 2) : [];
 const detail = getDetailItem(entry, collection);
+const isKorean = collection === "server" && entry.data.language === "ko";
+if (collection === "server" && entry.data.date) {
+    detail.date = new Intl.DateTimeFormat(isKorean ? "ko-KR" : "en-US", {
+        year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+    }).format(new Date(`${entry.data.date}T00:00:00Z`));
+}
 
 const meta = [];
 if (detail.date) meta.push({ label: "Date", value: detail.date, icon: "Calendar" });
@@ -39,7 +45,7 @@ const ogImage = entry.data.image || SITE.ogImage;
 <BaseLayout title={detail.title} description={description} ogImage={ogImage} ogType="article">
     <slot name="header" />
     <div class="flex justify-between items-center mb-4">
-        <BackLink href={backHref ?? detail.backHref} label={backLabel ?? (PAGES[collection === "posts" ? "blog" : collection]?.title ?? collection).toLowerCase()} />
+        <BackLink href={backHref ?? detail.backHref} label={backLabel ?? (PAGES[collection === "posts" ? "blog" : collection]?.title ?? collection).toLowerCase()} language={isKorean ? "ko" : "en"} />
         {detail.externalUrl && (
             <a href={detail.externalUrl} target="_blank" rel="noopener noreferrer" class="link">
                 View external
@@ -76,8 +82,8 @@ const ogImage = entry.data.image || SITE.ogImage;
         )}
 
         {guideHeadings.length > 0 && (
-            <nav class="guide-toc" aria-label="이 페이지 목차">
-                <h2>이 페이지에서</h2>
+            <nav class="guide-toc" aria-label={isKorean ? "이 페이지 목차" : "On this page"}>
+                <h2>{isKorean ? "이 페이지에서" : "On this page"}</h2>
                 <ul>
                     {guideHeadings.map((heading) => (
                         <li><a href={`#${heading.slug}`}>{heading.text}</a></li>

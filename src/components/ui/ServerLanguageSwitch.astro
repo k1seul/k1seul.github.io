@@ -1,0 +1,11 @@
+---
+import type { ServerLanguage } from "../../config/server";
+interface Props { language?: ServerLanguage; }
+const { language = "en" } = Astro.props;
+const englishPath = Astro.url.pathname.replace(/^\/ko(?=\/server(?:\/|$))/, "");
+---
+
+<nav class="server-language-switch" aria-label={language === "ko" ? "안내 언어 선택" : "Guide language"}>
+    <a href={englishPath} lang="en" hreflang="en" aria-current={language === "en" ? "page" : undefined}>English</a>
+    <a href={"/ko" + englishPath} lang="ko" hreflang="ko" aria-current={language === "ko" ? "page" : undefined}>한국어</a>
+</nav>

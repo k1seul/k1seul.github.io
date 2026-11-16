@@ -5,6 +5,7 @@ import Icon from "../ui/Icon.astro";
 const currentYear = new Date().getFullYear();
 const showToggle = THEME_CONFIG.lightAndDark;
 const showDevTools = import.meta.env.DEV || SETTINGS.addDevToolsInProduction;
+const isKoreanGuide = /^\/ko\/server(?:\/|$)/.test(Astro.url.pathname);
 ---
 
 <footer class="footer">
@@ -13,7 +14,7 @@ const showDevTools = import.meta.env.DEV || SETTINGS.addDevToolsInProduction;
     </div>
     <div class="flex items-center gap-4">
         <span class="body-xs hidden sm:inline-block"
-            >Built with <a
+            >{isKoreanGuide ? "제작 도구: " : "Built with "}<a
                 href="https://github.com/rubzip/academic-portfolio-astro/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -34,7 +35,7 @@ const showDevTools = import.meta.env.DEV || SETTINGS.addDevToolsInProduction;
             showToggle && (
                 <button
                     id="theme-toggle"
-                    aria-label="Toggle Dark Mode"
+                    aria-label={isKoreanGuide ? "밝은 화면·어두운 화면 전환" : "Toggle Dark Mode"}
                     class="btn-icon"
                 >
                     <Icon name="Sun" size={16} class="hidden dark:block" />
@@ -56,3 +57,4 @@ const showDevTools = import.meta.env.DEV || SETTINGS.addDevToolsInProduction;
         }
     </div>
 </footer>
+

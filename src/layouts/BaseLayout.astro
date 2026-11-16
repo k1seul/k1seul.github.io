@@ -37,6 +37,9 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || SITE.website);
+const isServerGuide = /^\/(?:ko\/)?server(?:\/|$)/.test(Astro.url.pathname);
+const isKoreanServerGuide = /^\/ko\/server(?:\/|$)/.test(Astro.url.pathname);
+const englishGuidePath = Astro.url.pathname.replace(/^\/ko(?=\/server(?:\/|$))/, "");
 
 const jsonLd = {
     "@context": "https://schema.org",
@@ -55,7 +58,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={SITE.lang}>
+<html lang={isKoreanServerGuide ? "ko" : isServerGuide ? "en" : SITE.lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -106,6 +109,13 @@ const jsonLd = {
 
         <!-- Canonical URL -->
         <link rel="canonical" href={canonicalURL} />
+        {isServerGuide && (
+            <>
+                <link rel="alternate" hreflang="en" href={new URL(englishGuidePath, canonicalURL)} />
+                <link rel="alternate" hreflang="ko" href={new URL(`/ko${englishGuidePath}`, canonicalURL)} />
+                <link rel="alternate" hreflang="x-default" href={new URL(englishGuidePath, canonicalURL)} />
+            </>
+        )}
 
         <!-- General Meta Tags -->
         <title>{title} | {SITE.title}</title>

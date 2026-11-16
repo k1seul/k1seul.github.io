@@ -1,57 +1,52 @@
 ---
-title: "GSDS 스토리지 이용 신청과 용량"
-description: "개통 후 신청할 정보와 UID/GID 확인 방법, quota 초안을 안내합니다."
+title: "Request Access & Register Your Account"
+description: "What to send and how admins will add your storage account."
 section: gsds
+language: en
 order: 2
 date: "2026-11-16"
 ---
 
-> **아직 이용 신청을 받지 않습니다.** 설치와 연결 검증이 끝나면 연구실에 공지합니다. 아래 quota와 경로 정책은 운영 초안입니다.
+> **Applications will open after launch.** This is the planned registration process, not confirmation that an account has already been added.
 
-## 누가 사용할 수 있나요?
+## Before applying
 
-GSDS 계정과 LAAL 그룹(`lab01`) 이용 권한이 있는 LAAL 구성원을 대상으로 계획하고 있습니다. GSDS 계정 발급과 그룹 가입은 GSDS 절차를 따릅니다. LAAL 서버 계정만으로 자동 연결되지는 않습니다.
-
-## 미리 확인할 정보
-
-**GSDS 로그인 환경**에서 다음을 실행하세요. 관리자 권한은 필요하지 않습니다. LAAL의 `master`에서 실행한 결과와 혼동하지 않도록 실행 위치를 확인합니다.
+Sign in to the **GSDS login environment** with your GSDS account and run:
 
 ```bash
 hostname
 whoami
 id
-id -u
-id -g
-id -G
 ```
 
-UID는 사용자 번호, GID는 그룹 번호입니다. 사용자 이름이 같아도 번호가 다르면 파일 소유권이 달라집니다. 기본 그룹뿐 아니라 공유 폴더에 사용하는 보조 그룹도 확인합니다. 이 번호를 일치시키는 것이 비밀번호나 인증 시스템까지 공유한다는 의미는 아닙니다.
+Do not confuse this with output from LAAL's `master`. UID identifies your user; GID and groups identify your groups. Matching these numbers on storage keeps file ownership and shared-folder permissions consistent.
 
-## 개통 후 신청 방법
+## What to send
 
-김한슬에게 DM으로 아래 정보를 보내 주세요.
+DM Hanseul Kim with:
 
-- 학교 이메일, GSDS 사용자 이름, LAAL 사용자 이름
-- GSDS에서 확인한 `id` 출력(비공개 채널로 전달)
-- 필요한 용량과 용도: 데이터셋, checkpoint, 결과 등
-- 예상 사용 기간과 함께 쓰는 프로젝트 구성원
+```text
+SNU email:
+GSDS username:
+LAAL username, if any:
+Output of id on GSDS:
+Required capacity and purpose:
+Shared project or members, if any:
+Expected usage period:
+```
 
-IP, 실제 사용자 번호와 접속 정보는 이 공개 문서에 올리지 않습니다. 관리자가 권한과 quota를 설정한 뒤 **확정된 마운트 경로**를 안내합니다. 계산 노드의 마운트는 GSDS 관리자와 협의하여 적용하며, 사용자가 임의로 설정하지 않습니다.
+Do not send passwords or SSH private keys. Share account details in a private message, not a public post.
 
-## 용량 정책 초안
+## How your account will be added
 
-| 구분 | 제안 |
-| --- | --- |
-| 개인 기본 quota | 2TB/인. 사용자 수와 전체 용량 검토 후 확정 |
-| 추가 용량 | 사유·기간을 받아 잔여 용량 내에서 배정 |
-| 공유 데이터셋·프로젝트 | 별도 dataset과 용량 예산으로 관리해 중복 저장 방지 |
-| quota 초과 | 새 파일 저장이나 checkpoint 쓰기가 실패할 수 있으므로 사전 정리 또는 증설 요청 |
+1. An admin checks your GSDS account and lab group information.
+2. The admin registers a storage user with the **same username, numeric UID/GID, and required supplementary groups as GSDS**, checking for conflicts first.
+3. The admin sets ownership, permissions, and capacity limits for your personal or project folder.
+4. You receive a registration confirmation, storage path, and allocated capacity.
 
-예를 들어 40명 모두에게 2TB를 보장하면 초기 용량을 넘습니다. 따라서 기본 quota도 **보장된 배정량이 아니라 제안 값**이며, 개인·프로젝트의 전체 배정 합계와 여유 공간을 보고 확정합니다.
+This adds a storage user corresponding to your existing GSDS identity. It does **not** issue a new GSDS account or synchronize LAAL/GSDS passwords. Use the path from your GSDS computing environment; you do not need a separate SSH login to the storage server.
 
-## 저장할 때 유의할 점
+## How do I know registration is complete?
 
-코드와 최종 결과는 별도 사본을 유지해 주세요. 자동 백업은 제공할 계획이 없습니다. 프로젝트가 끝나면 임시 파일과 불필요한 checkpoint를 정리하고, 구성원이 떠날 때는 관리자와 보관·이전 시점을 정합니다. 공지 없이 일괄 삭제하는 정책은 두지 않습니다.
-
-새 공간은 아직 LAAL `/home`이나 GSDS 기존 홈을 대체하지 않습니다. 프로그램의 출력 경로는 개통 공지 후 변경해 주세요.
+After the admin confirms registration and sends a path, follow [Check Your Account & Access](/server/gsds-operations). Do not change home directories or experiment output paths before receiving that information.
 

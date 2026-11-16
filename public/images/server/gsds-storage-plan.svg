@@ -1,41 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" role="img" aria-labelledby="title desc">
-  <title id="title">Planned LAAL storage at GSDS</title>
-  <desc id="desc">A LAAL-owned Dell R730xd with four new 18TB disks in ZFS RAIDZ1 shares files with approved GSDS compute nodes over a planned 10GbE NFSv4 connection. Administrators use a separate approved management path for SSH and iDRAC. User and group IDs match GSDS. Rack, network, power and mount path are not yet approved.</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#526179"/></marker>
-  </defs>
-  <rect width="800" height="480" rx="8" fill="#ffffff"/>
-  <g font-family="Inter, system-ui, sans-serif" fill="#152438">
-    <text x="30" y="37" font-size="21" font-weight="700">LAAL storage at GSDS · Proposed architecture</text>
-    <text x="30" y="66" font-size="14" fill="#526179">Not live · rack, network, power and mount path pending agreement</text>
-    <rect x="30" y="100" width="290" height="205" rx="6" fill="#eef5ff" stroke="#637fa8"/>
-    <text x="50" y="132" font-size="18" font-weight="700">LAAL storage · R730xd</text>
-    <text x="50" y="161" font-size="15">2U · LAAL owned and managed</text>
-    <rect x="50" y="180" width="250" height="64" rx="4" fill="#ffffff" stroke="#b5c1d0"/>
-    <text x="65" y="206" font-size="16" font-weight="600">4 × new 18TB HDD</text>
-    <text x="65" y="230" font-size="14">ZFS RAIDZ1 · ~54TB nominal</text>
-    <text x="50" y="274" font-size="14">Datasets / checkpoints / results</text>
-    <text x="50" y="294" font-size="12">Single server · no separate backup</text>
-    <path d="M320 203 H525" fill="none" stroke="#526179" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
-    <text x="345" y="163" font-size="16" font-weight="600">10GbE + NFSv4</text>
-    <text x="349" y="184" font-size="13">approved clients only</text>
-    <text x="343" y="235" font-size="13">GSDS switch / data VLAN</text>
-    <text x="366" y="255" font-size="12">to be agreed</text>
-    <rect x="525" y="100" width="245" height="205" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
-    <text x="545" y="132" font-size="18" font-weight="700">GSDS compute nodes</text>
-    <text x="545" y="161" font-size="15">Slurm jobs read / write</text>
-    <text x="545" y="192" font-size="14">Same agreed mount path</text>
-    <path d="M545 210 H750" stroke="#b5c1d0"/>
-    <text x="545" y="240" font-size="14">Local scratch if available</text>
-    <text x="545" y="264" font-size="13">Stage I/O-heavy data;</text>
-    <text x="545" y="284" font-size="13">copy results back to storage</text>
-    <path d="M175 365 V305" fill="none" stroke="#526179" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
-    <text x="190" y="341" font-size="13">SSH / iDRAC</text>
-    <rect x="30" y="365" width="290" height="82" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
-    <text x="50" y="397" font-size="17" font-weight="700">LAAL administrators</text>
-    <text x="50" y="424" font-size="14">Approved management path only</text>
-    <rect x="355" y="365" width="415" height="82" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
-    <text x="375" y="397" font-size="17" font-weight="700">Match GSDS UID / GID + groups</text>
-    <text x="375" y="424" font-size="14">Permissions and quotas managed by LAAL</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="410" viewBox="0 0 800 410" role="img" aria-labelledby="title desc" lang="en">
+  <title id="title">GSDS storage: application and access checks</title>
+  <desc id="desc">Check your GSDS identity, apply to a LAAL admin, have a matching storage account registered, then verify your path and permissions. The service is not open yet.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#526179"/></marker></defs>
+  <rect width="800" height="410" rx="8" fill="#ffffff"/>
+  <g font-family="Noto Sans CJK KR, Inter, system-ui, sans-serif" fill="#152438">
+    <text x="30" y="38" font-size="22" font-weight="700">GSDS storage · Getting access</text>
+    <text x="30" y="69" font-size="14" fill="#526179">Not open yet. Registration and assigned paths will be announced after launch.</text>
+    <rect x="30" y="100" width="330" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="48" y="130" font-size="17" font-weight="700">1. Check your GSDS account</text>
+    <text x="48" y="161" font-size="15">Sign in with your GSDS account</text>
+    <text x="48" y="187" font-size="14">Check your username and groups</text>
+<rect x="440" y="100" width="330" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="458" y="130" font-size="17" font-weight="700">2. Apply to a LAAL admin</text>
+    <text x="458" y="161" font-size="15">Send identity, purpose, capacity</text>
+    <text x="458" y="187" font-size="14">Do not send passwords</text>
+<rect x="440" y="245" width="330" height="110" rx="6" fill="#eef5ff" stroke="#b5c1d0"/>
+    <text x="458" y="275" font-size="17" font-weight="700">3. Admin registers storage access</text>
+    <text x="458" y="306" font-size="15">Match GSDS UID/GID and groups</text>
+    <text x="458" y="332" font-size="14">Set folder permissions and limits</text>
+<rect x="30" y="245" width="330" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="48" y="275" font-size="17" font-weight="700">4. Verify your assigned space</text>
+    <text x="48" y="306" font-size="15">Check your path and ownership</text>
+    <text x="48" y="332" font-size="14">Test reads and writes in your folder</text>
+    <path d="M360 155 H440 M605 210 V245 M440 300 H360" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M360 155 H440" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M605 210 V245" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="30" y="389" font-size="14">No password sharing or separate SSH login to the storage server is needed.</text>
   </g>
 </svg>

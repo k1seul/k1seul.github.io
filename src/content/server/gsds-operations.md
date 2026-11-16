@@ -1,102 +1,58 @@
 ---
-title: "GSDS 스토리지 구축·점검 체크리스트"
-description: "관리자용: 설치 협의부터 계정·NFS 검증, 장애 복구와 개통 확인까지."
+title: "Check Your Account & Access"
+description: "After registration, verify your assigned path and permission to read and write."
 section: gsds
+language: en
 order: 4
 date: "2026-11-16"
 ---
 
-이 페이지는 **LAAL 관리자용 구축 계획**입니다. 현재 가동 중인 장비에 바로 적용하는 명령 모음은 아닙니다. 승인 전 네트워크 연결이나 기존 데이터가 있는 디스크의 pool 생성은 진행하지 않습니다.
+> **For registered users after launch.** If you have not received a storage path, start with [Request Access](/server/gsds-access).
 
-## 1. GSDS에 설치안 전달
+## 1. Check your GSDS identity
 
-[구성안](/server/gsds-overview)과 [역할 분담](/server/gsds-management)을 전달하고 아래를 확인합니다.
-
-- 2U 위치, 랙 깊이·하중과 레일 호환성
-- 실제 PSU 수량과 입력 조건에 맞는 전원 콘센트, 회로·냉각 여유
-- 10GbE 포트 종류(RJ45/SFP+), 필요한 케이블·트랜시버, VLAN·IP
-- iDRAC 관리망 또는 GSDS가 승인한 대체 관리 경로
-- 허용할 클라이언트 노드 목록, NFS 인증 정책, 공통 마운트 경로와 적용 담당자
-- 서버실 출입·반입·점검 절차와 시설 장애 연락 경로
-
-750W는 구매 예정 서버의 **PSU 출력 정격**이며 실제 소비전력이나 필요한 입력 전력을 뜻하지 않습니다. 소비전력은 실제 구성의 부하 시험으로 확인해 시설 담당자에게 전달합니다. 이중 PSU도 실제 포함 여부와 공급 회로를 확인합니다.
-
-## 2. 장비 인수와 디스크 확인
-
-구매 전에 3.5인치 백플레인, 캐디, 레일, PSU 수량과 NIC 형태를 확인합니다. 데이터 HDD는 신품·비재생 제품 및 보증·구매 증빙 조건을 확인합니다.
-
-인수 후에는 디스크 모델·시리얼·슬롯을 기록하고, 장기 검사와 읽기·쓰기 검증을 진행합니다. 아래는 상태를 확인하는 읽기 전용 명령 예시입니다.
+Run these in the GSDS computing environment where you will use storage:
 
 ```bash
-# 스토리지 서버에서, 디스크와 경로를 대조하는 용도
-lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,FSTYPE,MOUNTPOINTS
-ls -l /dev/disk/by-id/
-```
-
-OS 부팅 디스크와 데이터용 신품 4개를 구분합니다. 데이터 디스크는 안정적인 by-id 식별자로 관리하고, boot pool이나 기존 디스크가 섞이지 않도록 합니다.
-
-PERC H730 Mini의 HBA 모드 지원만 보고 ZFS 호환 검증을 생략하지 않습니다. 가상 RAID 볼륨 위에 RAIDZ를 중첩하지 않고, 각 디스크의 전체 용량·시리얼·오류 전달·재부팅 후 식별과 교체 절차를 확인합니다. Dell PERC 9 문서에는 HBA 모드의 SMART 감시 제약이 명시되어 있습니다. 필요한 감시·직접 접근이 확보되지 않으면 **HBA330 등 전용 HBA와 백플레인 케이블 호환성을 확인하여 변경**하고 다시 검증합니다.
-
-## 3. ZFS와 용량 정책 적용
-
-데이터 디스크 4개로 단일 RAIDZ1 vdev를 구성할 계획입니다. 실제 pool 생성 전 관리자가 디스크 목록을 대조하며, 이 공개 문서에는 실수로 실행할 수 있는 초기화 명령을 두지 않습니다.
-
-개인·프로젝트 dataset을 나누고 quota, 공유 그룹, 기본 권한을 설정합니다. 전체 파일시스템은 약 20% 여유를 목표로 운용하며, 모든 quota를 합친 배정량과 실제 사용량을 함께 관리합니다. 압축은 일반적인 lz4를 시작점으로 검토하고 dedup은 사용하지 않는 계획입니다.
-
-재현할 수 없는 데이터는 별도 사본이 필요합니다. snapshot을 추가하더라도 같은 pool의 장애에는 대비되지 않으므로, 별도 백업이 제공된다고 안내하지 않습니다.
-
-## 4. UID/GID와 NFS 검증
-
-GSDS 로그인 환경에서 각 사용자와 공유 그룹의 실제 번호를 수집합니다.
-
-```bash
-# GSDS 로그인 환경에서, 본인 계정 확인
+hostname
+whoami
 id
-getent passwd "$USER"
-getent group lab01
 ```
 
-스토리지에서 같은 숫자 UID/GID와 필요한 보조 그룹을 매핑합니다. 기존 계정과 번호가 충돌하면 먼저 조정하고, 전체 디렉터리에 재귀 chown을 적용하는 방식으로 덮어두지 않습니다.
+Confirm the username matches your application. Tell the admin if your GSDS account or group membership changes.
 
-NFSv4 export는 승인된 계산 노드만 허용하고, 서버 방화벽에도 동일 범위를 적용합니다. `sync`와 `root_squash`를 유지하며, 공개망에는 열지 않습니다. UID/GID 기반 NFS를 사용할 수 있는 신뢰 구간인지 GSDS와 확인하고, 필요 시 기관의 추가 인증 정책을 따릅니다.
+## 2. Check your assigned path
 
-계산 노드의 NFS 클라이언트 설정·마운트는 GSDS 담당자와 협의합니다. 경로를 일관되게 적용하고, 마운트가 실패했을 때 작업이 빈 로컬 폴더에 쓰지 않는지도 확인합니다. 작업 실행 전 `findmnt -T <announced-path>` 등으로 올바른 마운트를 확인할 수 있도록 개통 안내에 반영합니다.
-
-## 5. 개통 전 통과할 항목
-
-| 확인 항목 | 통과 기준 |
-| --- | --- |
-| 계정·권한 | 2명 이상 계정으로 생성·조회·수정·접근 거부가 의도대로 동작 |
-| 여러 노드 접근 | 동일 파일의 숫자 소유권·그룹과 경로가 일치 |
-| NFS 보안 | 허용 노드는 접근 가능, 허용하지 않은 노드·root 권한 우회는 제한 |
-| I/O | 대표 대용량 파일·작은 파일·동시 checkpoint 부하를 시험하고 처리량·지연 기록 |
-| 복구 | 시험용 데이터로 삭제 복구 가능 범위를 확인하고, 디스크 장애·교체 절차 검증 |
-| 재시작 | 서버·클라이언트 재부팅 후 pool과 마운트 정상, 실패 시 로컬 오기록 방지 |
-| 감시 | pool·디스크·용량·온도·PSU 알림이 실제 담당자에게 도착 |
-| 공지 | 최종 경로, 용량, 백업 미제공, 연락처와 점검 정책 안내 |
-
-단일 10GbE 연결의 1.25GB/s는 전송 비트율을 바이트로 바꾼 이론값입니다. 프로토콜·HDD·동시 작업 때문에 실제 처리량은 더 낮으며, 노드마다 그 속도를 보장하는 구성도 아닙니다.
-
-## 6. 일상 점검과 장애 대응
-
-스토리지 서버에서 사용하는 상태 확인 예시입니다. 관리 도구와 권한은 실제 설치 후 확정합니다.
+Replace `/path/from/admin` with **your personal folder** supplied by the admin. Project folders may have different ownership and permissions.
 
 ```bash
-zpool status -x
-zpool status -v
-zpool list
-zfs list -o name,used,avail,refer,mountpoint
-# NFS export 확인은 관리자 권한 필요
-sudo exportfs -v
+ls -ld /path/from/admin
+ls -ldn /path/from/admin
+df -h /path/from/admin
 ```
 
-디스크 상태는 확인된 HBA·PERC 감시 경로를 사용합니다. 월간 scrub과 디스크 장기 검사는 같은 시간에 몰리지 않게 예약하고, 완료 결과도 확인합니다.
+The first command shows owner/group names; the second shows numeric UID/GID. For your personal folder, compare its owner UID with `id -u`. Shared folders may instead show a project owner or group.
 
-장애 시에는 **영향 공지 → 작업·쓰기 범위 확인 → 로그 수집 → 시리얼/슬롯 대조 → 교체·resilver → 오류 및 클라이언트 테스트 → 재개 공지** 순서로 진행합니다. GSDS 작업 제어와 마운트 변경은 GSDS 관리자와 조율하며, 임의로 노드를 재시작하지 않습니다.
+Free space in `df` describes the filesystem, not necessarily your personal allocation. Use the capacity stated in your registration confirmation.
 
-## 공식 참고 문서
+## 3. Test reading and writing
 
-- [OpenZFS 하드웨어 권고](https://openzfs.github.io/openzfs-docs/Performance%20and%20Tuning/Hardware.html)
-- [Dell PERC 9 사용자 가이드: HBA 모드와 제한](https://dl.dell.com/topicspdf/poweredge-rc-h330_users-guide_en-us.pdf)
-- [Ubuntu NFS 구성](https://ubuntu.com/server/docs/network-file-system-nfs/)
-- [OpenZFS RAIDZ와 확장](https://openzfs.github.io/openzfs-docs/Basic%20Concepts/Pool%20Structure/RAIDZ.html)
+This creates a uniquely named temporary file in **your own folder**, reads it, then removes only that file:
+
+```bash
+# Enter the personal folder supplied by the admin
+(
+set -e
+cd /path/from/admin
+test_file=$(mktemp ./access-check.XXXXXX)
+printf 'storage access check\n' > "$test_file"
+cat "$test_file"
+rm -- "$test_file"
+)
+```
+
+If the text is printed and the file is removed successfully, basic read/write/delete permissions work. Do not test on another user's folder or shared datasets.
+
+## If the path is missing or access is denied
+
+Record the exact error, such as `Permission denied`, `No such file or directory`, or a capacity-limit error, and send it with the node and username. Do not create a replacement directory or try to fix permissions with `sudo` while access is broken.
