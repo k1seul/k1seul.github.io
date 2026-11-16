@@ -21,6 +21,10 @@ LAAL runs this storage for the lab. Please contact a LAAL admin for access, help
 
 The service is planned for LAAL members with a GSDS account and access to the LAAL group (`lab01`). If you do not have a GSDS account, follow the GSDS account application process first.
 
+## Using GSDS servers
+
+For server access, usage rules, and running Slurm jobs, refer to the [official GSDS user guide](https://gsds.gitbook.io/gsds). The instructions here cover LAAL storage access.
+
 ## How do I get started?
 
 <figure>
