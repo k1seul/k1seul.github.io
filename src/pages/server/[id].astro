@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseDetail from "../../layouts/BaseDetail.astro";
+import { PAGES } from "../../config";
+
+if (PAGES.server.isActive === false) {
+    return Astro.redirect("/404");
+}
+
+export async function getStaticPaths() {
+    if (PAGES.server.isActive === false) return [];
+    const guides = (await getCollection("server")).sort((a, b) => a.data.order - b.data.order);
+    return guides.map((guide, i) => ({
+        params: { id: guide.id },
+        props: {
+            prev: i > 0 ? guides[i - 1] : null,
+            next: i < guides.length - 1 ? guides[i + 1] : null,
+        },
+    }));
+}
+
+const { id } = Astro.params;
+const { prev, next } = Astro.props;
+---
+
+<BaseDetail collection="server" id={id}>
+    <nav slot="footer" class="post-navigation flex justify-between mt-16 pt-8 gap-8 border-t border-border">
+        {prev ? (
+            <a href={`/server/${prev.id}`} class="flex flex-col group max-w-[45%] no-underline">
+                <span class="text-[0.8rem] uppercase tracking-wider opacity-75 font-bold mb-1">Previous</span>
+                <span class="font-semibold text-foreground group-hover:text-accent transition-colors duration-200">{prev.data.title}</span>
+            </a>
+        ) : <span />}
+        {next && (
+            <a href={`/server/${next.id}`} class="flex flex-col items-end text-right group max-w-[45%] no-underline">
+                <span class="text-[0.8rem] uppercase tracking-wider opacity-75 font-bold mb-1">Next</span>
+                <span class="font-semibold text-foreground group-hover:text-accent transition-colors duration-200">{next.data.title}</span>
+            </a>
+        )}
+    </nav>
+</BaseDetail>

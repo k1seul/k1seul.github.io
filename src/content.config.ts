@@ -77,6 +77,17 @@ const projects = defineCollection({
     }),
 });
 
+// Lab server guides (Server tab), listed by `order`
+const server = defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/server" }),
+    schema: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+        order: z.number().default(100),
+        date: z.string().optional(), // last updated
+    }),
+});
+
 const cv = defineCollection({
     loader: glob({ pattern: "cv.md", base: "./src/content" }),
     schema: z.object({
@@ -112,4 +123,5 @@ export const collections = {
     'projects': projects,
     'cv': cv,
     'teaching': teaching,
+    'server': server,
 };

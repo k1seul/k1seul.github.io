@@ -37,6 +37,11 @@ export const PAGES: PagesConfig = {
         subtitle: "Explore content by topic.",
         isActive: true,
     },
+    server: {
+        title: "Lab Server",
+        subtitle: "How to use the LAAL servers: accounts, hardware, rules, and environment.",
+        isActive: true,
+    },
     cv: {
         title: "CV",
         subtitle: "",

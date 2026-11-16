@@ -771,7 +771,7 @@ a:hover,
 
 .prose pre code {
     background: transparent;
-    color: var(--foreground);
+    color: inherit;
     padding: 0;
 }
 
@@ -816,6 +816,16 @@ a:hover,
 }
 
 /* Item List */
+.callout {
+    margin: 0 0 2rem;
+    padding: 0.875rem 1rem;
+    border-left: 4px solid var(--accent);
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
 .item-list {
     display: flex;
     flex-direction: column;

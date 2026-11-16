@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseItemCard from "../../components/ui/BaseItemCard.astro";
+import { PAGES } from "../../config";
+
+if (PAGES.server.isActive === false) {
+    return Astro.redirect("/404");
+}
+
+const guides = (await getCollection("server")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title={PAGES.server.title}>
+    <header class="page-header">
+        <h1 class="page-title">{PAGES.server.title}</h1>
+        {PAGES.server.subtitle && <p class="page-subtitle">{PAGES.server.subtitle}</p>}
+    </header>
+
+    <p class="callout">
+        Guides for LAAL members, maintained by the server admin (Hanseul Kim).
+        Server addresses, ports, and account details are <strong>not</strong> posted here.
+        Ask the admin for access.
+    </p>
+
+    <section class="item-list">
+        {guides.map((guide, i) => (
+            <BaseItemCard
+                title={`${i + 1}. ${guide.data.title}`}
+                href={`/server/${guide.id}`}
+                description={guide.data.description}
+            />
+        ))}
+    </section>
+</BaseLayout>
