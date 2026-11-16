@@ -44,6 +44,8 @@ Do not send passwords or SSH private keys. Share account details in a private me
 3. The admin sets ownership, permissions, and capacity limits for your personal or project folder.
 4. You receive a registration confirmation, storage path, and allocated capacity.
 
+Only approved members' UID/GID values and the groups needed for their access will be registered. Other GSDS accounts or groups will not be imported automatically. See [Account registration and access scope](/server/gsds-management#account-registration-and-access-scope).
+
 This adds a storage user corresponding to your existing GSDS identity. It does **not** issue a new GSDS account or synchronize LAAL/GSDS passwords. Use the path from your GSDS computing environment; you do not need a separate SSH login to the storage server.
 
 ## How do I know registration is complete?
