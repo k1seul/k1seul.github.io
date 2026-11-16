@@ -1,9 +1,9 @@
 ---
 title: "GSDS Storage Server Specs"
 description: "The planned server model, CPU, memory, and storage capacity at a glance."
-section: gsds-specs
+section: gsds
 language: en
-order: 1
+order: 5
 date: "2026-11-16"
 ---
 

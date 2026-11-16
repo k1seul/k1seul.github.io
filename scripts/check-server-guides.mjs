@@ -30,11 +30,11 @@ for (const name of names) {
     for (const [language, doc] of [["en", english], ["ko", korean]]) {
         const file = `${language}/${name}`;
         assert.equal(doc.metadata.language, language, `${file}: wrong language metadata`);
-        assert(["laal", "gsds", "gsds-specs"].includes(doc.metadata.section), `${file}: invalid guide section`);
+        assert(["laal", "gsds"].includes(doc.metadata.section), `${file}: invalid guide section`);
         assert(doc.metadata.title && doc.metadata.description, `${file}: missing title or description`);
         assert.equal((doc.source.match(/^```/gm) ?? []).length % 2, 0, `${file}: unclosed code fence`);
         if (language === "en") assert(!/[가-힣]/u.test(doc.source), `${file}: Korean text in the English guide`);
-        if (doc.metadata.section === "gsds") {
+        if (doc.metadata.section === "gsds" && name !== "gsds-specs.md") {
             assert(!/R730|H730|RAIDZ|18TB|10GbE|iDRAC|백플레인|무상 A\/S/i.test(doc.source), `${file}: hardware details in user guidance`);
         }
         for (const match of doc.source.matchAll(/(?:\]\(|(?:href|src)=")((?:\/ko)?\/server[^\s"\)#]*|\/images\/[^\s"\)#]+)/g)) {
