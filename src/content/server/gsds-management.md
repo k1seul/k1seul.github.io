@@ -11,6 +11,12 @@ date: "2026-11-16"
 
 LAAL manages the storage, including account registration, access permissions, maintenance, and troubleshooting. If you need help or run into a problem, please contact a LAAL admin using the details below.
 
+## Account registration and access scope
+
+For research data access, only approved members' UID/GID values and the groups required for their access will be registered and authorized. Other user or group IDs will not be imported automatically or granted access. System and administrator accounts needed to operate the server are managed separately.
+
+Access will also be restricted through folder permissions and access settings; creating or omitting a local account alone does not enforce these restrictions. Sharing a GSDS server or group does not automatically grant access to lab storage.
+
 ## Capacity and shared data
 
 The default personal allocation is not finalized. It will be announced at launch. Request extra space with its purpose and expected duration. For datasets used by several people, request a project folder to avoid duplicate copies.
