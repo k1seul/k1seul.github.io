@@ -1,42 +1,57 @@
 ---
-title: "Requesting Space & Quotas"
-description: "Who can use the LAAL storage at GSDS, how to apply, and how quotas will work."
+title: "GSDS 스토리지 이용 신청과 용량"
+description: "개통 후 신청할 정보와 UID/GID 확인 방법, quota 초안을 안내합니다."
 section: gsds
 order: 2
 date: "2026-11-16"
 ---
 
-> **Planned.** Requests open once the server is installed. The quota numbers below are proposals and may change before launch.
+> **아직 이용 신청을 받지 않습니다.** 설치와 연결 검증이 끝나면 연구실에 공지합니다. 아래 quota와 경로 정책은 운영 초안입니다.
 
-## Who can apply
+## 누가 사용할 수 있나요?
 
-LAAL members who have a **GSDS account in the LAAL group (`lab01`)**.
+GSDS 계정과 LAAL 그룹(`lab01`) 이용 권한이 있는 LAAL 구성원을 대상으로 계획하고 있습니다. GSDS 계정 발급과 그룹 가입은 GSDS 절차를 따릅니다. LAAL 서버 계정만으로 자동 연결되지는 않습니다.
 
-GSDS accounts and `lab01` membership are issued by GSDS, not by the LAAL admins. Get those first.
+## 미리 확인할 정보
 
-## How to apply
+**GSDS 로그인 환경**에서 다음을 실행하세요. 관리자 권한은 필요하지 않습니다. LAAL의 `master`에서 실행한 결과와 혼동하지 않도록 실행 위치를 확인합니다.
 
-Send a **DM to Hanseul Kim** with:
+```bash
+hostname
+whoami
+id
+id -u
+id -g
+id -G
+```
 
-- your **SNU email**
-- your **GSDS username**
-- your **LAAL username**
-- **how much space** you need, **what for** (datasets, checkpoints, results), and **for how long**
+UID는 사용자 번호, GID는 그룹 번호입니다. 사용자 이름이 같아도 번호가 다르면 파일 소유권이 달라집니다. 기본 그룹뿐 아니라 공유 폴더에 사용하는 보조 그룹도 확인합니다. 이 번호를 일치시키는 것이 비밀번호나 인증 시스템까지 공유한다는 의미는 아닙니다.
 
-## Quotas (proposed)
+## 개통 후 신청 방법
 
-| | Plan |
+김한슬에게 DM으로 아래 정보를 보내 주세요.
+
+- 학교 이메일, GSDS 사용자 이름, LAAL 사용자 이름
+- GSDS에서 확인한 `id` 출력(비공개 채널로 전달)
+- 필요한 용량과 용도: 데이터셋, checkpoint, 결과 등
+- 예상 사용 기간과 함께 쓰는 프로젝트 구성원
+
+IP, 실제 사용자 번호와 접속 정보는 이 공개 문서에 올리지 않습니다. 관리자가 권한과 quota를 설정한 뒤 **확정된 마운트 경로**를 안내합니다. 계산 노드의 마운트는 GSDS 관리자와 협의하여 적용하며, 사용자가 임의로 설정하지 않습니다.
+
+## 용량 정책 초안
+
+| 구분 | 제안 |
 | --- | --- |
-| Default personal quota | **2 TB** per user |
-| More space | ask with a reason and a time frame; granted if capacity allows, and reviewed periodically |
-| Shared project or dataset folders | available on request for a team; counted against the project, not one person |
-| When you hit the limit | new writes fail, so clean up or ask for more |
+| 개인 기본 quota | 2TB/인. 사용자 수와 전체 용량 검토 후 확정 |
+| 추가 용량 | 사유·기간을 받아 잔여 용량 내에서 배정 |
+| 공유 데이터셋·프로젝트 | 별도 dataset과 용량 예산으로 관리해 중복 저장 방지 |
+| quota 초과 | 새 파일 저장이나 checkpoint 쓰기가 실패할 수 있으므로 사전 정리 또는 증설 요청 |
 
-Final numbers will be announced when the server goes live.
+예를 들어 40명 모두에게 2TB를 보장하면 초기 용량을 넘습니다. 따라서 기본 quota도 **보장된 배정량이 아니라 제안 값**이며, 개인·프로젝트의 전체 배정 합계와 여유 공간을 보고 확정합니다.
 
-## Rules (planned)
+## 저장할 때 유의할 점
 
-- **Not backed up.** Keep a copy of anything you can't reproduce.
-- **Clean up** when a project ends, and keep only what you're still using.
-- **Leaving the lab:** your space will be removed after notice, so move what you need first.
-- **Lab data only.** Don't store personal files.
+코드와 최종 결과는 별도 사본을 유지해 주세요. 자동 백업은 제공할 계획이 없습니다. 프로젝트가 끝나면 임시 파일과 불필요한 checkpoint를 정리하고, 구성원이 떠날 때는 관리자와 보관·이전 시점을 정합니다. 공지 없이 일괄 삭제하는 정책은 두지 않습니다.
+
+새 공간은 아직 LAAL `/home`이나 GSDS 기존 홈을 대체하지 않습니다. 프로그램의 출력 경로는 개통 공지 후 변경해 주세요.
+

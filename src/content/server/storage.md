@@ -1,59 +1,68 @@
 ---
-title: "Storage"
-description: "Where to put code, datasets, and checkpoints, and why nothing is backed up."
+title: "파일은 어디에 저장하나요?"
+description: "공유 home과 노드 로컬 디스크의 차이, 용량 확인과 결과 보관 방법입니다."
 section: laal
 order: 5
 date: "2026-11-16"
 ---
 
-## Where things go
+코드와 결과는 공유 `/home`, I/O가 많은 임시 데이터는 사용 가능한 노드의 로컬 scratch를 활용합니다. **현재 LAAL 스토리지에는 별도 백업이 없습니다.**
 
-| Path | Use it for | Visible from | Backed up |
-| --- | --- | --- | --- |
-| `/home/<username>` | code, environments, results | all nodes | **No** |
-| `/home/shared/<dataset>` | public datasets shared by the lab | all nodes | **No** |
-| `/data/<username>` on `laal3` | fast local scratch (NVMe) | `laal3` only | **No** |
-| `/data/laal2/shared` on `laal2` | local scratch | `laal2` only | **No** |
+## 경로 선택
 
-## Nothing is backed up
+| 경로 | 용도 | 접근 가능한 노드 |
+| --- | --- | --- |
+| `/home/<username>` | 코드, 환경, 보관할 결과 | 모든 LAAL 노드 |
+| `/home/shared/<dataset>` | 연구실 공용 데이터셋 | 모든 LAAL 노드 |
+| laal3의 `/data/<username>` | 빠른 NVMe 임시 작업 공간 | laal3만 |
+| laal2의 `/data/laal2/shared` | 제한적인 임시 작업 공간 | laal2만 |
 
-`/home` is on a RAID array. RAID survives a broken disk, but it does **not** protect against deleting or overwriting files. If you delete something, it is gone.
+`laal2`의 위 경로는 OS와 같은 디스크를 사용합니다. 대용량 저장 전에 관리자에게 여유 용량을 확인해 주세요. 개인 scratch 폴더가 없거나 권한이 없으면 생성 요청을 보내면 됩니다.
 
-- Keep code in git and push it to GitHub.
-- Copy results you can't reproduce, like final checkpoints and paper figures, somewhere else too.
-
-## `/home` is shared, so keep it tidy
-
-Everyone's `/home` sits on the same disks, and there are no per-user quotas. When it fills up, **everyone's jobs fail** while saving checkpoints. Please:
-
-- keep only the checkpoints you need (e.g. best and last), and delete failed or abandoned runs
-- clear caches from time to time:
+## 실험 전 확인
 
 ```bash
-conda clean -a          # conda package cache
-pip cache purge         # pip cache
-uv cache clean          # uv cache
-du -sh ~/.cache/huggingface    # Hugging Face downloads; delete models you no longer use
+# 작업을 실행할 노드에서 확인
+df -h /home
+du -sh "$HOME"
+du -h --max-depth=1 "$HOME" | sort -h | tail -15
 ```
 
-To see what takes up your space (this can take a while on big folders):
+`df`는 파일시스템 전체 여유, `du`는 내가 사용하는 용량입니다. 큰 폴더의 `du`는 오래 걸릴 수 있으므로 반복 실행은 피해주세요. `No space left`가 나면 실제 출력 경로가 어느 파일시스템인지도 확인합니다.
+
+현재 LAAL `/home`은 사용자별 quota 없이 함께 씁니다. checkpoint가 저장될 만큼 여유가 있는지 확인하고, 실패한 실험·중복 데이터·불필요한 checkpoint를 정리해 주세요.
+
+## 로컬 scratch 활용
+
+해당 노드에 할당받은 작업 안에서 데이터를 복사해 읽으면 공유 HDD의 부하를 줄일 수 있습니다. 다만 복사할 시간과 로컬 용량도 필요하므로 모든 데이터를 매번 복사할 필요는 없습니다.
+
+1. 작업 노드와 로컬 경로를 확인합니다.
+2. 필요한 데이터만 내 scratch에 준비합니다.
+3. 실험의 입력·임시 출력 경로를 그 위치로 지정합니다.
+4. 보관할 결과는 여유가 있는 `/home`으로 복사하고 복사 완료를 확인합니다.
+5. 다음 실행에 필요 없는 scratch는 본인 파일만 정리합니다.
+
+다른 노드에서는 그 파일이 보이지 않습니다. 실패·시간 초과 시 마지막 복사가 실행되지 않을 수 있으므로 중요한 checkpoint는 실험 중에도 적절한 간격으로 보관 경로에 저장하세요.
+
+## 공용 데이터셋과 캐시
+
+다운로드 전 `/home/shared`에 같은 데이터가 있는지 확인합니다. 새 데이터셋은 `/home/shared/<dataset_name>`에 출처와 사용 방법을 적은 README를 함께 둡니다. 권한이 필요하면 관리자에게 문의하고, 다른 사람이 사용하는 파일은 변경·삭제하지 않습니다.
+
+사용하지 않는 패키지 캐시는 필요에 따라 정리할 수 있습니다. 아래 명령을 전부 실행할 필요는 없으며, 정리 후에는 다시 다운로드할 수 있습니다.
 
 ```bash
-du -h --max-depth=1 ~ | sort -h | tail -15
+conda clean --all --dry-run
+# 출력 확인 후 필요할 때 conda clean --all
+pip cache info
+uv cache size
+du -sh ~/.cache/huggingface
 ```
 
-`/home` sits on hard disks shared by everyone. Jobs that write thousands of tiny files, or save checkpoints every few minutes, slow down the whole lab. Write less often, or use local scratch.
+수많은 작은 파일이나 동시 checkpoint 저장은 공유 디스크를 느리게 할 수 있습니다. 저장 주기를 조정하고, 읽기 패턴에 맞게 파일 수를 줄이거나 노드 로컬 저장소를 활용해 주세요.
 
-## Shared datasets: `/home/shared`
+## RAID와 백업은 다릅니다
 
-- Before downloading a public dataset (COCO, ADE20K, ...), check whether it's already in `/home/shared`.
-- To add one, put it in `/home/shared/<dataset_name>/` with a short `README` saying where it came from.
-- Don't delete or change anyone else's data there.
+기존 `/home`의 RAID는 일부 디스크 장애에 대비하기 위한 구성입니다. 삭제·덮어쓰기·서버 전체 장애를 복구하는 별도 사본은 아닙니다. 코드는 git 원격 저장소에 push하고, 재현하기 어려운 최종 checkpoint와 결과는 다른 저장장치에도 보관해 주세요.
 
-## Local scratch: `/data`
+[GSDS 신규 스토리지](/server/gsds-overview)는 별도 서비스로 준비 중입니다. 아직 사용 경로가 확정되지 않았으며, 기존 LAAL `/home`을 자동 확장하는 방식도 아닙니다.
 
-Local disks are faster than `/home` for heavy reading and writing, but only the node they're in can see them.
-
-- **`laal3`**: use `/data/<username>`. If it doesn't exist, ask the admins.
-- **`laal2`**: `/data/laal2/shared` lives on the **same disk as the operating system**. Keep it small, because filling it can take the whole node down.
-- Copy the results you want to keep back to `/home` at the end of the job, and delete your scratch files when you're done.

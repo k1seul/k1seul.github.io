@@ -28,6 +28,22 @@ const guides = (await getCollection("server"))
 
     <p class="callout">{meta.intro}</p>
 
+    <nav aria-label="빠른 안내" class="flex flex-wrap gap-2 mb-8">
+        {section === "laal" ? (
+            <>
+                <a class="btn btn-sm" href="/server/getting-started">처음 시작하기</a>
+                <a class="btn btn-sm" href="/server/slurm">GPU 작업 실행</a>
+                <a class="btn btn-sm" href="/server/faq">문제 해결</a>
+            </>
+        ) : (
+            <>
+                <a class="btn btn-sm" href="/server/gsds-overview">진행 상태·구성</a>
+                <a class="btn btn-sm" href="/server/gsds-access">이용 신청 계획</a>
+                <a class="btn btn-sm" href="/server/gsds-operations">관리자 체크리스트</a>
+            </>
+        )}
+    </nav>
+
     <section class="item-list">
         {guides.map((guide, i) => (
             <BaseItemCard
@@ -38,3 +54,4 @@ const guides = (await getCollection("server"))
         ))}
     </section>
 </BaseLayout>
+

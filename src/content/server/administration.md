@@ -1,55 +1,47 @@
 ---
-title: "Administration"
-description: "Who runs the servers, how to reach them, and how maintenance works."
+title: "관리자 연락과 점검 안내"
+description: "계정 신청, 오류 제보, 정기 점검과 담당자 연락 방법입니다."
 section: laal
 order: 9
 date: "2026-11-16"
 ---
 
-## Admins
+계정 신청이나 사용 중 막히는 부분이 있으면 김한슬에게 DM을 보내 주세요. 급한 장애인데 연락이 닿지 않으면 조민수에게도 알려 주세요.
 
-| | Role | Responsible for |
-| --- | --- | --- |
-| **Hanseul Kim** | Main admin | accounts, Slurm and system configuration, incident response, announcements |
-| **Minsoo Jo** | Deputy admin | covers when the main admin is away, hardware checks, first point of contact for user questions |
+| 담당자 | 역할 |
+| --- | --- |
+| 김한슬 | 주 담당: 계정, Slurm·시스템 설정, 장애 대응과 공지 |
+| 조민수 | 부 담당: 주 담당자 부재 시 대응, 장비 점검과 사용자 문의 |
 
-## How to reach us
-
-- **Accounts and anything else:** DM **Hanseul Kim**.
-- **Urgent and no reply:** DM **Minsoo Jo**.
-
-The admins are students too, so non-urgent requests may take a day or two.
+학생이 함께 관리하는 서버이므로 일반 요청은 답변까지 하루 이틀 걸릴 수 있습니다. 작업 중단이나 여러 사용자에게 영향을 주는 장애라면 그 상황을 메시지 첫 줄에 적어 주세요.
 
 ## Reporting a problem
 
-Include these details and we can usually fix things much faster:
+에러가 나면 아래 양식 중 아는 부분만 채워 보내 주세요. 스크린샷만 보내는 것보다 에러 원문과 작업 ID가 있으면 확인하기 쉽습니다.
 
-- **Node / partition**, e.g. `laal2` / `laal_a6000`
-- **Job ID**, if it's about a job
-- **When** it happened
-- **What you ran**: the command or `sbatch` script
-- **The error message**, or the path to the log file
+```text
+증상: (예: checkpoint 저장 중 쓰기 오류)
+발생 시각:
+노드 / 파티션:
+작업 ID:
+실행 명령 또는 sbatch 스크립트:
+에러 메시지 / 로그 경로:
+이미 확인한 내용:
+```
 
-## Maintenance
+비밀번호·개인키·API 키는 지우고 전달합니다. 원래 로그를 먼저 보존하고, 재현에 필요한 최소 명령을 함께 보내면 도움이 됩니다.
 
-- **Regular maintenance:** in the **first week of each month**, announced in the lab channel ahead of time. Jobs may need to stop during the window.
-- **Urgent maintenance:** a hardware fault, such as a GPU that stops responding, may need a reboot on short notice. We announce it as soon as we can.
+## 점검은 어떻게 하나요?
 
-## Monitoring and usage data
+정기 점검은 매월 첫째 주를 기준으로 연구실 채널에 미리 공지합니다. 점검에 따라 작업 중단이나 재부팅이 필요할 수 있으므로, 공지된 시간 전까지 checkpoint를 저장하고 종료해 주세요.
 
-To keep the servers healthy and plan upgrades, the admins record usage statistics:
+GPU 응답 불가나 디스크 장애처럼 긴급한 경우에는 짧은 예고 후 점검할 수 있습니다. 가능한 범위에서 영향과 진행 상황을 공유하겠습니다.
 
-- GPU, CPU, and memory utilization per job
-- power draw
-- storage usage
+관리자는 운영·증설 판단을 위해 작업별 GPU·CPU·메모리 사용량, 전력과 스토리지 사용량을 확인합니다.
 
-They are used only to run and improve the servers.
+## 계정과 인수인계
 
-## Accounts
+새 계정은 [처음 시작하기](/server/getting-started)를 따라 신청합니다. 졸업·퇴실 시에는 데이터 이전 계획과 함께 알려 주세요. 비밀번호 변경과 SSH 키 관리는 개인 계정에서 진행하고, 분실했거나 접속이 막히면 관리자에게 연락합니다.
 
-- **New account:** see [Getting Started](/server/getting-started#1-request-an-account).
-- **Leaving the lab:** tell the admins in advance and move any data you want to keep. Accounts of members who have left may be disabled.
+GSDS 스토리지의 운영 책임과 시설 협의 항목은 [별도 운영 계획](/server/gsds-management)에 정리했습니다. 문서 내용이 실제 환경과 다르거나 설명이 부족한 부분도 편하게 알려 주세요.
 
-## Suggestions
-
-If something in this guide is wrong or unclear, DM Hanseul Kim.
