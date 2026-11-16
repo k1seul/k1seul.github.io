@@ -7,12 +7,12 @@ order: 9
 date: "2026-11-16"
 ---
 
-DM **Hanseul Kim** for accounts and help. For an urgent incident with no response, also contact **Minsoo Jo**.
+Contact **Hanseul Kim** by DM or email for accounts and help. For an urgent incident with no response, also contact **Minsoo Jo**.
 
-| Admin | Role |
-| --- | --- |
-| Hanseul Kim | Main admin: accounts, Slurm/system configuration, incidents, notices |
-| Minsoo Jo | Deputy: covers absences, hardware checks, user questions |
+| Admin | Email | Role |
+| --- | --- | --- |
+| Hanseul Kim | [k1seul@snu.ac.kr](mailto:k1seul@snu.ac.kr) | Main admin: accounts, Slurm/system configuration, incidents, notices |
+| Minsoo Jo | [gsds.minsooj@snu.ac.kr](mailto:gsds.minsooj@snu.ac.kr) | Deputy: covers absences, hardware checks, user questions |
 
 The admins are students too, so ordinary requests may take a day or two. If jobs have stopped or several users are affected, say so at the start of your message.
 

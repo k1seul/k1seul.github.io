@@ -35,10 +35,10 @@ Storage may be unavailable during maintenance or incidents. Planned maintenance 
 
 ## Who should I contact?
 
-| Admin | Requests |
-| --- | --- |
-| Hanseul Kim | Registration, permissions, capacity changes, storage errors |
-| Minsoo Jo | Urgent incidents when the main admin is unavailable |
+| Admin | Email | Requests |
+| --- | --- | --- |
+| Hanseul Kim | [k1seul@snu.ac.kr](mailto:k1seul@snu.ac.kr) | Registration, permissions, capacity changes, storage errors |
+| Minsoo Jo | [gsds.minsooj@snu.ac.kr](mailto:gsds.minsooj@snu.ac.kr) | Urgent incidents when the main admin is unavailable |
 
-DM the time, GSDS node, job ID, storage path, and error message so we can look into it. Please keep internal addresses and account details in private messages.
+Send the time, GSDS node, job ID, storage path, and error message by DM or email so we can look into it. Please keep internal addresses and account details in private messages.
 
