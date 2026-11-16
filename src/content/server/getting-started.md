@@ -11,7 +11,7 @@ New to LAAL? Follow **request an account → connect → request a GPU → run y
 
 ## 1. Request an account
 
-DM **Hanseul Kim** with your SNU email and preferred username. Use lowercase letters and digits, and choose a name others can recognize. The admin will send your server address and initial password.
+DM or email **[Hanseul Kim](mailto:k1seul@snu.ac.kr)** with your SNU email and preferred username. Use lowercase letters and digits, and choose a name others can recognize. The admin will send your server address and initial password.
 
 Replace `<username>`, `<server-address>`, and `<port>` below with the values you receive, removing the angle brackets. Addresses, ports, and passwords are not published here.
 

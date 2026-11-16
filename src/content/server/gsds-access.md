@@ -23,7 +23,7 @@ Do not confuse this with output from LAAL's `master`. UID identifies your user; 
 
 ## What to send
 
-DM Hanseul Kim with:
+Send Hanseul Kim a DM or email at [k1seul@snu.ac.kr](mailto:k1seul@snu.ac.kr) with:
 
 ```text
 SNU email:

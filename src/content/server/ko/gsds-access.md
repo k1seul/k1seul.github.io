@@ -23,7 +23,7 @@ id
 
 ## 관리자에게 보낼 정보
 
-김한슬에게 DM으로 아래를 보내 주세요.
+김한슬에게 DM 또는 이메일([k1seul@snu.ac.kr](mailto:k1seul@snu.ac.kr))로 아래를 보내 주세요.
 
 ```text
 학교 이메일:
