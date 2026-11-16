@@ -1,14 +1,14 @@
 ---
 name: "Hanseul Kim"
 avatar: "profile.jpg"
-shortBio: "Deep learning & reinforcement learning researcher. Interested in the mathematics behind learning algorithms, and in what neuroscience can teach us about them."
+shortBio: "M.S./Ph.D. student working on deep learning & reinforcement learning. Interested in the mathematics behind learning algorithms, and in what neuroscience can teach us about them."
 institution: "SNU LAAL"
 institutionUrl: "https://snu-laal.com/"
 ---
 
-Hi! I'm **Hanseul Kim**, a deep learning researcher at the [Learning and Adaptation Algorithms Lab (LAAL)](https://snu-laal.com/), Seoul National University.
+Hi! I'm **Hanseul Kim**, an integrated M.S./Ph.D. student at the [Learning and Adaptation Algorithms Lab (LAAL)](https://snu-laal.com/), Seoul National University.
 
-I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunkwan University, where I worked on reinforcement learning and neuroscience at the Center for Neuroscience Imaging Research. My undergraduate thesis compared deep RL agents with rhesus monkeys on a 3D navigation task.
+I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunkwan University, where I worked on reinforcement learning and neuroscience at the Center for Neuroscience Imaging Research. My undergraduate thesis compared deep RL agents with rhesus monkeys on a 3D navigation task. Before joining SNU, I was a research intern at DAVIAN Lab, KAIST.
 
 ## Research Interests
 

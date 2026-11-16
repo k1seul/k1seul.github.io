@@ -1,11 +1,11 @@
 ---
 name: "Hanseul Kim"
-title: "Deep Learning Researcher"
+title: "M.S./Ph.D. Student"
 experience:
-  - role: "Researcher"
-    institution: "Learning and Adaptation Algorithms Lab (LAAL), Seoul National University"
-    period: "Present"
-    description: "Deep learning and reinforcement learning research."
+  - role: "Research Intern"
+    institution: "DAVIAN Lab, KAIST"
+    period: "2024"
+    description: "Deep learning research internship."
   - role: "Data Analyst"
     institution: "Samsung Medical Center"
     period: "Spring 2024"
@@ -19,6 +19,10 @@ experience:
     period: "Winter 2020"
     description: "Alzheimer's disease mouse model and neurovascular imaging."
 education:
+  - degree: "Integrated M.S./Ph.D. Program"
+    institution: "Seoul National University"
+    period: "Present"
+    description: "Learning and Adaptation Algorithms Lab (LAAL). Deep learning and reinforcement learning research."
   - degree: "B.S. in Biomedical Engineering (Neuroscience Track)"
     institution: "Sungkyunkwan University"
     period: "Graduated Feb 2024"
