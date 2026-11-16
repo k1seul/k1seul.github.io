@@ -5,6 +5,9 @@ export interface TimelineItemData {
     subtitle: string;
     description?: string;
     thesis?: string;
+    subtitleUrl?: string;
+    advisor?: string;
+    advisorUrl?: string;
 }
 
 interface Props {
@@ -32,11 +35,29 @@ const { items } = Astro.props;
                         </span>
                     </div>
                     <div class="body font-semibold opacity-90">
-                        {item.subtitle}
+                        {item.subtitleUrl ? (
+                            <a href={item.subtitleUrl} target="_blank" rel="noopener noreferrer" class="link">
+                                {item.subtitle}
+                            </a>
+                        ) : (
+                            item.subtitle
+                        )}
                     </div>
                     {item.description && (
                         <div class="body mt-2">
                             {item.description}
+                        </div>
+                    )}
+                    {item.advisor && (
+                        <div class="body mt-2">
+                            Advisor:{" "}
+                            {item.advisorUrl ? (
+                                <a href={item.advisorUrl} target="_blank" rel="noopener noreferrer" class="link">
+                                    {item.advisor}
+                                </a>
+                            ) : (
+                                item.advisor
+                            )}
                         </div>
                     )}
                     {item.thesis && (

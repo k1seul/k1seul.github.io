@@ -86,6 +86,9 @@ const cv = defineCollection({
             institution: z.string(),
             period: z.string(),
             description: z.string(),
+            url: z.string().url().optional(),
+            advisor: z.string().optional(),
+            advisorUrl: z.string().url().optional(),
         })).optional(),
         education: z.array(z.object({
             degree: z.string(),
@@ -93,6 +96,9 @@ const cv = defineCollection({
             period: z.string(),
             thesis: z.string().optional(),
             description: z.string().optional(),
+            url: z.string().url().optional(),
+            advisor: z.string().optional(),
+            advisorUrl: z.string().url().optional(),
         })).optional(),
     }),
 });

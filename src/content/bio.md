@@ -2,21 +2,22 @@
 name: "Hanseul Kim"
 avatar: "profile.jpg"
 avatarHover: "profile-drawn.png"
-shortBio: "M.S./Ph.D. student working on robot learning, vision-language-action models, world action models, and reinforcement learning."
+shortBio: "M.S./Ph.D. student working on robot learning: vision-language-action models, world action models, and reinforcement learning."
 institution: "SNU LAAL"
 institutionUrl: "https://snu-laal.com/"
 ---
 
-Hi! I'm **Hanseul Kim**, an integrated M.S./Ph.D. student at the [Learning and Adaptation Algorithms Lab (LAAL)](https://snu-laal.com/), Seoul National University.
+Hi! I'm **Hanseul Kim**, an integrated M.S./Ph.D. student at the [Learning and Adaptation Algorithms Lab (LAAL)](https://snu-laal.com/), Seoul National University, advised by [Prof. Taesup Kim](https://scholar.google.com/citations?user=7V7yNeoAAAAJ). I work on **robot learning**.
 
-I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunkwan University, where I worked on reinforcement learning and neuroscience at the Center for Neuroscience Imaging Research. My undergraduate thesis compared deep RL agents with rhesus monkeys on a 3D navigation task. Before joining SNU in Fall 2025, I was a research intern at DAVIAN Lab, KAIST.
+I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunkwan University, where I worked on reinforcement learning and neuroscience at the Center for Neuroscience Imaging Research. My undergraduate thesis compared deep RL agents with rhesus monkeys on a 3D navigation task.
 
 ## Research Interests
 
-- **Robot Learning**
+My research focuses on **robot learning**: building robot policies that learn general, adaptable behavior. In particular:
+
 - **Vision-Language-Action Models (VLAs)**
 - **World Action Models**: what makes world-model latents useful for action ([CoRL 2026](/publications/corl2026-action-relevant-latents))
-- **Reinforcement Learning**
+- **Reinforcement Learning** for robot control
 
 ## Bookshelf
 

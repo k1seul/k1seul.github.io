@@ -3,7 +3,7 @@ import type { SiteConfig, ThemeConfig, SettingsConfig, UmamiAnalyticsConfig, Ana
 export const SITE: SiteConfig = {
     website: "https://k1seul.github.io/",
     author: "Hanseul Kim",
-    desc: "Hanseul Kim: M.S./Ph.D. student at LAAL, Seoul National University, working on robot learning, VLAs, world action models, and reinforcement learning.",
+    desc: "Hanseul Kim: M.S./Ph.D. student at LAAL, Seoul National University, working on robot learning.",
     title: "Hanseul Kim",
     ogImage: "og-image.jpg",
     postPerPage: 10,

@@ -36,7 +36,10 @@ const { name, title, experience = [], education = [] } = cvEntry.data;
                         title: exp.role,
                         subtitle: exp.institution,
                         period: exp.period,
-                        description: exp.description
+                        description: exp.description,
+                        subtitleUrl: exp.url,
+                        advisor: exp.advisor,
+                        advisorUrl: exp.advisorUrl
                     }))} />
                 </section>
             )
@@ -53,7 +56,10 @@ const { name, title, experience = [], education = [] } = cvEntry.data;
                         subtitle: edu.institution,
                         period: edu.period,
                         description: edu.description,
-                        thesis: edu.thesis
+                        thesis: edu.thesis,
+                        subtitleUrl: edu.url,
+                        advisor: edu.advisor,
+                        advisorUrl: edu.advisorUrl
                     }))} />
                 </section>
             )
