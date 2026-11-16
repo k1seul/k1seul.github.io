@@ -85,7 +85,7 @@ const server = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string().optional(),
-        section: z.enum(["laal", "gsds"]).default("laal"),
+        section: z.enum(["laal", "gsds", "gsds-specs"]).default("laal"),
         language: z.enum(["en", "ko"]).default("en"),
         order: z.number().default(100),
         date: z.string().optional(), // last updated

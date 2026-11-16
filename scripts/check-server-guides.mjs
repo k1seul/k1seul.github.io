@@ -30,6 +30,7 @@ for (const name of names) {
     for (const [language, doc] of [["en", english], ["ko", korean]]) {
         const file = `${language}/${name}`;
         assert.equal(doc.metadata.language, language, `${file}: wrong language metadata`);
+        assert(["laal", "gsds", "gsds-specs"].includes(doc.metadata.section), `${file}: invalid guide section`);
         assert(doc.metadata.title && doc.metadata.description, `${file}: missing title or description`);
         assert.equal((doc.source.match(/^```/gm) ?? []).length % 2, 0, `${file}: unclosed code fence`);
         if (language === "en") assert(!/[가-힣]/u.test(doc.source), `${file}: Korean text in the English guide`);

@@ -3,10 +3,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import BaseItemCard from "../ui/BaseItemCard.astro";
 import ServerTabs from "../ui/ServerTabs.astro";
 import ServerLanguageSwitch from "../ui/ServerLanguageSwitch.astro";
-import { SERVER_COPY, getServerSections, serverHref, type ServerLanguage, type ServerSectionId } from "../../config/server";
+import { SERVER_COPY, GSDS_GUIDE_URL, getServerSections, serverHref, type ServerLanguage } from "../../config/server";
 import { getServerGuides, serverGuideHref } from "../../utils/serverGuides";
 
-interface Props { section: ServerSectionId; language?: ServerLanguage; }
+interface Props { section: "laal" | "gsds"; language?: ServerLanguage; }
 const { section, language = "en" } = Astro.props;
 const copy = SERVER_COPY[language];
 const meta = getServerSections(language).find((s) => s.id === section)!;
@@ -26,6 +26,7 @@ const quickIds = section === "laal" ? ["getting-started", "slurm", "faq"] : ["gs
         {quickIds.map((id, i) => (
             <a class="btn btn-sm" href={serverHref("/server/" + id, language)}>{copy.quick[section][i]}</a>
         ))}
+        {section === "gsds" && <a class="btn btn-sm" href={GSDS_GUIDE_URL}>{copy.gsdsGuide}</a>}
     </nav>
     <section class="item-list">
         {guides.map((guide, i) => (
