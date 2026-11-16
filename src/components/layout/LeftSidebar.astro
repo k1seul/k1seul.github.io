@@ -2,7 +2,6 @@
 import { SITE, SOCIALS, SOCIAL_ICONS } from "../../config";
 import { getCollection } from "astro:content";
 import Icon from "../ui/Icon.astro";
-import { Image } from 'astro:assets';
 
 const activeSocials = SOCIALS.filter((s) => s.isActive);
 const bioCollection = await getCollection("bio");
@@ -12,16 +11,29 @@ const bio = bioCollection[0]?.data;
 <aside class="sidebar max-lg:flex-row max-lg:flex-wrap max-lg:gap-3 max-md:gap-2">
     <div class="flex flex-col items-center text-center max-lg:flex-row max-lg:text-left max-lg:gap-3 max-lg:items-center max-md:gap-2">
         {bio?.avatar && (
-            <Image
-                src={`/${bio.avatar}`}
-                alt={`Avatar of ${bio.name}`}
-                width={160} /* Maximum width in global.css for sidebar-avatar class */
-                height={160}
-                densities={[1.5, 2]} 
-                format="webp"
-                class="sidebar-avatar"
-                loading="eager"
-            />
+            <div class="sidebar-avatar-wrap">
+                <img
+                    src={`/${bio.avatar}`}
+                    alt={`Photo of ${bio.name}`}
+                    width="160"
+                    height="160"
+                    class="sidebar-avatar"
+                    loading="eager"
+                    decoding="async"
+                />
+                {bio.avatarHover && (
+                    <img
+                        src={`/${bio.avatarHover}`}
+                        alt=""
+                        aria-hidden="true"
+                        width="160"
+                        height="160"
+                        class="sidebar-avatar sidebar-avatar-hover"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                )}
+            </div>
         )}
         <div class="flex flex-col items-center max-lg:items-start">
             {bio?.name && <h1 class="sidebar-name">{bio.name}</h1>}

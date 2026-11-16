@@ -7,7 +7,7 @@ export const SITE: SiteConfig = {
     title: "Hanseul Kim",
     ogImage: "og-image.jpg",
     postPerPage: 10,
-    favicon: "/favicon.svg",
+    favicon: "/favicon.png",
     lang: "en",
 };
 

@@ -1,6 +1,7 @@
 ---
 name: "Hanseul Kim"
 avatar: "profile.jpg"
+avatarHover: "profile-drawn.png"
 shortBio: "M.S./Ph.D. student working on deep learning & reinforcement learning. Interested in the mathematics behind learning algorithms, and in what neuroscience can teach us about them."
 institution: "SNU LAAL"
 institutionUrl: "https://snu-laal.com/"
@@ -8,10 +9,11 @@ institutionUrl: "https://snu-laal.com/"
 
 Hi! I'm **Hanseul Kim**, an integrated M.S./Ph.D. student at the [Learning and Adaptation Algorithms Lab (LAAL)](https://snu-laal.com/), Seoul National University.
 
-I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunkwan University, where I worked on reinforcement learning and neuroscience at the Center for Neuroscience Imaging Research. My undergraduate thesis compared deep RL agents with rhesus monkeys on a 3D navigation task. Before joining SNU, I was a research intern at DAVIAN Lab, KAIST.
+I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunkwan University, where I worked on reinforcement learning and neuroscience at the Center for Neuroscience Imaging Research. My undergraduate thesis compared deep RL agents with rhesus monkeys on a 3D navigation task. Before joining SNU in Fall 2025, I was a research intern at DAVIAN Lab, KAIST.
 
 ## Research Interests
 
+- **World models & representations for robot learning**: what makes learned latents useful for action ([CoRL 2026](/publications/corl2026-action-relevant-latents))
 - **Reinforcement Learning**, especially continual / lifelong RL ([survey](https://arxiv.org/abs/2307.11046))
 - **Mathematical foundations** of deep learning
 - **Natural vs. artificial intelligence**, through the lens of neuroscience

@@ -4,7 +4,7 @@ title: "M.S./Ph.D. Student"
 experience:
   - role: "Research Intern"
     institution: "DAVIAN Lab, KAIST"
-    period: "2024"
+    period: "2024 - Early 2025"
     description: "Deep learning research internship."
   - role: "Data Analyst"
     institution: "Samsung Medical Center"
@@ -21,7 +21,7 @@ experience:
 education:
   - degree: "Integrated M.S./Ph.D. Program"
     institution: "Seoul National University"
-    period: "Present"
+    period: "Fall 2025 - Present"
     description: "Learning and Adaptation Algorithms Lab (LAAL). Deep learning and reinforcement learning research."
   - degree: "B.S. in Biomedical Engineering (Neuroscience Track)"
     institution: "Sungkyunkwan University"
