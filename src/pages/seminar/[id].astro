@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import BaseDetail from "../../layouts/BaseDetail.astro";
+import SeminarSchedule from "../../components/content/SeminarSchedule.astro";
+import { PAGES } from "../../config";
+
+export async function getStaticPaths() {
+    if (PAGES.seminar.isActive === false) return [];
+    return (await getCollection("seminar")).map((term) => ({
+        params: { id: term.id },
+        props: { term },
+    }));
+}
+
+const { term } = Astro.props;
+---
+
+<BaseDetail collection="seminar" id={term.id}>
+    <SeminarSchedule slot="footer" sessions={term.data.sessions} />
+</BaseDetail>

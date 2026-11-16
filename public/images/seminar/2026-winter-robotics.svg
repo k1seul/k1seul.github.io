@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="410" viewBox="0 0 800 410" role="img" aria-labelledby="title desc">
+  <title id="title">2026 Winter Robotics Study: reading map</title>
+  <desc id="desc">The term opens with a NeurIPS Day in December, followed by eight weekly sessions. Thirty candidate papers fall under three themes: Advanced VLA with ten papers, World Action Models with twelve, and LLM as Policy with eight.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#526179"/></marker>
+  </defs>
+  <rect width="800" height="410" rx="8" fill="#ffffff"/>
+  <g font-family="Inter, system-ui, sans-serif" fill="#152438">
+    <text x="30" y="40" font-size="22" font-weight="700">LAAL Robotics Seminar · 2026 Winter</text>
+    <text x="30" y="66" font-size="15" fill="#526179">30 candidate papers across three themes</text>
+
+    <rect x="30" y="86" width="210" height="40" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="48" y="111" font-size="15" font-weight="700">NeurIPS Day · Dec</text>
+    <path d="M240 106 H300" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="300" y="86" width="230" height="40" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="318" y="111" font-size="15" font-weight="700">8 weekly sessions</text>
+    <text x="548" y="111" font-size="13" fill="#526179">1 main talk + 2 × 5-min intros</text>
+
+    <rect x="30" y="148" width="235" height="236" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <rect x="30" y="148" width="235" height="62" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="48" y="174" font-size="17" font-weight="700">Advanced VLA</text>
+    <text x="48" y="197" font-size="13" fill="#526179">10 papers · memory, RL, data</text>
+    <text x="48" y="238" font-size="14">π0.7 · MolmoAct2</text>
+    <text x="48" y="264" font-size="14">MEM · NativeMEM</text>
+    <text x="48" y="290" font-size="14">RL Token · EgoScale</text>
+    <text x="48" y="316" font-size="14">OpenVLA-OFT · π*0.6</text>
+    <path d="M48 340 H247" stroke="#b5c1d0"/>
+    <text x="48" y="366" font-size="13" fill="#526179">Frontier 7 · Advanced 3</text>
+
+    <rect x="283" y="148" width="235" height="236" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <rect x="283" y="148" width="235" height="62" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="301" y="174" font-size="17" font-weight="700">World Action Models</text>
+    <text x="301" y="197" font-size="13" fill="#526179">12 papers · future + action</text>
+    <text x="301" y="238" font-size="14">DreamZero · Cosmos Policy</text>
+    <text x="301" y="264" font-size="14">VLA-JEPA · UNITAS</text>
+    <text x="301" y="290" font-size="14">World-VLA-Loop · WMPO</text>
+    <text x="301" y="316" font-size="14">WorldVLA · V-JEPA 2</text>
+    <path d="M301 340 H500" stroke="#b5c1d0"/>
+    <text x="301" y="366" font-size="13" fill="#526179">Frontier 7 · Advanced 5</text>
+
+    <rect x="536" y="148" width="234" height="236" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <rect x="536" y="148" width="234" height="62" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="554" y="174" font-size="17" font-weight="700">LLM as Policy</text>
+    <text x="554" y="197" font-size="13" fill="#526179">8 papers · agents write code</text>
+    <text x="554" y="238" font-size="14">AGP · URAI</text>
+    <text x="554" y="264" font-size="14">Robo-Harness K1 · RoboClaw</text>
+    <text x="554" y="290" font-size="14">OpenRUA · Physical Coding</text>
+    <text x="554" y="316" font-size="14">ReKep · Code as Policies</text>
+    <path d="M554 340 H752" stroke="#b5c1d0"/>
+    <text x="554" y="366" font-size="13" fill="#526179">Frontier 6 · Background 2</text>
+  </g>
+</svg>

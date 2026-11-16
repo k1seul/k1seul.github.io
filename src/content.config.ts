@@ -92,6 +92,38 @@ const server = defineCollection({
     }),
 });
 
+// LAAL Robotics Seminar (Seminar tab): one file per term.
+// `sessions` drives the schedule rendered under the markdown body.
+const seminarPaper = z.object({
+    title: z.string(),
+    url: z.string().url().optional(),
+    venue: z.string().optional(),
+    idea: z.string().optional(),   // one-line main idea
+    slides: z.string().url().optional(),
+    video: z.string().url().optional(),
+});
+
+const seminar = defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/seminar" }),
+    schema: z.object({
+        title: z.string(),
+        date: z.string(),            // term start, used for sorting
+        period: z.string(),          // human-readable, e.g. "July – September 2026"
+        status: z.enum(["planning", "ongoing", "completed"]),
+        institution: z.string().optional(),
+        description: z.string().optional(),
+        image: z.string().optional(),
+        sessions: z.array(z.object({
+            week: z.union([z.number(), z.string()]),
+            date: z.string().optional(),
+            track: z.string().optional(),
+            topic: z.string().optional(),
+            image: z.string().optional(),
+            papers: z.array(seminarPaper).default([]),
+        })).default([]),
+    }),
+});
+
 const cv = defineCollection({
     loader: glob({ pattern: "cv.md", base: "./src/content" }),
     schema: z.object({
@@ -128,5 +160,6 @@ export const collections = {
     'cv': cv,
     'teaching': teaching,
     'server': server,
+    'seminar': seminar,
 };
 

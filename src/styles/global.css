@@ -919,7 +919,8 @@ a:hover,
     scroll-margin-top: 5rem;
 }
 
-.server-guide table {
+.server-guide table,
+.seminar-notes table {
     display: block;
     max-width: 100%;
     overflow-x: auto;
@@ -929,7 +930,9 @@ a:hover,
 }
 
 .server-guide th,
-.server-guide td {
+.server-guide td,
+.seminar-notes th,
+.seminar-notes td {
     min-width: 7rem;
     padding: 0.65rem 0.75rem;
     text-align: left;
@@ -937,8 +940,25 @@ a:hover,
     border: 1px solid var(--border);
 }
 
-.server-guide th {
+.server-guide th,
+.seminar-notes th {
     background: var(--surface);
+}
+
+/* Seminar reading lists (5 columns): paper and main idea share the room,
+   track and the two star ratings stay narrow and on one line. */
+.seminar-notes td:first-child:nth-last-child(5) {
+    min-width: 15rem;
+}
+
+.seminar-notes td:nth-child(2):nth-last-child(4) {
+    min-width: 12rem;
+}
+
+.seminar-notes td:nth-child(n + 3):nth-last-child(-n + 3),
+.seminar-notes th:nth-child(n + 3):nth-last-child(-n + 3) {
+    min-width: 0;
+    white-space: nowrap;
 }
 
 .server-guide blockquote {
@@ -959,6 +979,137 @@ a:hover,
     font-size: 0.85rem;
     line-height: 1.6;
     color: var(--foreground);
+}
+
+/* Seminar schedule: one row per session, optional recording thumbnail. */
+.seminar-schedule {
+    margin-top: 2.5rem;
+}
+
+.seminar-sessions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.seminar-session {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.seminar-session-has-thumb {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.seminar-thumb {
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+a.seminar-thumb:hover {
+    border-color: var(--accent);
+}
+
+.seminar-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.seminar-session-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--foreground) 75%, transparent);
+}
+
+.seminar-week {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.seminar-papers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.seminar-paper-title {
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--foreground);
+    text-decoration: none;
+}
+
+a.seminar-paper-title:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.seminar-venue {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--foreground) 65%, transparent);
+}
+
+.seminar-idea {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: color-mix(in srgb, var(--foreground) 80%, transparent);
+}
+
+.seminar-links {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.seminar-links a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+}
+
+.seminar-links a:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 640px) {
+    .seminar-session-has-thumb {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+
+    .seminar-thumb {
+        max-width: 360px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .seminar-thumb,
+    .seminar-links a {
+        transition: none;
+    }
 }
 
 /* Pagination */

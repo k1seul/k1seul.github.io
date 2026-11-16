@@ -7,13 +7,20 @@ function formatDate(dateValue: string | Date | undefined): string | undefined {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 }
 
+const STATUS_LABELS: Record<string, string> = {
+    planning: "In planning",
+    ongoing: "Ongoing",
+    completed: "Completed",
+};
+
 export function getListingItem(entry: any, collection?: string): ListingItem {
     const d = entry.data;
-    
+
     return {
         title: d.title,
         description: d.description,
-        date: formatDate(d.date),
+        // Seminar terms show their period and status instead of a single month.
+        date: d.period ? [d.period, STATUS_LABELS[d.status]].filter(Boolean).join(" · ") : formatDate(d.date),
         authors: d.author,
         extraInput: d.journal || d.event || d.institution,
         tags: d.tags || [],

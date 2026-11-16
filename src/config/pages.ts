@@ -27,6 +27,11 @@ export const PAGES: PagesConfig = {
         subtitle: "Self-study notes and from-scratch implementations: VLMs, reinforcement learning, math, and Python.",
         isActive: true,
     },
+    seminar: {
+        title: "Seminar",
+        subtitle: "LAAL Robotics Seminar: a robot-learning paper-reading study that I plan and run.",
+        isActive: true,
+    },
     teaching: {
         title: "Teaching",
         subtitle: "",

@@ -4,7 +4,7 @@ import { NAV_LINKS, PAGES } from "../../config";
 const currentPath = Astro.url.pathname;
 const isKoreanGuide = /^\/ko\/server(?:\/|$)/.test(currentPath);
 const koreanLabels: Record<string, string> = {
-    "/": "소개", "/publications": "논문", "/projects": "학습 기록",
+    "/": "소개", "/publications": "논문", "/projects": "학습 기록", "/seminar": "세미나",
     "/posts": "블로그", "/talks": "발표", "/teaching": "강의",
     "/tags": "태그", "/cv": "이력", "/server": "서버 안내",
 };

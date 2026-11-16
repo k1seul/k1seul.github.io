@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseItemCard from "../../components/ui/BaseItemCard.astro";
+import { getListingItem } from "../../utils/adapters";
+import { PAGES } from "../../config";
+
+if (PAGES.seminar.isActive === false) {
+    return Astro.redirect("/404");
+}
+
+const terms = (await getCollection("seminar")).sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
+---
+
+<BaseLayout title={PAGES.seminar.title} description={PAGES.seminar.subtitle}>
+    <header class="page-header">
+        <h1 class="page-title">{PAGES.seminar.title}</h1>
+        <p class="page-subtitle">{PAGES.seminar.subtitle}</p>
+    </header>
+
+    <p class="callout">
+        LAAL Robotics Seminar is a paper-reading study for members of the
+        <a href="https://snu-laal.com/" class="link">Learning and Adaptation Algorithms Lab</a> at Seoul National University.
+        Each term follows a curriculum that runs from background papers to recent work, and every participant presents.
+        I plan the curriculum, curate the reading list, run the sessions, and archive the slides and recordings.
+    </p>
+
+    <section class="item-list">
+        {terms.map((term) => (
+            <BaseItemCard {...getListingItem(term)} href={`/seminar/${term.id}`} />
+        ))}
+    </section>
+</BaseLayout>
