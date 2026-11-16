@@ -2,7 +2,7 @@
 name: "Hanseul Kim"
 avatar: "profile.jpg"
 avatarHover: "profile-drawn.png"
-shortBio: "M.S./Ph.D. student working on deep learning & reinforcement learning. Interested in the mathematics behind learning algorithms, and in what neuroscience can teach us about them."
+shortBio: "M.S./Ph.D. student working on robot learning, vision-language-action models, world action models, and reinforcement learning."
 institution: "SNU LAAL"
 institutionUrl: "https://snu-laal.com/"
 ---
@@ -13,10 +13,10 @@ I received my B.S. in Biomedical Engineering (Neuroscience track) from Sungkyunk
 
 ## Research Interests
 
-- **World models & representations for robot learning**: what makes learned latents useful for action ([CoRL 2026](/publications/corl2026-action-relevant-latents))
-- **Reinforcement Learning**, especially continual / lifelong RL ([survey](https://arxiv.org/abs/2307.11046))
-- **Mathematical foundations** of deep learning
-- **Natural vs. artificial intelligence**, through the lens of neuroscience
+- **Robot Learning**
+- **Vision-Language-Action Models (VLAs)**
+- **World Action Models**: what makes world-model latents useful for action ([CoRL 2026](/publications/corl2026-action-relevant-latents))
+- **Reinforcement Learning**
 
 ## Bookshelf
 
