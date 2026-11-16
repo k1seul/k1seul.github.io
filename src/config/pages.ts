@@ -24,7 +24,7 @@ export const PAGES: PagesConfig = {
     },
     projects: {
         title: "Studies",
-        subtitle: "Self-study notes and code on math, reinforcement learning, and Python.",
+        subtitle: "Self-study notes and from-scratch implementations: VLMs, reinforcement learning, math, and Python.",
         isActive: true,
     },
     teaching: {

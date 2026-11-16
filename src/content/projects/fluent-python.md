@@ -1,5 +1,6 @@
 ---
 title: "Fluent Python"
+date: "2024-10-30"
 description: "Reading notes and code examples from Fluent Python (2nd ed.), plus PyTorch practice."
 tags:
   - "Python"

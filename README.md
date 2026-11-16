@@ -25,6 +25,7 @@ npm run build    # static output in ./dist
 | Turn sections on/off (Blog, Talks, Teaching, …) | `src/config/pages.ts` |
 | Colors / light & dark themes | `src/config/themes.ts`, `src/config/site.ts` |
 | Images and files (PDFs, photos) | `public/` (e.g. `public/profile.jpg` → `/profile.jpg`) |
+| Paper thumbnail | `image: "/images/publications/<name>.png"` in the paper's frontmatter (shown on the list and the paper page) |
 
 To start the blog: add a `.md` file under `src/content/posts/`, then set `blog.isActive: true` in `pages.ts` (and `showRSSInFooter: true` in `site.ts` if you want the RSS link).
 

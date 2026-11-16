@@ -4,6 +4,7 @@ author: "Jewon Yeom*, Hanseul Kim*, Jeongjae Park, Sungmok Jung, Jaejin Lee, Tae
 date: "2026-06-05"
 journal: "Conference on Robot Learning (CoRL 2026)"
 external_url: "https://arxiv.org/abs/2606.07687"
+image: "/images/publications/corl2026-action-relevant-latents.png"
 description: "High pixel fidelity does not imply action-relevant features. A probe-based study across image SSL, video pretraining, autoencoders, and diffusion models shows that temporal prediction, not reconstruction quality, makes world-model latents useful for action."
 tags:
   - "World Models"

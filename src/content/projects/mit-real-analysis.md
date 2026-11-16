@@ -1,5 +1,6 @@
 ---
 title: "MIT Real Analysis"
+date: "2024-10-25"
 description: "MIT 18.100A (Casey Rodriguez) self-study: sequences, series, continuity, Riemann integral, and proofs."
 tags:
   - "Mathematics"

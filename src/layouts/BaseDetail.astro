@@ -65,6 +65,12 @@ const ogImage = entry.data.image || SITE.ogImage;
             </div>
         )}
 
+        {entry.data.image && (
+            <figure class="detail-figure">
+                <img src={entry.data.image} alt={`Figure for ${detail.title}`} decoding="async" />
+            </figure>
+        )}
+
         <div class="prose">
             <Content />
         </div>

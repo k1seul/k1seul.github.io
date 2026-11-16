@@ -1,5 +1,6 @@
 ---
 title: "Reinforcement Learning"
+date: "2024-11-06"
 description: "Sutton & Barto, Chi Jin's RL theory, Princeton intro RL, and Berkeley Deep RL: notes, problem sets, and code."
 tags:
   - "Reinforcement Learning"

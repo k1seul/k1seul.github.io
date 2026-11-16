@@ -4,6 +4,7 @@ author: "Hanseul Kim"
 date: "2023-12-01"
 journal: "B.S. Thesis, Dept. of Biomedical Engineering, Sungkyunkwan University"
 external_url: "https://github.com/k1seul/RL_Neuro_undergrad_paper/blob/version_1/Undergraduate_Thesis.pdf"
+image: "/images/publications/undergraduate-thesis.png"
 description: "Compares a Deep Q-Network agent and rhesus monkeys on a 3D navigation task, and proposes a curiosity-driven maximum-entropy RL model that mixes goal-based extrinsic reward and curiosity-based intrinsic reward non-linearly."
 tags:
   - "Reinforcement Learning"
