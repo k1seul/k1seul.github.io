@@ -8,7 +8,7 @@ import { getDetailItem } from "../utils/adapters";
 import { SITE, PAGES } from "../config";
 
 interface Props {
-    collection: "publications" | "talks" | "projects" | "posts" | "teaching" | "server";
+    collection: "publications" | "talks" | "projects" | "posts" | "teaching" | "server" | "seminar";
     id: string;
     backHref?: string;   // override the default back link (e.g. a sub-section)
     backLabel?: string;
@@ -92,7 +92,7 @@ const ogImage = entry.data.image || SITE.ogImage;
             </nav>
         )}
 
-        <div class:list={["prose", { "server-guide": collection === "server" }]}>
+        <div class:list={["prose", { "server-guide": collection === "server", "seminar-notes": collection === "seminar" }]}>
             <Content />
         </div>
 

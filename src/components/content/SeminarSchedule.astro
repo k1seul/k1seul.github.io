@@ -1,0 +1,79 @@
+---
+// Week-by-week schedule for a seminar term (frontmatter `sessions`).
+// A session thumbnail links to the first recording among its papers.
+interface Paper {
+    title: string;
+    url?: string;
+    venue?: string;
+    idea?: string;
+    slides?: string;
+    video?: string;
+}
+
+interface Session {
+    week: number | string;
+    date?: string;
+    track?: string;
+    topic?: string;
+    image?: string;
+    papers: Paper[];
+}
+
+interface Props {
+    sessions: Session[];
+}
+
+const { sessions } = Astro.props;
+---
+
+{sessions.length > 0 && (
+    <section class="seminar-schedule" aria-labelledby="seminar-schedule">
+        <h2 id="seminar-schedule" class="section-title">Schedule</h2>
+        <ol class="seminar-sessions">
+            {sessions.map((session) => {
+                const week = typeof session.week === "number" ? `Week ${session.week}` : session.week;
+                const video = session.papers.find((paper) => paper.video)?.video;
+                return (
+                    <li class:list={["seminar-session", { "seminar-session-has-thumb": session.image }]}>
+                        {session.image && (video ? (
+                            <a href={video} class="seminar-thumb" aria-label={`Watch the ${week} recording`}>
+                                <img src={session.image} alt="" loading="lazy" decoding="async" />
+                            </a>
+                        ) : (
+                            <span class="seminar-thumb">
+                                <img src={session.image} alt="" loading="lazy" decoding="async" />
+                            </span>
+                        ))}
+                        <div>
+                            <p class="seminar-session-meta">
+                                <span class="seminar-week">{week}</span>
+                                {session.date && <span>{session.date}</span>}
+                                {session.track && <span>{session.track}</span>}
+                                {session.topic && session.topic !== session.track && <span>{session.topic}</span>}
+                            </p>
+                            <ul class="seminar-papers">
+                                {session.papers.map((paper) => (
+                                    <li>
+                                        {paper.url ? (
+                                            <a href={paper.url} class="seminar-paper-title">{paper.title}</a>
+                                        ) : (
+                                            <span class="seminar-paper-title">{paper.title}</span>
+                                        )}
+                                        {paper.venue && <span class="seminar-venue">{paper.venue}</span>}
+                                        {paper.idea && <p class="seminar-idea">{paper.idea}</p>}
+                                        {(paper.slides || paper.video) && (
+                                            <span class="seminar-links">
+                                                {paper.slides && <a href={paper.slides}>Slides</a>}
+                                                {paper.video && <a href={paper.video}>Recording</a>}
+                                            </span>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </li>
+                );
+            })}
+        </ol>
+    </section>
+)}
