@@ -1,0 +1,7 @@
+---
+import ServerGuideList from "../../../components/content/ServerGuideList.astro";
+import { PAGES } from "../../../config";
+if (PAGES.server.isActive === false) return Astro.redirect("/404");
+---
+
+<ServerGuideList section="gsds" language="ko" />

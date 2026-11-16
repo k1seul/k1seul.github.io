@@ -1,27 +1,28 @@
 ---
-title: "실험 환경 만들기"
-description: "개인 Python 환경을 만들고, 계산 노드에서 GPU 사용을 확인합니다."
+title: "Setting Up Your Environment"
+description: "Create a personal Python environment and verify GPU support on a compute node."
 section: laal
+language: en
 order: 7
 date: "2026-11-16"
 ---
 
-패키지는 개인 환경에 설치합니다. 시스템 Python이나 NVIDIA 드라이버를 직접 변경할 필요는 없습니다. 아래 두 방법 중 **conda 또는 uv 하나**를 선택하세요.
+Install packages in a personal environment. Do not modify system Python or NVIDIA drivers. Choose **conda or uv** below.
 
-## conda 사용
+## Using conda
 
-이미 `conda`가 있으면 재설치하지 마세요. 없다면 [Miniconda 공식 안내](https://www.anaconda.com/docs/getting-started/miniconda/install)에 따라 내 홈에 설치합니다. 기본 설치 경로는 `~/miniconda3`입니다.
+If conda is installed, reuse it. Otherwise follow [Miniconda's official installation guide](https://www.anaconda.com/docs/getting-started/miniconda/install) and install in your home directory, normally `~/miniconda3`.
 
 ```bash
-# master에서 실행
+# On master
 source ~/miniconda3/etc/profile.d/conda.sh
 conda create -n myenv python=3.11
 conda activate myenv
 ```
 
-프로젝트의 `requirements.txt`나 `environment.yml`이 있으면 그 버전을 우선합니다. PyTorch 설치 명령은 [공식 설치 선택기](https://pytorch.org/get-started/locally/)에서 Linux / Pip / 사용할 CUDA 조합을 확인하세요.
+Use your project's `requirements.txt` or `environment.yml` first. For PyTorch, choose a suitable Linux/Pip/CUDA combination in the [official installer](https://pytorch.org/get-started/locally/).
 
-배치 스크립트에서는 새 쉘이 열리므로 매번 환경을 활성화해야 합니다.
+A batch job starts a fresh shell, so activate its environment in the script:
 
 ```bash
 source "$HOME/miniconda3/etc/profile.d/conda.sh"
@@ -29,59 +30,59 @@ conda activate myenv
 python -u train.py
 ```
 
-## uv 사용
+## Using uv
 
-`uv`가 없다면 [공식 설치 안내](https://docs.astral.sh/uv/getting-started/installation/)에 따라 개인 계정에 설치합니다.
+Install uv in your account using the [official instructions](https://docs.astral.sh/uv/getting-started/installation/) if needed.
 
 ```bash
-# master의 프로젝트 폴더에서 실행
+# In your project directory on master
 uv venv --python 3.11
 source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-배치 스크립트도 같은 프로젝트 폴더에서 `source .venv/bin/activate` 후 실행합니다. 프로젝트 파일이 없다면 필요한 패키지를 개별 설치하세요.
+In a batch script, activate `.venv/bin/activate` from the same project directory. If no requirements file exists, install the packages your project needs.
 
-## GPU가 보이는지 확인
+## Verify GPU access
 
-`master`에는 GPU가 없으므로 GPU 검사는 할당받은 계산 노드에서 합니다.
+There is no GPU on master. Test inside a compute-node allocation:
 
 ```bash
-# master에서 자원 요청
+# Request resources on master
 launch-shell 1 30 laal_3090 16
-# 계산 노드 쉘이 열린 후 환경 활성화
+# Once the compute-node shell opens
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate myenv
 python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
 exit
 ```
 
-마지막 출력이 `True`이면 해당 환경에서 GPU를 사용할 수 있습니다. conda 예시이므로 uv를 선택했다면 활성화 줄만 바꾸세요.
+The final Python output should be `True`. If using uv, substitute its activation command.
 
-## CUDA와 Blackwell 호환성
+## CUDA and Blackwell compatibility
 
-기존 운영 기록은 아래와 같습니다. 드라이버와 toolkit은 점검 후 바뀔 수 있으므로 계산 노드에서 `nvidia-smi`, 필요하면 `nvcc --version`으로 확인합니다.
+The recorded software configuration is below. Maintenance may change it; check `nvidia-smi` and, if needed, `nvcc --version` on the allocated node.
 
-| 항목 | laal1 | laal2 | laal3 |
+| Item | laal1 | laal2 | laal3 |
 | --- | --- | --- | --- |
 | OS | Ubuntu 22.04 | Ubuntu 22.04 | Ubuntu 22.04 |
-| NVIDIA 드라이버 계열 | 580 | 580 | 580 |
-| /usr/local CUDA toolkit | 12.1, 12.2, 12.8, 13.0 | 11.7, 12.2, 13.0 | 12.8, 13.0 |
+| Driver family | 580 | 580 | 580 |
+| CUDA toolkits in /usr/local | 12.1, 12.2, 12.8, 13.0 | 11.7, 12.2, 13.0 | 12.8, 13.0 |
 
-`nvidia-smi`의 CUDA 표시는 드라이버가 지원하는 수준이며, Python 환경에 설치된 CUDA runtime 버전과 다를 수 있습니다. PyTorch wheel은 runtime을 포함하는 경우가 많아, 단순 실행에 시스템 toolkit이 반드시 필요한 것은 아닙니다.
+The CUDA version displayed by `nvidia-smi` describes driver support, not necessarily your Python environment's runtime. PyTorch wheels often include a runtime, so a system toolkit is not always required just to run a model.
 
-`laal3`의 Blackwell은 해당 GPU를 지원하는 빌드가 필요합니다. 오래된 CUDA·PyTorch 환경을 그대로 가져오면 실패할 수 있으니, [PyTorch 공식 버전 안내](https://pytorch.org/get-started/previous-versions/)에서 Blackwell 지원 조합을 선택하세요. 같은 `/home`을 쓰더라도 GPU 종류와 확장 모듈 호환성까지 같아지는 것은 아닙니다.
+Blackwell on laal3 needs a compatible build. An older CUDA/PyTorch environment may fail; check [official PyTorch versions](https://pytorch.org/get-started/previous-versions/) for a supported combination. A shared home directory does not guarantee compatibility across GPUs or compiled extensions.
 
-CUDA 확장 모듈을 직접 컴파일할 때만, 실제 노드에 존재하고 프로젝트와 맞는 toolkit을 지정합니다.
+Only when compiling a CUDA extension, select an installed toolkit compatible with the project:
 
 ```bash
 export CUDA_HOME=/usr/local/cuda-12.8
 export PATH="$CUDA_HOME/bin:$PATH"
 ```
 
-## 기타 도구
+## Other tools
 
-일반 사용자에게 Docker 권한은 제공하지 않습니다. conda·uv를 사용하고 다른 실행 환경이 필요하면 관리자에게 문의하세요. AI 코딩 CLI 등 개인 개발 도구는 내 홈에 설치할 수 있습니다. 로그인 노드에서 코드 편집은 가능하지만, 도구가 실행하는 학습·평가도 Slurm 안에서 진행해야 합니다.
+Regular users do not have Docker access. Use conda/uv, or contact an admin about other environments. Personal development and AI coding tools can be installed in your home. Editing on the login node is fine; experiments launched by those tools must still run through Slurm.
 
-환경과 캐시도 공유 용량을 사용합니다. [스토리지 안내](/server/storage)를 참고해 사용하지 않는 환경을 정리해 주세요.
+Clean up unused environments and caches as described in [Storage](/server/storage).
 

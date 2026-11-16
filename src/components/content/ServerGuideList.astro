@@ -1,56 +1,35 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BaseItemCard from "../ui/BaseItemCard.astro";
 import ServerTabs from "../ui/ServerTabs.astro";
-import { PAGES } from "../../config";
-import { SERVER_SECTIONS } from "../../config/server";
+import ServerLanguageSwitch from "../ui/ServerLanguageSwitch.astro";
+import { SERVER_COPY, getServerSections, serverHref, type ServerLanguage, type ServerSectionId } from "../../config/server";
+import { getServerGuides, serverGuideHref } from "../../utils/serverGuides";
 
-interface Props {
-    section: string;
-}
-
-const { section } = Astro.props;
-const meta = SERVER_SECTIONS.find((s) => s.id === section) ?? SERVER_SECTIONS[0];
-
-const guides = (await getCollection("server"))
-    .filter((g) => g.data.section === section)
-    .sort((a, b) => a.data.order - b.data.order);
+interface Props { section: ServerSectionId; language?: ServerLanguage; }
+const { section, language = "en" } = Astro.props;
+const copy = SERVER_COPY[language];
+const meta = getServerSections(language).find((s) => s.id === section)!;
+const guides = await getServerGuides(language, section);
+const quickIds = section === "laal" ? ["getting-started", "slurm", "faq"] : ["gsds-overview", "gsds-access", "gsds-operations"];
 ---
 
-<BaseLayout title={section === "laal" ? PAGES.server.title : `${meta.label} | ${PAGES.server.title}`}>
+<BaseLayout title={section === "laal" ? copy.title : meta.label + " | " + copy.title} description={meta.intro}>
     <header class="page-header">
-        <h1 class="page-title">{PAGES.server.title}</h1>
-        {PAGES.server.subtitle && <p class="page-subtitle">{PAGES.server.subtitle}</p>}
+        <h1 class="page-title">{copy.title}</h1>
+        <p class="page-subtitle">{copy.subtitle}</p>
     </header>
-
-    <ServerTabs active={section} />
-
+    <ServerLanguageSwitch language={language} />
+    <ServerTabs active={section} language={language} />
     <p class="callout">{meta.intro}</p>
-
-    <nav aria-label="빠른 안내" class="flex flex-wrap gap-2 mb-8">
-        {section === "laal" ? (
-            <>
-                <a class="btn btn-sm" href="/server/getting-started">처음 시작하기</a>
-                <a class="btn btn-sm" href="/server/slurm">GPU 작업 실행</a>
-                <a class="btn btn-sm" href="/server/faq">문제 해결</a>
-            </>
-        ) : (
-            <>
-                <a class="btn btn-sm" href="/server/gsds-overview">진행 상태·구성</a>
-                <a class="btn btn-sm" href="/server/gsds-access">이용 신청 계획</a>
-                <a class="btn btn-sm" href="/server/gsds-operations">관리자 체크리스트</a>
-            </>
-        )}
+    <nav aria-label={copy.quickNav} class="flex flex-wrap gap-2 mb-8">
+        {quickIds.map((id, i) => (
+            <a class="btn btn-sm" href={serverHref("/server/" + id, language)}>{copy.quick[section][i]}</a>
+        ))}
     </nav>
-
     <section class="item-list">
         {guides.map((guide, i) => (
-            <BaseItemCard
-                title={`${i + 1}. ${guide.data.title}`}
-                href={`/server/${guide.id}`}
-                description={guide.data.description}
-            />
+            <BaseItemCard title={i + 1 + ". " + guide.data.title} href={serverGuideHref(guide)} description={guide.data.description} />
         ))}
     </section>
 </BaseLayout>

@@ -1,47 +1,48 @@
 ---
-title: "Slurm으로 GPU 작업 실행하기"
-description: "대화형 작업, 배치 스크립트, 로그 확인과 자원 반납을 예제로 안내합니다."
+title: "Running Jobs with Slurm"
+description: "Use interactive shells or batch jobs, read logs, and release your resources."
 section: laal
+language: en
 order: 4
 date: "2026-11-16"
 ---
 
-Slurm은 여러 사람이 GPU·CPU·메모리를 나누어 쓰도록 작업을 배치하는 도구입니다. 아래의 제출·조회 명령은 별도 설명이 없으면 **로그인 노드 master**에서 실행합니다.
+Slurm schedules shared GPUs, CPUs, and memory. Unless noted otherwise, run submission and status commands on **master**.
 
-| 하려는 일 | 방법 |
+| What you want | Use |
 | --- | --- |
-| 코드 확인, 디버깅, 짧은 테스트 | `launch-shell`로 대화형 쉘 열기 |
-| 터미널을 닫아도 계속될 학습 | `sbatch`로 배치 작업 제출 |
+| Debug or run a short test | `launch-shell` |
+| Run training after closing your terminal | `sbatch` |
 
-## 대화형 작업
+## Interactive jobs
 
 ```bash
-launch-shell <GPU개수> [시간_분] [파티션] [메모리_GB]
+launch-shell <GPU-count> [minutes] [partition] [memory-GB]
 ```
 
-| 인자 | 생략 시 값 | 참고 |
+| Argument | Default | Notes |
 | --- | --- | --- |
-| GPU 개수 | 필수 | 0~4개 |
-| 시간 | 60분 | 최대 480분 |
-| 파티션 | `laal_3090` | [GPU 종류 확인](/server/hardware) |
-| CPU 메모리 | GPU당 10GB, GPU 0개면 10GB | GPU 메모리와 별개 |
+| GPU count | Required | 0–4 |
+| Time | 60 minutes | Up to 480 minutes |
+| Partition | `laal_3090` | [GPU choices](/server/hardware) |
+| CPU memory | 10GB per GPU; 10GB for zero GPUs | Separate from GPU VRAM |
 
-CPU는 `2 × GPU개수 + 2`개가 할당됩니다. 예를 들어 A6000 한 장, 2시간, CPU 메모리 40GB는 다음과 같습니다.
+The helper allocates `2 × GPU-count + 2` CPUs. For one A6000 for two hours with 40GB RAM:
 
 ```bash
 launch-shell 1 120 laal_a6000 40
-# 할당이 끝나고 계산 노드 쉘이 열리면 실행
+# Once the compute-node shell opens
 nvidia-smi
-# 준비한 Python 환경을 활성화한 뒤 실험 실행
+# Activate your Python environment, then run
 python train.py
 exit
 ```
 
-마지막 `exit`가 자원을 반납합니다. 시간이 끝나면 작업도 종료되므로, 긴 실험은 아래 배치 방식을 사용하세요.
+`exit` releases the allocation. The shell ends when its time limit expires; use a batch job for long experiments.
 
-## 배치 작업
+## Batch jobs
 
-실험 폴더에서 `run.sh`를 만들고 아래 내용을 저장합니다. 먼저 [Python 환경](/server/environment)을 만들고 `myenv`를 실제 환경 이름으로 바꾸세요.
+Save the following as `run.sh` in your experiment directory. [Create an environment](/server/environment) first and replace `myenv` with its name.
 
 ```bash
 #!/bin/bash
@@ -59,17 +60,17 @@ conda activate myenv
 python -u train.py
 ```
 
-이 예시는 Miniconda 기본 설치 경로 기준입니다. uv 환경이라면 `source .venv/bin/activate`로 두 환경 활성화 줄을 대신합니다. `#SBATCH` 줄은 쉘 명령보다 위에 두고, 경로에는 `$USER` 같은 쉘 변수를 넣지 마세요.
+This assumes Miniconda's default install path. For uv, replace the environment setup lines with `source .venv/bin/activate`. Keep all `#SBATCH` directives before shell commands. Shell variables such as `$USER` are not expanded inside those directives.
 
 ```bash
-# master의 실험 폴더에서 실행
+# On master, in your experiment directory
 mkdir -p slurm_logs
 sbatch run.sh
 ```
 
-`Submitted batch job 405`처럼 나오면 접수된 것입니다. 실행 시작 여부는 별도로 확인합니다. 로그 폴더는 Slurm이 만들지 않으므로 **제출 전에** 생성해야 합니다. 기본 작업 폴더는 제출 명령을 실행한 위치입니다.
+`Submitted batch job 405` confirms submission, not that execution has started. Create the log directory **before** submission: Slurm does not create it. The default working directory is where you submit the job.
 
-## 상태, 로그, 취소
+## Status, logs, and cancellation
 
 ```bash
 squeue -u "$USER"
@@ -77,61 +78,63 @@ tail -f slurm_logs/my_exp-405.out
 scancel 405
 ```
 
-`405`는 실제 작업 ID로 바꾸세요. 로그를 보는 `tail -f`는 Ctrl+C로 나와도 학습이 계속됩니다. 작업 자체를 끝내려면 `scancel`을 사용합니다. `scancel -u "$USER"`는 **내 작업 전체**를 취소하므로 필요할 때만 사용하세요.
+Replace `405` with your job ID. Ctrl+C exits `tail -f` without stopping training. `scancel` stops the job. Use `scancel -u "$USER"` only when you intend to cancel **all your jobs**.
 
-실행 중인 작업의 GPU를 확인하려면 기존 할당 안에서 도구를 실행할 수 있습니다.
+Inspect a GPU inside an existing allocation:
 
 ```bash
 srun --jobid=405 --overlap --pty nvtop
-# nvtop이 없으면
+# If nvtop is unavailable
 srun --jobid=405 --overlap nvidia-smi
 ```
 
-완료 또는 실패한 작업은 다음으로 확인합니다. 메모리 측정값은 클러스터의 수집 설정에 따라 비어 있을 수 있으며, MaxRSS는 작업 단계별 최대 프로세스 값입니다.
+Check completed or failed jobs with:
 
 ```bash
 sacct -j 405 -o JobID,JobName,State,Elapsed,ExitCode,MaxRSS
 ```
 
-## 자원은 얼마나 요청하나요?
+Memory readings depend on accounting settings and may be empty. MaxRSS is a per-step maximum process value, not necessarily the job's total RAM use.
 
-| 자원 | 시작점 | 조정 방법 |
+## How much to request
+
+| Resource | Starting point | Adjust based on |
 | --- | --- | --- |
-| CPU | GPU당 4개 | 데이터 로더 사용량에 맞춰 조정 |
-| CPU 메모리 | GPU당 30~60GB | 첫 실행의 실측 사용량을 확인 |
-| GPU | 실제 사용할 개수 | 자동으로 여러 GPU를 쓰지는 않음 |
-| 시간 | 예상 실행 시간 + 여유 | 한도 초과 시 작업이 종료됨 |
+| CPU | 4 per GPU | Dataloader use |
+| CPU RAM | 30–60GB per GPU | Measured use after the first run |
+| GPU count | What the code will actually use | Multi-GPU support in your code |
+| Time | Estimated runtime plus reasonable margin | Jobs stop at the limit |
 
-`--mem`은 **노드의 CPU RAM**입니다. GPU VRAM을 늘리는 옵션이 아닙니다. 노드당 요청 가능한 메모리 상한은 현재 `laal1`·`laal3` 500G, `laal2` 566G입니다. 실제 설정은 `scontrol show partition`과 관리자 안내를 기준으로 확인하세요.
+`--mem` requests **CPU RAM**, not GPU VRAM. Current per-node request limits are 500G on `laal1`/`laal3` and 566G on `laal2`; check `scontrol show partition` and admin notices for changes.
 
-GPU 사용률이 낮으면 데이터 읽기, 전처리, CPU, 동기화 등을 함께 살펴보세요. CPU를 늘리는 것만으로 해결되지 않을 수 있습니다.
+Low GPU utilization can come from I/O, preprocessing, CPU limits, or synchronization. More CPUs alone may not help.
 
-## 대기 중일 때
+## Why is my job pending?
 
-| squeue의 Reason | 의미와 다음 행동 |
+| Reason | Meaning / next step |
 | --- | --- |
-| `Resources` | 필요한 자원이 함께 비기를 기다립니다. CPU·RAM을 과하게 요청하지 않았는지 확인하세요. |
-| `Priority` | 스케줄러 우선순위가 높은 작업이 먼저입니다. 반드시 제출 순서는 아닙니다. |
-| `Dependency` | 선행 작업의 완료 조건을 기다립니다. |
-| `ReqNodeNotAvail` | 필요한 노드가 사용 불가 상태입니다. 공지나 관리자에게 확인하세요. |
+| `Resources` | Waiting for all requested resources. Check CPU and RAM requests too. |
+| `Priority` | Higher-priority jobs are ahead; not necessarily submission order. |
+| `Dependency` | Waiting for an earlier job's completion condition. |
+| `ReqNodeNotAvail` | Required nodes are unavailable. Check notices or contact an admin. |
 
-`sinfo`로 다른 파티션 상태를 확인할 수 있습니다. 시간 한도나 QOS 등 다른 이유가 표시되면 작업 ID와 함께 관리자에게 문의하세요.
+Use `sinfo` to check other partitions. Send the job ID if an unfamiliar time-limit or QOS reason appears.
 
-## 여러 실험과 후속 작업
+## Dependencies and arrays
 
-아래는 먼저 제출한 405번 작업이 성공하면 평가를 실행하는 예입니다.
+Run evaluation only after job 405 succeeds:
 
 ```bash
 sbatch --dependency=afterok:405 test.sh
 ```
 
-파라미터 탐색은 작업 배열로 관리할 수 있습니다. 아래 줄을 배치 스크립트에 넣고, 실험 코드가 배열 인덱스를 읽도록 작성하세요. `%4`는 동시 실행을 4개로 제한합니다.
+For sweeps, add an array directive before shell commands in your batch script. `%4` caps concurrent tasks at four. Activate your environment before invoking the Python script.
 
 ```bash
 #SBATCH --array=0-99%4
-# 환경 활성화 등 기존 설정 다음에 실행
+# After your environment setup
 python sweep.py --idx "$SLURM_ARRAY_TASK_ID"
 ```
 
-더 자세한 옵션은 [Slurm 공식 sbatch 문서](https://slurm.schedmd.com/sbatch.html)에서 확인할 수 있습니다.
+See the [official sbatch documentation](https://slurm.schedmd.com/sbatch.html) for more options.
 

@@ -1,0 +1,15 @@
+---
+import ServerGuideDetail from "../../../components/content/ServerGuideDetail.astro";
+import { getServerGuides, serverGuideSlug } from "../../../utils/serverGuides";
+import { PAGES } from "../../../config";
+
+export async function getStaticPaths() {
+    if (PAGES.server.isActive === false) return [];
+    return (await getServerGuides("ko")).map((guide) => ({
+        params: { id: serverGuideSlug(guide) }, props: { id: guide.id },
+    }));
+}
+const { id } = Astro.props;
+---
+
+<ServerGuideDetail id={id} />

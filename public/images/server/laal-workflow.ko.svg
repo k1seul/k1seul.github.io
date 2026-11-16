@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="430" viewBox="0 0 800 430" role="img" aria-labelledby="title desc">
+  <title id="title">LAAL 서버 접속부터 GPU 작업까지</title>
+  <desc id="desc">내 컴퓨터에서 master로 SSH 접속합니다. 교외에서는 WARP를 연결합니다. Slurm이 계산 노드를 할당하며 모든 노드가 홈을 공유합니다. 로컬 임시 공간은 해당 노드에서만 접근합니다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#526179"/></marker>
+  </defs>
+  <rect width="800" height="430" rx="8" fill="#ffffff"/>
+  <g font-family="Noto Sans CJK KR, Pretendard, system-ui, sans-serif" fill="#152438">
+    <text x="30" y="37" font-size="21" font-weight="700">LAAL · 접속, 자원 할당, 작업 실행</text>
+    <rect x="30" y="90" width="170" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="48" y="120" font-size="18" font-weight="700">내 컴퓨터</text>
+    <text x="48" y="147" font-size="15">터미널 / VS Code</text>
+    <text x="48" y="177" font-size="14">교외 접속: WARP</text>
+    <path d="M200 145 H285" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="222" y="130" font-size="15">SSH</text>
+    <rect x="285" y="90" width="190" height="110" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="305" y="120" font-size="18" font-weight="700">master</text>
+    <text x="305" y="147" font-size="15">코드 편집 · 작업 제출</text>
+    <text x="305" y="177" font-size="14">로그인 노드 · GPU 없음</text>
+    <path d="M475 145 H575" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="498" y="113" font-size="15">Slurm</text>
+    <text x="486" y="132" font-size="12">자원 할당</text>
+    <rect x="575" y="70" width="195" height="190" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="593" y="98" font-size="18" font-weight="700">GPU 계산 노드</text>
+    <text x="593" y="129" font-size="15">laal1 · RTX 3090</text>
+    <text x="593" y="156" font-size="15">laal2 · RTX A6000</text>
+    <text x="593" y="183" font-size="15">laal3 · Blackwell</text>
+    <path d="M590 199 H755" stroke="#b5c1d0"/>
+    <text x="593" y="222" font-size="14">/data: 노드 로컬 공간</text>
+    <text x="593" y="243" font-size="12">제공되는 노드에서 이용</text>
+    <path d="M380 200 V320" fill="none" stroke="#526179" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M675 260 V320" fill="none" stroke="#526179" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <text x="395" y="274" font-size="14">같은 파일</text>
+    <text x="691" y="299" font-size="14">NFS</text>
+    <rect x="285" y="320" width="485" height="75" rx="6" fill="#eef5ff" stroke="#637fa8"/>
+    <text x="305" y="350" font-size="18" font-weight="700">공유 /home · master에서 제공</text>
+    <text x="305" y="377" font-size="14">코드 · 실행 환경 · 결과 저장 (별도 백업 없음)</text>
+    <text x="30" y="350" font-size="15" font-weight="700">작업이 끝나면</text>
+    <text x="30" y="377" font-size="14">exit / scancel → 반납</text>
+  </g>
+</svg>

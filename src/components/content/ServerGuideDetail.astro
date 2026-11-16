@@ -1,0 +1,41 @@
+---
+import { getEntry } from "astro:content";
+import BaseDetail from "../../layouts/BaseDetail.astro";
+import ServerTabs from "../ui/ServerTabs.astro";
+import ServerLanguageSwitch from "../ui/ServerLanguageSwitch.astro";
+import { SERVER_COPY, getServerSections } from "../../config/server";
+import { getServerGuides, serverGuideHref } from "../../utils/serverGuides";
+
+interface Props { id: string; }
+const { id } = Astro.props;
+const guide = await getEntry("server", id);
+if (!guide) return Astro.redirect("/404");
+const { section, language } = guide.data;
+const copy = SERVER_COPY[language];
+const meta = getServerSections(language).find((s) => s.id === section)!;
+const guides = await getServerGuides(language, section);
+const index = guides.findIndex((item) => item.id === id);
+const prev = guides[index - 1];
+const next = guides[index + 1];
+---
+
+<BaseDetail collection="server" id={id} backHref={meta.href} backLabel={meta.label}>
+    <div slot="header">
+        <ServerLanguageSwitch language={language} />
+        <ServerTabs active={section} language={language} />
+    </div>
+    <nav slot="footer" aria-label={language === "ko" ? "이전·다음 안내" : "Previous and next guides"} class="post-navigation flex justify-between mt-16 pt-8 gap-8 border-t border-border">
+        {prev ? (
+            <a href={serverGuideHref(prev)} class="flex flex-col group max-w-[45%] no-underline">
+                <span class="text-[0.8rem] opacity-75 font-bold mb-1">{copy.previous}</span>
+                <span class="font-semibold">{prev.data.title}</span>
+            </a>
+        ) : <span />}
+        {next && (
+            <a href={serverGuideHref(next)} class="flex flex-col items-end text-right group max-w-[45%] no-underline">
+                <span class="text-[0.8rem] opacity-75 font-bold mb-1">{copy.next}</span>
+                <span class="font-semibold">{next.data.title}</span>
+            </a>
+        )}
+    </nav>
+</BaseDetail>

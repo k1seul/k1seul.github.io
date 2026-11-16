@@ -2,11 +2,12 @@
 interface Props {
     href: string;
     label: string;
+    language?: "en" | "ko";
 }
 
-const { href, label } = Astro.props;
+const { href, label, language = "en" } = Astro.props;
 ---
 
 <a href={href} class="back-link">
-    Go back to {label}
+    {language === "ko" ? `${label} 목록으로` : `Go back to ${label}`}
 </a>

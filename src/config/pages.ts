@@ -39,7 +39,7 @@ export const PAGES: PagesConfig = {
     },
     server: {
         title: "Lab Server",
-        subtitle: "계정 신청부터 첫 GPU 작업까지, 그리고 GSDS 스토리지 운영 계획.",
+        subtitle: "Get started with LAAL servers and GSDS storage access.",
         isActive: true,
     },
     cv: {

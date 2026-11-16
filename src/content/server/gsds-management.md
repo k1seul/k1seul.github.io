@@ -1,64 +1,34 @@
 ---
-title: "GSDS 스토리지 운영과 역할"
-description: "LAAL의 운영 책임, GSDS와 협의할 시설 항목, 장애 대응 절차입니다."
+title: "Storage Policies & Support"
+description: "Capacity requests, shared folders, backups, maintenance, and who to contact."
 section: gsds
+language: en
 order: 3
 date: "2026-11-16"
 ---
 
-스토리지의 소유·운영 주체는 LAAL입니다. GSDS 관리자가 연구실 장비의 계정, 파일시스템, quota나 디스크 교체를 대신 관리하는 구성은 아닙니다.
+## Capacity and shared data
 
-## 역할 분담
+The default personal allocation is not finalized. It will be announced at launch. Request extra space with its purpose and expected duration. For datasets used by several people, request a project folder to avoid duplicate copies.
 
-| 영역 | LAAL이 담당할 일 | GSDS와 협의할 일 |
-| --- | --- | --- |
-| 장비 | 구매, 레일·NIC·디스크 준비, 수리 비용 | 2U 공간, 랙 깊이·하중·설치 위치 확인 |
-| 전원·냉각 | 실제 PSU 수량·입력 조건과 예상 소비전력 전달 | PDU 콘센트 종류·여유, 공급 회로와 냉각 여유 확인 |
-| 데이터망 | 호환 NIC·케이블, NFS와 방화벽 설정 | 10GbE 포트 종류·할당, VLAN·IP·접근 허용 범위 |
-| 관리망 | SSH·iDRAC 보안 설정과 관리자 접근 관리 | 관리 포트와 승인된 접속 경로 |
-| 계정·권한 | GSDS에서 확인한 UID/GID·그룹 매핑, quota 설정 | GSDS 계산 노드의 마운트 적용·변경 절차 |
-| 운영 | 업데이트, 모니터링, 장애 처리, 사용자 공지 | 서버실 출입과 시설·네트워크 장애 협조 |
+Reaching your capacity limit can cause new writes, including checkpoints, to fail. Ask for changes before errors occur. Remove your own temporary files and unnecessary checkpoints when experiments end.
 
-**오른쪽 항목은 제공이 확정된 상태가 아닙니다.** 설치안을 전달한 뒤 제공 가능 여부를 확인합니다. NIC는 스위치가 RJ45인지 SFP+인지 확인한 후 구매합니다.
+## Backups and retention
 
-## 운영 담당자와 연락
+Automatic backups are not provided. Keep code and irreplaceable final results in another location too. Do not modify or delete other users' shared data.
 
-| 담당자 | 역할 |
+Before graduation, departure, or the end of a project, arrange retention and data transfer with the admin.
+
+## Maintenance and interruptions
+
+Storage may be unavailable during maintenance or incidents. Planned maintenance will be announced in the lab. If jobs stall or writes fail, record the job ID and error rather than repeatedly retrying.
+
+## Who should I contact?
+
+| Admin | Requests |
 | --- | --- |
-| 김한슬 | 주 담당: 구축, 계정·권한, 모니터링, 장애 대응 |
-| 조민수 | 부 담당: 주 담당자 부재 시 대응, 현장 점검·사용자 문의 |
+| Hanseul Kim | Registration, permissions, capacity changes, storage errors |
+| Minsoo Jo | Urgent incidents when the main admin is unavailable |
 
-스토리지 문제는 LAAL 담당자에게 먼저 알려 주세요. 발생 시각, 실행한 노드, 작업 ID, 저장 경로, 에러 메시지와 영향 범위를 함께 보내면 확인에 도움이 됩니다. 공개 문서나 이슈에는 내부 주소와 계정 정보를 넣지 않습니다.
-
-## 보안 운영안
-
-- NFSv4는 GSDS가 승인한 계산 노드의 IP에만 허용하고 인터넷에 공개하지 않습니다.
-- export에 `sync`, `root_squash`를 적용합니다. 공유 데이터셋은 가능하면 읽기 전용으로 제공합니다.
-- 일반적인 UID/GID 기반 NFS는 클라이언트가 전달한 사용자 번호를 신뢰합니다. IP 제한과 `root_squash`만으로 사용자 인증이 완성되는 것은 아니므로, 승인된 노드·망에서만 제공하고 GSDS의 NFS 인증 정책을 따릅니다.
-- SSH는 승인된 관리 경로와 키 인증을 사용합니다. 초기 계정 설정을 검증한 뒤 비밀번호 로그인 정책을 확정합니다.
-- iDRAC은 데이터 서비스와 구분된 승인된 관리망에서만 접근하도록 제한하고 초기 비밀번호를 교체합니다.
-- OS 보안 업데이트와 장비 펌웨어는 적용 영향과 호환성을 확인하고 점검 시간에 반영합니다.
-
-구체적인 IP·VLAN·export 경로·관리 계정은 비공개 인수인계 문서에서 관리합니다.
-
-## 정기 점검과 알림
-
-| 주기 | 계획 |
-| --- | --- |
-| 상시 | ZFS 장애, 디스크 오류, 온도·팬·PSU 이상과 용량 부족 알림 |
-| 매일 | pool 상태와 사용량 확인. 전체 사용률 80% 접근 시 정리·확장 검토 |
-| 매월 | 정기 scrub, 지원되는 디스크 장기 검사. I/O가 겹치지 않게 분리 |
-| 변경 전후 | 계정·export·quota 설정과 버전 기록, 쓰기·권한·재부팅 후 마운트 확인 |
-
-알림은 주·부 담당자 모두 받도록 구성하고, 서비스 개통 전에 시험 알림을 보내 수신을 확인합니다. 정기 점검은 LAAL 월초 점검과 맞추는 것을 원칙으로 하되, GSDS 시설 일정과 사용자 작업을 먼저 확인합니다.
-
-H730의 HBA 모드에서는 SMART 감시에 제약이 있으므로, 알림 경로를 실제 장비에서 검증해야 합니다. 필요한 디스크 상태를 확인할 수 없다면 전용 HBA로 바꾸고 다시 검증합니다.
-
-## 장애와 인수인계
-
-쓰기 오류나 pool 장애가 발생하면 우선 사용자에게 저장 중단을 공지하고, 영향을 받는 작업을 확인합니다. GSDS 노드의 drain·작업 제어는 GSDS 관리자와 협의합니다. 상태와 로그를 수집한 뒤 디스크 시리얼과 슬롯을 대조하여 교체하고, resilver가 끝나면 오류와 클라이언트 읽기·쓰기를 확인합니다.
-
-담당자가 바뀔 때는 장비 목록, 보증·구매 정보, 구성·복구 기록, 접근 권한과 알림 수신자를 인계합니다. 자세한 순서는 [구축·점검 체크리스트](/server/gsds-operations)를 참고하세요.
-
-이 서버는 단일 장비이므로 장애·정기 점검 중 서비스가 중단될 수 있습니다. RAIDZ1이나 같은 pool의 snapshot은 별도 백업을 대체하지 않습니다.
+DM the time, GSDS node, job ID, storage path, and exact error. Do not publish internal addresses or account details. GSDS account issuance and group membership follow GSDS procedures; **contact LAAL first for lab storage access problems**.
 

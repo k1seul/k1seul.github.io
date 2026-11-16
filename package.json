@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check:server": "node scripts/check-server-guides.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -26,3 +27,4 @@
     "tailwindcss": "^4.2.2"
   }
 }
+

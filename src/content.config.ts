@@ -86,6 +86,7 @@ const server = defineCollection({
         title: z.string(),
         description: z.string().optional(),
         section: z.enum(["laal", "gsds"]).default("laal"),
+        language: z.enum(["en", "ko"]).default("en"),
         order: z.number().default(100),
         date: z.string().optional(), // last updated
     }),
@@ -128,3 +129,4 @@ export const collections = {
     'teaching': teaching,
     'server': server,
 };
+

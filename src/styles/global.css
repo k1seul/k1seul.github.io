@@ -869,6 +869,28 @@ a:hover,
     }
 }
 
+/* Server guide language selection. */
+.server-language-switch {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.server-language-switch a {
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.server-language-switch a[aria-current="page"] {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--surface);
+}
+
 /* Server guides: readable tables, diagrams and in-page navigation. */
 .guide-toc {
     margin: 1.5rem 0;

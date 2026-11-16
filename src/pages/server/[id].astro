@@ -1,56 +1,15 @@
 ---
-import { getCollection } from "astro:content";
-import BaseDetail from "../../layouts/BaseDetail.astro";
-import ServerTabs from "../../components/ui/ServerTabs.astro";
+import ServerGuideDetail from "../../components/content/ServerGuideDetail.astro";
+import { getServerGuides, serverGuideSlug } from "../../utils/serverGuides";
 import { PAGES } from "../../config";
-import { SERVER_SECTIONS } from "../../config/server";
-
-if (PAGES.server.isActive === false) {
-    return Astro.redirect("/404");
-}
 
 export async function getStaticPaths() {
     if (PAGES.server.isActive === false) return [];
-    const all = await getCollection("server");
-    const paths = [];
-    // previous/next links stay inside the guide's own section
-    for (const section of ["laal", "gsds"]) {
-        const guides = all
-            .filter((g) => g.data.section === section)
-            .sort((a, b) => a.data.order - b.data.order);
-        guides.forEach((guide, i) => {
-            paths.push({
-                params: { id: guide.id },
-                props: {
-                    section,
-                    prev: i > 0 ? guides[i - 1] : null,
-                    next: i < guides.length - 1 ? guides[i + 1] : null,
-                },
-            });
-        });
-    }
-    return paths;
+    return (await getServerGuides("en")).map((guide) => ({
+        params: { id: serverGuideSlug(guide) }, props: { id: guide.id },
+    }));
 }
-
-const { id } = Astro.params;
-const { section, prev, next } = Astro.props;
-const meta = SERVER_SECTIONS.find((s) => s.id === section) ?? SERVER_SECTIONS[0];
+const { id } = Astro.props;
 ---
 
-<BaseDetail collection="server" id={id} backHref={meta.href} backLabel={meta.label.toLowerCase()}>
-    <ServerTabs slot="header" active={section} />
-    <nav slot="footer" class="post-navigation flex justify-between mt-16 pt-8 gap-8 border-t border-border">
-        {prev ? (
-            <a href={`/server/${prev.id}`} class="flex flex-col group max-w-[45%] no-underline">
-                <span class="text-[0.8rem] tracking-wider opacity-75 font-bold mb-1">이전 안내</span>
-                <span class="font-semibold text-foreground group-hover:text-accent transition-colors duration-200">{prev.data.title}</span>
-            </a>
-        ) : <span />}
-        {next && (
-            <a href={`/server/${next.id}`} class="flex flex-col items-end text-right group max-w-[45%] no-underline">
-                <span class="text-[0.8rem] tracking-wider opacity-75 font-bold mb-1">다음 안내</span>
-                <span class="font-semibold text-foreground group-hover:text-accent transition-colors duration-200">{next.data.title}</span>
-            </a>
-        )}
-    </nav>
-</BaseDetail>
+<ServerGuideDetail id={id} />

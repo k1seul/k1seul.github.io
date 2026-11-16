@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="410" viewBox="0 0 800 410" role="img" aria-labelledby="title desc" lang="ko">
+  <title id="title">GSDS 스토리지 계정 신청과 확인</title>
+  <desc id="desc">GSDS 계정 확인 후 관리자에게 신청합니다. 관리자가 같은 사용자·그룹 번호로 등록한 뒤 사용자가 본인 경로와 읽기·쓰기 권한을 확인합니다. 아직 개통 전입니다.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#526179"/></marker></defs>
+  <rect width="800" height="410" rx="8" fill="#ffffff"/>
+  <g font-family="Noto Sans CJK KR, Inter, system-ui, sans-serif" fill="#152438">
+    <text x="30" y="38" font-size="22" font-weight="700">GSDS 스토리지 · 이용 시작하기</text>
+    <text x="30" y="69" font-size="14" fill="#526179">아직 개통 전입니다. 계정 등록과 경로 안내는 개통 후 진행합니다.</text>
+    <rect x="30" y="100" width="330" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="48" y="130" font-size="18" font-weight="700">1. GSDS 계정 확인</text>
+    <text x="48" y="161" font-size="15">GSDS 계정으로 로그인</text>
+    <text x="48" y="187" font-size="14">사용자 이름과 그룹 확인</text>
+<rect x="440" y="100" width="330" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="458" y="130" font-size="18" font-weight="700">2. LAAL 관리자에게 신청</text>
+    <text x="458" y="161" font-size="15">계정 정보 · 용도 · 필요 용량 전달</text>
+    <text x="458" y="187" font-size="14">비밀번호는 전달하지 않음</text>
+<rect x="440" y="245" width="330" height="110" rx="6" fill="#eef5ff" stroke="#b5c1d0"/>
+    <text x="458" y="275" font-size="18" font-weight="700">3. 관리자가 스토리지 사용자 등록</text>
+    <text x="458" y="306" font-size="15">GSDS와 같은 UID/GID·그룹으로 등록</text>
+    <text x="458" y="332" font-size="14">폴더 접근 권한과 사용 용량 설정</text>
+<rect x="30" y="245" width="330" height="110" rx="6" fill="#f3f6fa" stroke="#b5c1d0"/>
+    <text x="48" y="275" font-size="18" font-weight="700">4. 내 경로와 권한 확인</text>
+    <text x="48" y="306" font-size="15">안내받은 경로에서 소유권 확인</text>
+    <text x="48" y="332" font-size="14">내 폴더에서 읽기·쓰기 시험</text>
+    <path d="M360 155 H440 M605 210 V245 M440 300 H360" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M360 155 H440" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M605 210 V245" fill="none" stroke="#526179" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="30" y="389" font-size="14">GSDS 비밀번호를 공유하거나 스토리지 서버에 별도로 SSH 접속할 필요는 없습니다.</text>
+  </g>
+</svg>

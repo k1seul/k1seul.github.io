@@ -1,15 +1,16 @@
 ---
-import { SERVER_SECTIONS } from "../../config/server";
+import { getServerSections, type ServerLanguage } from "../../config/server";
 
 interface Props {
     active: string;
+    language?: ServerLanguage;
 }
 
-const { active } = Astro.props;
+const { active, language = "en" } = Astro.props;
 ---
 
-<nav class="section-tabs" aria-label="Server guide sections">
-    {SERVER_SECTIONS.map((s) => (
+<nav class="section-tabs" aria-label={language === "ko" ? "서버 안내 구분" : "Server guide sections"}>
+    {getServerSections(language).map((s) => (
         <a
             href={s.href}
             class={s.id === active ? "section-tab section-tab-active" : "section-tab"}
@@ -19,3 +20,4 @@ const { active } = Astro.props;
         </a>
     ))}
 </nav>
+

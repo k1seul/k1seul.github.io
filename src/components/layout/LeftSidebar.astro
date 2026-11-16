@@ -6,6 +6,8 @@ import Icon from "../ui/Icon.astro";
 const activeSocials = SOCIALS.filter((s) => s.isActive);
 const bioCollection = await getCollection("bio");
 const bio = bioCollection[0]?.data;
+const isKoreanGuide = /^\/ko\/server(?:\/|$)/.test(Astro.url.pathname);
+const displayName = isKoreanGuide ? "김한슬" : bio?.name;
 ---
 
 <aside class="sidebar max-lg:flex-row max-lg:flex-wrap max-lg:gap-3 max-md:gap-2">
@@ -14,7 +16,7 @@ const bio = bioCollection[0]?.data;
             <div class="sidebar-avatar-wrap">
                 <img
                     src={`/${bio.avatar}`}
-                    alt={`Photo of ${bio.name}`}
+                    alt={isKoreanGuide ? "김한슬 프로필 사진" : `Photo of ${bio.name}`}
                     width="160"
                     height="160"
                     class="sidebar-avatar"
@@ -36,7 +38,7 @@ const bio = bioCollection[0]?.data;
             </div>
         )}
         <div class="flex flex-col items-center max-lg:items-start">
-            {bio?.name && <h1 class="sidebar-name">{bio.name}</h1>}
+            {bio?.name && <h1 class="sidebar-name">{displayName}</h1>}
             {bio?.institution && (
                 <p class="sidebar-info">
                     <Icon name="Institution" size={24} />
@@ -50,7 +52,7 @@ const bio = bioCollection[0]?.data;
                 </p>
             )}
             {bio?.shortBio && (
-                <p class="sidebar-bio mt-2 max-md:hidden">{bio.shortBio}</p>
+                <p class="sidebar-bio mt-2 max-md:hidden">{isKoreanGuide ? "로봇 학습을 연구하는 석박사통합과정 학생입니다. 시각·언어·행동 모델, 월드 액션 모델과 강화학습에 관심이 있습니다." : bio.shortBio}</p>
             )}
             <div class="flex gap-1 flex-wrap items-center justify-center max-lg:justify-start mt-3">
                 {activeSocials.map((social) => (
@@ -69,3 +71,4 @@ const bio = bioCollection[0]?.data;
         </div>
     </div>
 </aside>
+
